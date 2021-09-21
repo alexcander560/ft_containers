@@ -223,6 +223,15 @@ namespace ft
 					_alloc.destroy(--p);
 				_end = new_last;
 			}
+			template <typename InputIterator>
+			void					_construct_at_end(InputIterator first, InputIterator last,
+										typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
+			{	
+				pointer pos = _end; 
+				for (; first != last; ++first, ++pos)
+					_alloc.construct(pos, *first);
+				_end = pos;
+			}
 			void					_append(size_type n, const_reference val)
 			{
 				if (static_cast<size_type>(_capacity - _end) >= n)
@@ -260,12 +269,12 @@ namespace ft
 				const size_type sz_p1	= static_cast<size_type>(position - _begin);
 				const size_type sz_p2	= static_cast<size_type>(_end - position);
 				const size_type	new_cap	= _get_new_cap(newsz);
-				pointer			new_buf	= _alloc().allocate(new_cap);
+				pointer			new_buf	= _alloc.allocate(new_cap);
 
 				_copy(new_buf, _begin, sz_p1);
 				_copy(new_buf + sz_p1 + n, _begin + sz_p1, sz_p2);
 				for (size_type i = sz_p1; i < sz_p1 + n; ++i, ++first)
-					_alloc().construct(new_buf + i, *first);
+					_alloc.construct(new_buf + i, *first);
 				_deallocate();
 				_begin = new_buf;
 				_end = new_buf + newsz;
@@ -309,7 +318,7 @@ namespace ft
 						pval = end_copy_pos;
 					else
 						pval = &(*--last);
-					_alloc().construct(_end + n - i, *pval);
+					_alloc.construct(_end + n - i, *pval);
 				}
 				for (pointer p = end_copy_pos - 1; p > position - 1; --p)
 					*(p + n) = *p;
@@ -467,7 +476,9 @@ namespace ft
 			// Доступ к элементу без защиты
 			reference		operator[](size_type n)			{ return *(_begin + n); }
 			// Доступ к элементу без защиты
-			const_reference operator[](size_type n) const	{ return *(_begin + n); }
+			const_reference operator[](size_type n) const	{
+				//std::cout << "Hello\n"; 
+				return *(_begin + n); }
 			// Доступ к элементу с защитой
 			reference 		at(size_type n)
 			{
@@ -576,6 +587,7 @@ namespace ft
 			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
 			void insert (iterator position, size_type n, const value_type& val)
 			{
+				//std::cout << "Hello\n";
 				pointer p = position._ptr;
 
 				if (_end < _capacity)
@@ -592,6 +604,7 @@ namespace ft
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
+				//std::cout << "SSS\n";
 				pointer p = position._ptr;
 				
 				if (_end < _capacity)
@@ -615,7 +628,7 @@ namespace ft
 				{
 					size_type sz = static_cast<size_type>((_end - p - 1) * sizeof(value_type));
 					
-					_alloc().destroy(p);
+					_alloc.destroy(p);
 					std::memmove(p, p + 1, sz);
 					--_end;
 				}
@@ -627,6 +640,8 @@ namespace ft
 				pointer		fp = first._ptr;
 				pointer		lp = last._ptr;
 
+				//std::cout << "Hello\n";
+
 				if (lp == _end)
 					_destruct_at_end(fp);
 				else
@@ -635,9 +650,9 @@ namespace ft
 					size_type sz	= static_cast<size_type>((_end - lp) * sizeof(value_type));
 					
 					for (; fp + i != lp; ++i)
-						_alloc().destroy(fp + i);
+						_alloc.destroy(fp + i);
 					std::memmove(fp, lp, sz);
-					_end += i;
+					_end -= i;
 				}
 				return iterator(fp);
 			}
