@@ -4,8 +4,9 @@
 #include "table.hpp"
 
 // Основаная функция
-int	main()
+int	main(/*int argc, char **argv*/)
 {
+
 	std::srand(time(NULL));
 	//----------
 	int size = 4;

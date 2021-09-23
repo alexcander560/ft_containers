@@ -19,7 +19,7 @@ std::string	str_n(std::string str, int n)
 {
 	std::string new_str;
 
-	for (size_t i = 0; i < n; i++)
+	for (size_t i = 0; i < (size_t)n; i++)
 		new_str += str;	
 
 	return (new_str);
@@ -115,37 +115,101 @@ int	table_iterators(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	std::string	temp_orig, temp_my;
 	int	point = 0;
 
-	// for (size_t i = 0; i < 6; i++)
-	// {
-	// 	std::cout << *((*a_orig).begin() + i) << " ";
-	// }
-	
-	std::cout << "AAAAAAAA\n";
+	typename std::vector<T>::iterator it1 = (*a_orig).begin();
+	typename std::vector<T>::iterator it2 = (*a_orig).end();
+	typename ft::vector<T>::iterator it3 = (*a_my).begin();
+	typename ft::vector<T>::iterator it4 = (*a_my).end();
+	typename std::vector<T>::reverse_iterator it5 = (*a_orig).rbegin();
+	typename std::vector<T>::reverse_iterator it6 = (*a_orig).rend();
+	typename ft::vector<T>::reverse_iterator it7 = (*a_my).rbegin();
+	typename ft::vector<T>::reverse_iterator it8 = (*a_my).rend();
 
-	// temp_orig = std::to_string(*(*a_orig).begin());
-	// temp_my = std::to_string(*(*a_my).begin());
-	// point += table_str("begin", temp_orig, temp_my);
+	temp_orig = std::to_string(*((*a_orig).begin() - 0));
+	temp_my = std::to_string(*((*a_my).begin() - 0));
+	point += table_str("begin", temp_orig, temp_my);
 
-	// temp_orig = std::to_string(*((*a_orig).end() - 1));
-	// temp_my = std::to_string(*((*a_my).end() - 1));
-	// point += table_str("end-1", temp_orig, temp_my);
+	temp_orig = std::to_string(*((*a_orig).end() - 1));
+	temp_my = std::to_string(*((*a_my).end() - 1));
+	point += table_str("end-1", temp_orig, temp_my);
 
-	// temp_orig = std::to_string(*((*a_orig).rbegin() - 1));
-	// temp_my = std::to_string(*((*a_my).rbegin() - 1));
-	// point += table_str("", temp_orig, temp_my);
+	temp_orig = std::to_string(*((*a_orig).rbegin() - 0));
+	temp_my = std::to_string(*((*a_my).rbegin() - 0));
+	point += table_str("rbegin-1", temp_orig, temp_my);
 
-	// temp_orig = std::to_string(*((*a_orig).rbegin() - 1));
-	// temp_my = std::to_string(*((*a_my).rbegin() - 1));
-	// point += table_str("", temp_orig, temp_my);
+	temp_orig = std::to_string(*((*a_orig).rend() - 1));
+	temp_my = std::to_string(*((*a_my).rend() - 1));
+	point += table_str("end-1", temp_orig, temp_my);
 
-	// temp_orig = std::to_string(*((*a_orig).rbegin() - 1));
-	// temp_my = std::to_string(*((*a_my).rbegin() - 1));
-	// point += table_str("", temp_orig, temp_my);
+	temp_orig = "";
+	temp_my = "";
+	while (it1 != it2)
+		temp_orig += std::to_string(*it1++) + " ";
+	while (it3 != it4)
+		temp_my += std::to_string(*it3++) + " ";
+	point += table_str("begin - end", temp_orig, temp_my);
 
+	temp_orig = "";
+	temp_my = "";
+	while (it5 != it6)
+		temp_orig += std::to_string(*it5++) + " ";
+	while (it7 != it8)
+		temp_my += std::to_string(*it7++) + " ";
+	point += table_str("begin - end", temp_orig, temp_my);
 
-	// temp_orig = std::to_string(*((*a_orig).rend() + 1));
-	// temp_my = std::to_string(*((*a_my).rend() + 1));
-	// point += table_str("rend", temp_orig, temp_my);
+	if (f)
+		table_head(3);
+	return (point);
+}
+// Тест на iterators const
+template <typename T>
+int	table_iterators_const(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
+{
+	std::string	temp_orig, temp_my;
+	int	point = 0;
+
+	const std::vector<T> orig(*a_orig);
+	const ft::vector<T> my(*a_my);
+
+	typename std::vector<T>::const_iterator it1 = orig.begin();
+	typename std::vector<T>::const_iterator it2 = orig.end();
+	typename ft::vector<T>::const_iterator it3 = my.begin();
+	typename ft::vector<T>::const_iterator it4 = my.end();
+	typename std::vector<T>::const_reverse_iterator it5 = orig.rbegin();
+	typename std::vector<T>::const_reverse_iterator it6 = orig.rend();
+	typename ft::vector<T>::const_reverse_iterator it7 = my.rbegin();
+	typename ft::vector<T>::const_reverse_iterator it8 = my.rend();
+
+	temp_orig = std::to_string(*(orig.begin() - 0));
+	temp_my = std::to_string(*(my.begin() - 0));
+	point += table_str("begin (const)", temp_orig, temp_my);
+
+	temp_orig = std::to_string(*(orig.end() - 1));
+	temp_my = std::to_string(*(my.end() - 1));
+	point += table_str("end-1 (const)", temp_orig, temp_my);
+
+	temp_orig = std::to_string(*(orig.rbegin() - 0));
+	temp_my = std::to_string(*(my.rbegin() - 0));
+	point += table_str("rbegin-1 (const)", temp_orig, temp_my);
+
+	temp_orig = std::to_string(*(orig.rend() - 1));
+	temp_my = std::to_string(*(my.rend() - 1));
+	point += table_str("end-1 (const)", temp_orig, temp_my);
+
+	temp_orig = "";
+	temp_my = "";
+	while (it1 != it2)
+		temp_orig += std::to_string(*it1++) + " ";
+	while (it3 != it4)
+		temp_my += std::to_string(*it3++) + " ";
+	point += table_str("begin - end (const)", temp_orig, temp_my);
+
+	temp_orig = "";
+	temp_my = "";
+	while (it5 != it6)
+		temp_orig += std::to_string(*it5++) + " ";
+	while (it7 != it8)
+		temp_my += std::to_string(*it7++) + " ";
+	point += table_str("begin - end (const)", temp_orig, temp_my);	
 
 	if (f)
 		table_head(3);
@@ -472,6 +536,7 @@ int	table_operator_1(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -488,6 +553,7 @@ int	table_operator_2(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -504,6 +570,7 @@ int	table_operator_3(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -520,6 +587,7 @@ int	table_operator_4(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -536,6 +604,7 @@ int	table_operator_5(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -552,6 +621,7 @@ int	table_operator_6(std::vector<T> a1_orig, std::vector<T> a2_orig,
 					ft::vector<T> a1_my, ft::vector<T> a2_my,
 					std::string str1, std::string str2, bool f)
 {
+	f = f + 1 - 1;
 	std::string	temp_orig, temp_my;
 	int			point = 0;
 
@@ -568,6 +638,9 @@ int	table_operator(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 {
 	std::string	temp_orig, temp_my;
 	int			point = 0;
+
+	(std::vector<T>) *a_orig;
+	(ft::vector<T>) *a_my;
 
 	table_head(3);
 
@@ -815,20 +888,19 @@ int	table_const(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 
 	temp_orig = std::to_string(orig[0]);
 	temp_my = std::to_string(my[0]);
-	point += table_str("const [0]", temp_orig, temp_my);
+	point += table_str("[0] (const)", temp_orig, temp_my);
 
 	temp_orig = std::to_string(orig.at(0));
 	temp_my = std::to_string(my.at(0));
-	point += table_str("const at(0)", temp_orig, temp_my);
+	point += table_str("at(0) (const)", temp_orig, temp_my);
 	
 	temp_orig = std::to_string(orig.front());
 	temp_my = std::to_string(my.front());
-	point += table_str("const front()", temp_orig, temp_my);
+	point += table_str("front() (const)", temp_orig, temp_my);
 
 	temp_orig = std::to_string(orig.back());
 	temp_my = std::to_string(my.back());
-	point += table_str("const back()", temp_orig, temp_my);
-
+	point += table_str("back() (const)", temp_orig, temp_my);
 
 	if (f)
 		table_head(3);
@@ -842,8 +914,10 @@ int	table_allocator(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	std::string	temp_orig, temp_my;
 	int	point = 0;
 
-	std::allocator<T> orig = (*a_orig).get_allocator();
-	std::allocator<T> my = (*a_my).get_allocator();
+	// std::allocator<T> orig = (*a_orig).get_allocator();
+	// std::allocator<T> my = (*a_my).get_allocator();
+	(*a_orig).get_allocator();
+	(*a_my).get_allocator();
 
 	// bool rez = (orig == my);
 	// std::cout << rez << std::endl;
@@ -862,16 +936,14 @@ void	test_tabl(std::vector<T> a_orig, ft::vector<T> a_my)
 {
 	std::string	temp_orig, temp_my;
 	int 		point = 0;
-	int			size_orig, size_my;
 
 	// печать заголовка
 	table_head(1);
+
 	point += table_elements(&a_orig, &a_my, 1);
 	point += table_size(&a_orig, &a_my, 1);
 	point += table_iterators(&a_orig, &a_my, 1);
-
-	return ;
-
+	point += table_iterators_const(&a_orig, &a_my, 1);
 	point += table_max_size(&a_orig, &a_my, 1);
 	point += table_at(&a_orig, &a_my, 1);
 	point += table_empty(&a_orig, &a_my, 1);
@@ -890,11 +962,15 @@ void	test_tabl(std::vector<T> a_orig, ft::vector<T> a_my)
 	point += table_assign(&a_orig, &a_my, 1);
 	point += table_erase(&a_orig, &a_my, 1);
 	point += table_const(&a_orig, &a_my, 1);
-	point += table_clear(&a_orig, &a_my, 1);
+	point += table_clear(&a_orig, &a_my, 1); 
 	point += table_allocator(&a_orig, &a_my, 0);
 
+	//std::cout << "Hello\n";
+
 	// печать конца таблицы
+
 	table_head(2);
 	float finish = (float)point/(float)all_test * 100;
 	std::cout << point << "/" << all_test << "(" << std::setprecision(4) << finish << "%)" << std::endl;
+	//std::cout << "Hello\n";
 }

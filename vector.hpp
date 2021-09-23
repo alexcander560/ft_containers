@@ -11,23 +11,23 @@
 
 namespace ft
 {		
-	template < typename T, typename Alloc = std::allocator<T> >
+	template < typename T, typename Allocator = std::allocator<T> >
 	class vector
 	{
-		class RandomAccessVectorIterator;
-		class ConstRandomAccessVectorIterator;
+		class MyIterator;
+		class ConstMyIterator;
 		public:
 			//------------------------------------------------------------------------
-			//---------------------------typedef(7/12)--------------------------------
+			//---------------------------typedef(0/12)--------------------------------
 			//------------------------------------------------------------------------
 			typedef T											value_type;
-			typedef Alloc										allocator_type;
+			typedef Allocator									allocator_type;
 			typedef typename allocator_type::reference			reference;
 			typedef typename allocator_type::const_reference	const_reference;
 			typedef typename allocator_type::pointer			pointer;
 			typedef typename allocator_type::const_pointer		const_pointer;
-			typedef RandomAccessVectorIterator					iterator;
-			typedef ConstRandomAccessVectorIterator				const_iterator;
+			typedef MyIterator									iterator;
+			typedef ConstMyIterator								const_iterator;
 			typedef ft::reverse_iterator<iterator>				reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
@@ -39,128 +39,151 @@ namespace ft
 			pointer			_end;
 			pointer 		_capacity;
 
-			class RandomAccessVectorIterator : public ft::iterator<std::random_access_iterator_tag, value_type>
+			class MyIterator : public ft::iterator<std::random_access_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, value_type>	parent;
-				typedef RandomAccessVectorIterator									self;
-			
-				public:
-					typedef typename parent::reference							reference;
-					typedef typename parent::pointer							pointer;
-			
-					RandomAccessVectorIterator(pointer begin = NULL) : _ptr(begin) {}
-					RandomAccessVectorIterator(const self &copy) : _ptr(copy._ptr) {}
-					~RandomAccessVectorIterator() {};
-
-					const self &operator=(const self &it) { if (this != &it) _ptr = it._ptr; return *this; }
-						
-					reference	operator*()		{ return *_ptr; }
-
-					pointer		operator->()	{ return _ptr; }
-
-					self&		operator++()	{ ++_ptr; return *this; }
-
-					self		operator++(int) { self tmp = *this; ++(*this);  return tmp; } 
-
-					self&		operator--()	{ --_ptr; return *this; }
-					
-					self		operator--(int) { self tmp = *this; --(*this);  return tmp; }
-					
-					friend difference_type operator- (const self& a, const self& b) { return a._ptr - b._ptr; }
-					
-					friend bool operator== (const self& a, const self& b) { return a._ptr == b._ptr; }
-					
-					friend bool operator!= (const self& a, const self& b) { return !(a == b); }
-					
-					friend bool operator< (const self lhs, const self rhs)		{ return lhs._ptr < rhs._ptr; }
-
-					friend bool operator<= (const self lhs, const self rhs)	{ return !(rhs._ptr < lhs._ptr); }
-
-					friend bool operator> (const self lhs, const self rhs)		{ return rhs < lhs; }
-
-					friend bool operator>= (const self lhs, const self rhs)	{ return !(lhs < rhs); }
-					
-					self  operator+ (difference_type n) const	{ return self(_ptr + n); }
-
-					self& operator+=(difference_type n)			{ _ptr + n; return *this; }
-
-					self  operator- (difference_type n) const	{ return *this + (-n); }
-
-					self& operator-=(difference_type n)			{ return *this += -n; }
-
-					reference operator[](difference_type n) const { return _ptr[n]; }
 
 				private:	
 					pointer	_ptr;
 					template<typename, typename> friend class vector;
+
+				public:
+					typedef typename parent::reference								reference;
+					typedef typename parent::pointer								pointer;
+			
+					MyIterator(pointer begin = NULL): _ptr(begin) {}
+					MyIterator(const MyIterator &copy): _ptr(copy._ptr) {}
+					~MyIterator() {};
+
+					const MyIterator		&operator=(const MyIterator &it)
+					{
+						if (this != &it) _ptr = it._ptr;
+						return (*this);
+					}
+					reference				operator*()												{ return (*_ptr); }
+					pointer					operator->()											{ return (_ptr); }
+					MyIterator&				operator++()
+					{
+						++_ptr;
+						return (*this);
+					}
+					MyIterator				operator++(int)
+					{
+						MyIterator tmp = *this;
+						++(*this);
+						return (tmp);
+					}
+					MyIterator&				operator--()
+					{
+						--_ptr;
+						return (*this);
+					}
+					MyIterator				operator--(int)
+					{
+						MyIterator tmp = *this;
+						--(*this);
+						return (tmp);
+					}
+					friend difference_type	operator-(const MyIterator& a, const MyIterator& b)		{ return (a._ptr - b._ptr); }
+					friend bool				operator== (const MyIterator& a, const MyIterator& b)	{ return (a._ptr == b._ptr); }
+					friend bool				operator!= (const MyIterator& a, const MyIterator& b)	{ return !(a == b); }
+					friend bool				operator< (const MyIterator lhs, const MyIterator rhs)	{ return (lhs._ptr < rhs._ptr); }
+					friend bool				operator<= (const MyIterator lhs, const MyIterator rhs)	{ return (!(rhs._ptr < lhs._ptr)); }
+					friend bool				operator> (const MyIterator lhs, const MyIterator rhs)	{ return (rhs < lhs); }
+					friend bool				operator>= (const MyIterator lhs, const MyIterator rhs)	{ return !(lhs < rhs); }
+					MyIterator				operator+ (difference_type n) const						{ return (MyIterator(_ptr + n)); }
+					friend MyIterator		operator+(int n, MyIterator& p)
+					{
+						p._ptr = p._ptr + n;
+						return (p._ptr);
+					}
+					MyIterator				&operator+= (difference_type n)
+					{
+						MyIterator(_ptr + n);
+						return (*this);
+					}
+					MyIterator				operator- (difference_type n) const						{ return (*this + (-n)); }
+					MyIterator				&operator-=(difference_type n)							{ return (*this += -n); }
+					reference				operator[](difference_type n) const						{ return (_ptr[n]); }
 			};
-			class ConstRandomAccessVectorIterator : public ft::iterator<std::random_access_iterator_tag, const value_type>
+
+			class ConstMyIterator : public ft::iterator<std::random_access_iterator_tag, const value_type>
 			{
-				typedef ft::iterator<std::random_access_iterator_tag, const value_type> 	parent;
-				typedef RandomAccessVectorIterator										nonconst_v;
-				typedef ConstRandomAccessVectorIterator									self;
+				typedef ft::iterator<std::random_access_iterator_tag, const value_type>	parent;
+				typedef MyIterator														nonconst_v;
 			
 				public:
 					typedef typename parent::reference									reference;
 					typedef typename parent::pointer									pointer;
 			
-					ConstRandomAccessVectorIterator(const nonconst_v &it) : _ptr(it._ptr) {}
-					ConstRandomAccessVectorIterator(pointer begin = NULL) : _ptr(begin) {}
-					ConstRandomAccessVectorIterator(const self &copy) : _ptr(copy._ptr) {}
-					~ConstRandomAccessVectorIterator() {};
+					ConstMyIterator(const nonconst_v &it): _ptr(it._ptr) {}
+					ConstMyIterator(pointer begin = NULL): _ptr(begin) {}
+					ConstMyIterator(const ConstMyIterator &copy): _ptr(copy._ptr) {}
+					~ConstMyIterator() {};
 
-					const self &operator=(const self &it) { if (this != &it) _ptr = it._ptr; return *this; }
-						
-					reference	operator*()		{ return *_ptr; }
-
-					pointer		operator->()	{ return _ptr; }
-
-					self&		operator++()	{ ++_ptr; return *this; }
-
-					self		operator++(int) { self tmp = *this; ++(*this);  return tmp; } 
-
-					self&		operator--()	{ --_ptr; return *this; }
-					
-					self		operator--(int) { self tmp = *this; --(*this);  return tmp; }
-					
-					friend difference_type operator- (const self& a, const self& b) { return a._ptr - b._ptr; }
-
-					friend bool operator== (const self& a, const self& b) { return a._ptr == b._ptr; }
-					
-					friend bool operator!= (const self& a, const self& b) { return !(a == b); }
-					
-					friend bool operator< (const self lhs, const self rhs)		{ return lhs._ptr < rhs._ptr; }
-
-					friend bool operator<= (const self lhs, const self rhs)	{ return !(rhs._ptr < lhs._ptr); }
-
-					friend bool operator> (const self lhs, const self rhs)		{ return rhs < lhs; }
-
-					friend bool operator>= (const self lhs, const self rhs)	{ return !(lhs < rhs); }
-					
-					self  operator+ (difference_type n) const	{ return self(_ptr + n); }
-
-					self& operator+=(difference_type n)			{ _ptr + n; return *this; }
-
-					self  operator- (difference_type n) const	{ return *this + (-n); }
-
-					self& operator-=(difference_type n)			{ return *this += -n; }
-
-					reference operator[](difference_type n) const { return _ptr[n]; }
+					const ConstMyIterator	&operator=(const ConstMyIterator &it)
+					{
+						if (this != &it)
+							_ptr = it._ptr;
+						return (*this);
+					}
+					reference				operator*()															{ return (*_ptr); }
+					pointer					operator->()														{ return (_ptr); }
+					ConstMyIterator&		operator++()
+					{
+						++_ptr;
+						return (*this);
+					}
+					ConstMyIterator			operator++(int)
+					{
+						ConstMyIterator tmp = *this;
+						++(*this);
+						return (tmp);
+					} 
+					ConstMyIterator&		operator--()
+					{
+						--_ptr;
+						return (*this);
+					}
+					ConstMyIterator			operator--(int)
+					{
+						ConstMyIterator tmp = *this;
+						--(*this);
+						return (tmp);
+					}
+					friend difference_type	operator- (const ConstMyIterator& a, const ConstMyIterator& b)		{ return (a._ptr - b._ptr); }
+					friend bool				operator== (const ConstMyIterator& a, const ConstMyIterator& b)		{ return (a._ptr == b._ptr); }
+					friend bool				operator!= (const ConstMyIterator& a, const ConstMyIterator& b)		{ return (!(a == b)); }
+					friend bool				operator< (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return (lhs._ptr < rhs._ptr); }
+					friend bool				operator<= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(rhs._ptr < lhs._ptr); }
+					friend bool				operator> (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return rhs < lhs; }
+					friend bool				operator>= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(lhs < rhs); }
+					ConstMyIterator			operator+ (difference_type n) const									{ return (ConstMyIterator(_ptr + n)); }
+					friend ConstMyIterator	operator+(int n, ConstMyIterator& p)
+					{
+						p._ptr = p._ptr + n;
+						return (p._ptr);
+					}
+					ConstMyIterator			&operator+= (difference_type n)
+					{
+						ConstMyIterator(_ptr + n);
+						return (*this);
+					}
+					ConstMyIterator			operator- (difference_type n) const									{ return (*this + (-n)); }
+					ConstMyIterator			&operator-=(difference_type n)										{ return (*this += -n); }
+					reference				operator[](difference_type n) const									{ return (_ptr[n]); }
 
 				private:	
 					pointer	_ptr;
 			};
 
-			size_type				_sz() const			{ return _end - _begin; }
-			void					_throw_length_error() const { throw std::length_error("vector"); }
-			void					_throw_out_of_range() const { throw std::out_of_range("vector"); }
 			size_type				_get_new_cap(size_type new_size) const
 			{
 				const size_type ms 	= max_size();
 				const size_type cap = capacity();
 
 				if (new_size > max_size())
-					_throw_length_error();
+					throw std::length_error("vector");
 				if (cap >= ms / 2)
 					return ms;
 				return std::max<size_type>(cap * 2, new_size);
@@ -168,7 +191,7 @@ namespace ft
 			void					_nallocate(size_type n)
 			{
 				if (n > max_size())
-					_throw_length_error();
+					throw std::length_error("vector");
 				_begin = _end =	_alloc.allocate(n);
 				_capacity = _begin + n;
 			}
@@ -183,20 +206,16 @@ namespace ft
 			}
 			void					_reallocate(size_type n)
 			{
-				const size_type csz = _sz();
-				pointer new_buf		= _allocate_and_copy(n);
+				const size_type csz = size();
+
+				pointer	new_buf = _alloc.allocate(n);
+				_copy(new_buf, _begin, size());
+
 		
 				_deallocate();
 				_begin = new_buf;
 				_end = new_buf + csz;
 				_capacity = new_buf + n;
-			}
-			pointer					_allocate_and_copy(const size_type new_cap)
-			{
-				pointer	new_buf = _alloc.allocate(new_cap);
-				
-				_copy(new_buf, _begin, _sz());
-				return new_buf;
 			}
 			void					_copy(pointer dst, pointer src, size_type n)
 			{
@@ -232,19 +251,9 @@ namespace ft
 					_alloc.construct(pos, *first);
 				_end = pos;
 			}
-			void					_append(size_type n, const_reference val)
-			{
-				if (static_cast<size_type>(_capacity - _end) >= n)
-					_construct_at_end(n, val);
-				else
-				{
-					_reallocate(_get_new_cap(_sz() + n));
-					_construct_at_end(n, val);
-				}
-			}
 			pointer					_reallocate_with_insert(pointer position, const_reference val, size_type n = 1)
 			{
-				const size_type	newsz	= _sz() + n;
+				const size_type	newsz	= size() + n;
 				const size_type sz_p1	= static_cast<size_type>(position - _begin);
 				const size_type sz_p2	= static_cast<size_type>(_end - position);
 				const size_type	new_cap	= _get_new_cap(newsz);
@@ -265,7 +274,7 @@ namespace ft
 															typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{
 				const size_type n		= static_cast<size_type>(std::distance(first, last));
-				const size_type	newsz	= _sz() + n;
+				const size_type	newsz	= size() + n;
 				const size_type sz_p1	= static_cast<size_type>(position - _begin);
 				const size_type sz_p2	= static_cast<size_type>(_end - position);
 				const size_type	new_cap	= _get_new_cap(newsz);
@@ -329,10 +338,16 @@ namespace ft
 
 		public:
 			//------------------------------------------------------------------------
-			//------------------------------constructor(3/4)--------------------------
+			//------------------------------constructor(4/4)--------------------------
 			//------------------------------------------------------------------------
 			// Конструктор без параметров
-			explicit vector (const allocator_type& alloc = allocator_type()): _begin(NULL), _end(NULL), _capacity(NULL), _alloc(alloc) {}
+			explicit vector (const allocator_type& alloc = allocator_type()): _alloc(alloc)
+			{
+				_begin = NULL;
+				_end = NULL;
+				_capacity = NULL;
+
+			}
 			// Конструктор с 1 параметром (длина вектора)
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
@@ -350,7 +365,7 @@ namespace ft
 			}
 			// Конструктор с 2 параметрами (набор значений)
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
 				_nallocate(std::distance(first, last));
 				_construct_at_end(first, last);
@@ -412,38 +427,48 @@ namespace ft
 			//------------------------------------------------------------------------
 			//------------------------------Iterators(0/8)----------------------------
 			//------------------------------------------------------------------------
-			iterator				begin()			{ return iterator(_begin); }
-			const_iterator			begin() const	{ return const_iterator(_begin); }
-			iterator				end()			{ return iterator(_end); }
-			const_iterator			end() const 	{ return const_iterator(_end); }
-			reverse_iterator		rbegin() 		{ return reverse_iterator(begin()); }
-			const_reverse_iterator	rbegin() const	{ return const_reverse_iterator(begin()); }
-			reverse_iterator		rend()			{ return reverse_iterator(end()); }
-			const_reverse_iterator	rend() const	{ return const_reverse_iterator(end()); }
+			iterator				begin()					{ return (iterator(_begin)); }
+			const_iterator			begin() const			{ return (const_iterator(_begin)); }
+			iterator				end()					{ return (iterator(_end)); }
+			const_iterator			end() const				{ return (const_iterator(_end)); }
+			reverse_iterator		rbegin()				{ return (reverse_iterator(end())); }
+			const_reverse_iterator	rbegin() const			{ return (const_reverse_iterator(end())); }
+			reverse_iterator		rend()					{ return (reverse_iterator(begin())); }
+			const_reverse_iterator	rend() const			{ return (const_reverse_iterator(begin())); }
 			//------------------------------------------------------------------------
-			//------------------------------Capacity(5/6)-----------------------------
+			//------------------------------Capacity(6/6)-----------------------------
 			//------------------------------------------------------------------------
 			// Возвращает длину вектора
-			size_type	size() const					{ return (_end - _begin); }
+			size_type	size() const						{ return (_end - _begin); }
 			// Возвращает максимальное количество элементов, которое может содержать вектор
-			size_type	max_size() const				{ return (_alloc.max_size()); }
+			size_type	max_size() const					{ return (_alloc.max_size()); }
 			// Изменяет размер контейнера, чтобы он содержал n элементов
 			void		resize(size_type n, value_type val = value_type())
 			{
+				// Возможно должно быть исключение
 				const size_type size_temp = size();
 
 				if (size_temp < n)
-					_append(n - size_temp, val);
+				{
+					if (static_cast<size_type>(_capacity - _end) >= n - size_temp)
+						_construct_at_end(n - size_temp, val);
+					else
+					{
+						_reallocate(_get_new_cap(size() + n - size_temp));
+						_construct_at_end(n - size_temp, val);
+					}
+				}
 				else if (size_temp > n)
 					_destruct_at_end(_begin + n);
 			}
 			// Возвращает размер памяти выделенный для вектора в элементах
-			size_type	capacity() const				{ return _capacity - _begin; }
+			size_type	capacity() const					{ return _capacity - _begin; }
 			// Пустой ли вектор?
-			bool		empty() const					{ return (size() ? false : true); }
+			bool		empty() const						{ return (size() ? false : true); }
 			// Пытается сделать ёмкость вектора как минимум достаточной для размещения n элементов
 			void		reserve (size_type n)
 			{
+				// Возможно должно быть исключение
 				if (n > capacity())
 				{
 					_reallocate(n);
@@ -476,9 +501,7 @@ namespace ft
 			// Доступ к элементу без защиты
 			reference		operator[](size_type n)			{ return *(_begin + n); }
 			// Доступ к элементу без защиты
-			const_reference operator[](size_type n) const	{
-				//std::cout << "Hello\n"; 
-				return *(_begin + n); }
+			const_reference operator[](size_type n) const	{ return *(_begin + n); }
 			// Доступ к элементу с защитой
 			reference 		at(size_type n)
 			{
@@ -518,11 +541,11 @@ namespace ft
 				}
 				else
 				{
-					size_t n = static_cast<size_type>(std::min(csz, _sz()));
+					size_t n = static_cast<size_type>(std::min(csz, size()));
 
 					for (size_type i = 0; i < n; ++i, ++first)
 						*(_begin + i) = *first;
-					if (_sz() > n)	
+					if (size() > n)	
 						_destruct_at_end(_begin + n);
 					else
 						_construct_at_end(first, last);
@@ -539,7 +562,7 @@ namespace ft
 				}
 				else
 				{
-					size_t sz  = _sz();
+					size_t sz = size();
 					size_t end = static_cast<size_type>(std::min(sz, n));
 
 					for (size_type i = 0; i < end; ++i)
@@ -554,7 +577,7 @@ namespace ft
 			void push_back (const value_type& val)
 			{
 				if (_end == _capacity)
-					_reallocate(_get_new_cap(_sz() + 1));
+					_reallocate(_get_new_cap(size() + 1));
 				_construct_one_at_end(val);
 			}
 			// Удаляет последний элемент в векторе (вектор пуст -> неопределённое поведение)
@@ -579,9 +602,7 @@ namespace ft
 						_insert_not_end(p, val);
 				}
 				else
-				{
 					p = _reallocate_with_insert(p, val);
-				}
 				return iterator(p);
 			}
 			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
@@ -604,7 +625,6 @@ namespace ft
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
-				//std::cout << "SSS\n";
 				pointer p = position._ptr;
 				
 				if (_end < _capacity)
@@ -679,7 +699,7 @@ namespace ft
 			//------------------------------------------------------------------------
 			//-----------------------------Allocator(1/1)-----------------------------
 			//------------------------------------------------------------------------
-			allocator_type	get_allocator() const	{ return (_alloc); }
+			allocator_type	get_allocator() const			{ return (_alloc); }
 	};
 
 	//------------------------------------------------------------------------
@@ -689,46 +709,14 @@ namespace ft
 	template <typename T, typename Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
-		return lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin());
-		/*
-		size_type lhs_size = lhs.size(), rhs_size = rhs.size();
-
-		if (lhs_size != rhs_size)
+		if (lhs.size() != rhs.size())
 			return (false);
-		for (size_type i = 0; i < lhs_size; i++)
-		{
-			if (lhs[i] != rhs[i])
-				return (false);
-		}
-		return (true);
-		*/
+		return (equal(lhs.begin(), lhs.end(), rhs.begin()));
 	};
 	template <typename T, typename Alloc>
 	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return !(lhs == rhs); }
 	template <typename T, typename Alloc>
-	bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-	{
-		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-		/*
-		size_type lhs_size = lhs.size(), rhs_size = rhs.size();
-
-		if (lhs_size < rhs_size)
-			return (true);
-		else if (lhs_size > rhs_size)
-			return (true);
-		else
-		{
-			for (size_type i = 0; i < lhs_size; i++)
-			{
-				if (lhs[i] < rhs[i])
-					return (true);
-				else if (lhs[i] > rhs[i])
-					return (false);
-			}
-		}
-		return (false);
-		*/
-	};
+	bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)		{	return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); };
 	template <typename T, typename Alloc>
 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (!(rhs < lhs)); }
 	template <typename T, typename Alloc>
