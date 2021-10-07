@@ -123,29 +123,29 @@ bool	print_status_time(int orig, int my)
 }
 
 template <typename T>
-std::string	vektor_base_test(std::vector<T> a)
+std::string	vektor_base_test(std::vector<T> *a)
 {
 	size_t size = 0;
 	std::string	temp = "";
 
-	size = a.size();
-	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string(a.capacity()) + " elem=";
+	size = (*a).size();
+	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
 	for (size_t i = 0; i < size; i++)
-		temp += std::to_string(a[i]);
+		temp += std::to_string((*a)[i]);
 
 	return (temp);
 }
 
 template <typename T>
-std::string	vektor_base_test(ft::vector<T> a)
+std::string	vektor_base_test(ft::vector<T> *a)
 {
 	size_t size = 0;
 	std::string	temp = "";
 
-	size = a.size();
-	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string(a.capacity()) + " elem=";
+	size = (*a).size();
+	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
 	for (size_t i = 0; i < size; i++)
-		temp += std::to_string(a[i]);
+		temp += std::to_string((*a)[i]);
 
 	return (temp);
 }

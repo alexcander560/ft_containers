@@ -39,7 +39,7 @@ namespace ft
 			pointer			_end;
 			pointer 		_capacity;
 
-			class MyIterator : public ft::iterator<std::random_access_iterator_tag, value_type>
+			class MyIterator: public ft::iterator<std::random_access_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, value_type>	parent;
 
@@ -84,7 +84,7 @@ namespace ft
 						--(*this);
 						return (tmp);
 					}
-					friend difference_type	operator-(const MyIterator& a, const MyIterator& b)		{ return (a._ptr - b._ptr); }
+					friend difference_type	operator- (const MyIterator& a, const MyIterator& b)	{ return (a._ptr - b._ptr); }
 					friend bool				operator== (const MyIterator& a, const MyIterator& b)	{ return (a._ptr == b._ptr); }
 					friend bool				operator!= (const MyIterator& a, const MyIterator& b)	{ return !(a == b); }
 					friend bool				operator< (const MyIterator lhs, const MyIterator rhs)	{ return (lhs._ptr < rhs._ptr); }
@@ -107,7 +107,7 @@ namespace ft
 					reference				operator[](difference_type n) const						{ return (_ptr[n]); }
 			};
 
-			class ConstMyIterator : public ft::iterator<std::random_access_iterator_tag, const value_type>
+			class ConstMyIterator: public ft::iterator<std::random_access_iterator_tag, const value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, const value_type>	parent;
 				typedef MyIterator														nonconst_v;

@@ -35,5 +35,5 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 	std::cout << "check SELF! allocator_type get_allocator() const { return (_alloc); }\n";
 
-	return (rez);
+	return (!rez);
 }

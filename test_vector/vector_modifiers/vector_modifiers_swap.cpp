@@ -26,20 +26,20 @@ int	main ()
 	
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_0);
-	swap(orig_1, orig_0);
+	orig_1.swap(orig_0);
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_0);
-	swap(orig_1, orig_0);
+	orig_1.swap(orig_0);
 
 	time_orig = clock() - time_orig;
 	time_my = clock();
 	
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_0);
-	swap(my_1, my_0);
+	my_1.swap(my_0);
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_0);
-	swap(my_1, my_0);
+	my_1.swap(my_0);
 
 	time_my = clock() - time_my;
 
@@ -53,54 +53,54 @@ int	main ()
 	
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_1);
-	swap(orig_1, orig_1);
+	orig_1.swap(orig_1);
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_1);
-	swap(orig_1, orig_1);
+	orig_1.swap(orig_1);
 
 	time_orig = clock() - time_orig;
 	time_my = clock();
 	
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_1);
-	swap(my_1, my_1);
+	my_1.swap(my_1);
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_1);
-	swap(my_1, my_1);
+	my_1.swap(my_1);
 
 	time_my = clock() - time_my;
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	//=============================================================
+	// //=============================================================
 	std::cout << "swap size1(size1 != 0) != size2 (size2 != 0)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_4);
-	swap(orig_1, orig_4);
+	orig_1.swap(orig_4);
 	temp_orig += vektor_base_test(&orig_1);
 	temp_orig += vektor_base_test(&orig_4);
-	swap(orig_1, orig_4);
+	orig_1.swap(orig_4);
 
 	time_orig = clock() - time_orig;
 	time_my = clock();
 	
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_4);
-	swap(my_1, my_4);
+	my_1.swap(my_4);
 	temp_my += vektor_base_test(&my_1);
 	temp_my += vektor_base_test(&my_4);
-	swap(my_1, my_4);
+	my_1.swap(my_4);
 
 	time_my = clock() - time_my;
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	//=============================================================
 
 	
 	return (!rez);
 }
+

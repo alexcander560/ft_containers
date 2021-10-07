@@ -130,5 +130,5 @@ int	main ()
 	//=============================================================
 	std::cout << "check SELF! operator->() { return (_ptr); }\n";
 
-	return (rez);
+	return (!rez);
 }

@@ -110,5 +110,5 @@ int	main ()
 	//=============================================================
 	std::cout << "check SELF! operator->() const { return (&(operator*())); }\n";
 
-	return (rez);
+	return (!rez);
 }

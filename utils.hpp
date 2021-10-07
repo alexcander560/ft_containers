@@ -9,7 +9,7 @@
 
 namespace ft
 {
-	template<typename T>
+	template <typename T>
 	struct is_iterator
 	{
 		static T makeT();
@@ -64,7 +64,7 @@ namespace ft
 		{
 			if (first2 == last2 || *first2 < *first1)
 				return (false);
-			else if (*first1<*first2)
+			else if (*first1 < *first2)
 				return (true);
 			first1++;
 			first2++;

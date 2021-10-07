@@ -206,5 +206,5 @@ int	main ()
 	
 
 
-	return (rez);
+	return (!rez);
 }
