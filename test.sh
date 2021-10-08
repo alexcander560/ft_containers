@@ -18,275 +18,318 @@ declare -i rez=0
 #=========================================================================================
 #==============================Element access=============================================
 #=========================================================================================
-: '
-printf "$PURPLE Element access $DEFAULT\n"
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]]; then
+	printf "$PURPLE Element access $DEFAULT\n"
+fi
 # 1
-printf "$YELLOW Test [] $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc" ]]; then
+	printf "$YELLOW Test [] $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 2
-printf "$YELLOW Test [] const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc_const" ]]; then
+	printf "$YELLOW Test [] const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 3
-printf "$YELLOW Test at $DEFAULT \n"
-echo $TEST_OUTPUT
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at" ]]; then
+	printf "$YELLOW Test at $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 4
-printf "$YELLOW Test at const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at_const" ]]; then
+	printf "$YELLOW Test at const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 5
-printf "$YELLOW Test front $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front" ]]; then
+	printf "$YELLOW Test front $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 6
-printf "$YELLOW Test front const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front_const" ]]; then
+	printf "$YELLOW Test front const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 7
-printf "$YELLOW Test back $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "bask" ]]; then
+	printf "$YELLOW Test back $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 8
-printf "$YELLOW Test back const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "bask_const" ]]; then
+	printf "$YELLOW Test back const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 #=========================================================================================
 #====================================Capacity=============================================
 #=========================================================================================
-printf "$PURPLE Capacity $DEFAULT\n"
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]]; then
+	printf "$PURPLE Capacity $DEFAULT\n"
+fi
 # 1
-printf "$YELLOW Test size $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_size.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "size" ]]; then
+	printf "$YELLOW Test size $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_size.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 2
-printf "$YELLOW Test max_size $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_max_size.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "max_size" ]]; then
+	printf "$YELLOW Test max_size $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_max_size.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 3
-printf "$YELLOW Test capacity $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_capacity.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "capacity" ]]; then
+	printf "$YELLOW Test capacity $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_capacity.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 4
-printf "$YELLOW Test reserve $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_reserve.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "reserve" ]]; then
+	printf "$YELLOW Test reserve $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_reserve.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 5
-printf "$YELLOW Test empty $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_empty.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "empty" ]]; then
+	printf "$YELLOW Test empty $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_empty.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 6
-printf "$YELLOW Test resize $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_resize.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "resize" ]]; then
+	printf "$YELLOW Test resize $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_capacity/vector_capacity_resize.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
-
 #=========================================================================================
 #====================================Allocator============================================
 #=========================================================================================
-printf "$PURPLE allocator $DEFAULT\n"
-# 1
-printf "$YELLOW Test get_allocator $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_allocator/vector_allocator_get.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Alloc" ]]; then
+	printf "$PURPLE allocator $DEFAULT\n"
 fi
-rm -rf vector_prog
-
+# 1
+if [[ "$1" == "" ]] || [[ "$1" == "Alloc" ]] || [[ "$1" == "get_allocator" ]]; then
+	printf "$YELLOW Test get_allocator $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_allocator/vector_allocator_get.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
+fi
 #=========================================================================================
 #====================================Iterators============================================
 #=========================================================================================
-printf "$PURPLE iterators $DEFAULT\n"
+if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]]; then
+	printf "$PURPLE iterators $DEFAULT\n"
+fi
 # 1
-printf "$YELLOW Test iterators $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_iterator.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator" ]]; then
+	printf "$YELLOW Test iterators $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_iterator.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 2
-printf "$YELLOW Test iterators const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_iterator_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator_const" ]]; then
+	printf "$YELLOW Test iterators const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_iterator_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 3
-printf "$YELLOW Test reverse_iterators $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_r_iterator.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator" ]]; then
+	printf "$YELLOW Test reverse_iterators $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_r_iterator.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
 # 4
-printf "$YELLOW Test reverse_iterators const $DEFAULT \n"
-clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_r_iterator_const.cpp -o vector_prog
-TEST_OUTPUT=$(./vector_prog)
-rez=$?
-all=all+1
-if [[ "$TEST_OUTPUT" == "" ]]; then
-	printf "$RED does not compile $DEFAULT \n"
-else
-	echo $TEST_OUTPUT
-	point=point+rez
+if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator_const" ]]; then
+	printf "$YELLOW Test reverse_iterators const $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_iterators/vector_iterators_r_iterator_const.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
 fi
-rm -rf vector_prog
-'
 #=========================================================================================
 #============================Non-member function overloads================================
 #=========================================================================================
-printf "$PURPLE operator $DEFAULT \n"
+if [[ "$1" == "" ]] || [[ "$1" == "Non" ]]; then
+	printf "$PURPLE operator $DEFAULT \n"
+fi
 #1
 if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "operator" ]]; then
 	printf "$YELLOW Test operator $DEFAULT \n"
@@ -320,11 +363,28 @@ fi
 #=========================================================================================
 #===================================Modifiers=============================================
 #=========================================================================================
-printf "$PURPLE Modifiers $DEFAULT \n"
-#1
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "assign" ]]; then
-	printf "$YELLOW Test assign $DEFAULT \n"
-	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_assign.cpp -o vector_prog
+if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]]; then
+	printf "$PURPLE Modifiers $DEFAULT \n"
+fi
+#1.1
+if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "assign" ]] || [[ "$1" == "assign_1" ]]; then
+	printf "$YELLOW Test assign(InputIterator first, InputIterator last) $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_assign_1.cpp -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
+fi
+#1.2
+if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "assign" ]] || [[ "$1" == "assign_2" ]]; then
+	printf "$YELLOW Test assign(size_type n, const value_type& val) $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_assign_2.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
 	rez=$?
 	all=all+1

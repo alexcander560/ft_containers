@@ -5,7 +5,7 @@ int	main ()
 	std::string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 
-	std::cout << "Заглушка assign (2 реализации)" << std::endl;
+	std::cout << "Заглушка assign (2 реализации) 1/2" << std::endl;
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1(1);
 	ft::vector<int> my_1(1);
