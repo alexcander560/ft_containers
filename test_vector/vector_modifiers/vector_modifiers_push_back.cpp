@@ -9,10 +9,10 @@ int	main ()
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1(0);
 	ft::vector<int> my_1(0);
-	std::vector<int> orig_2(10);
-	ft::vector<int> my_2(10);
-	orig_2.reserve(100);
-	my_2.reserve(100);
+	std::vector<int> orig_2(SIZE_100K);
+	ft::vector<int> my_2(SIZE_100K);
+	orig_2.reserve(SIZE_1M);
+	my_2.reserve(SIZE_1M);
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_2, &my_2);
 
@@ -37,12 +37,12 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	// //=============================================================
-	std::cout << "size = 1 (100 use)" << std::endl;
+	std::cout << "size = 1 (100.000 use)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	for (size_t i = 0; i < 100; i++)
+	for (size_t i = 0; i < SIZE_100K; i++)
 		orig_1.push_back(666);
 	temp_orig += vektor_base_test(&orig_1);
 
@@ -51,7 +51,7 @@ int	main ()
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	for (size_t i = 0; i < 100; i++)
+	for (size_t i = 0; i < SIZE_100K; i++)
 		my_1.push_back(666);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
@@ -61,12 +61,12 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 10 capacity 100 (42 use)" << std::endl;
+	std::cout << "size = 100.000 capacity 1.000.000 (100.000 use)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_2);
-	for (size_t i = 0; i < 42; i++)
+	for (size_t i = 0; i < SIZE_100K; i++)
 		orig_2.push_back(7);
 	temp_orig += vektor_base_test(&orig_2);
 
@@ -75,7 +75,7 @@ int	main ()
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_2);
-	for (size_t i = 0; i < 42; i++)
+	for (size_t i = 0; i < SIZE_100K; i++)
 		my_2.push_back(7);
 	temp_my += vektor_base_test(&my_2);
 	//temp_my += " ";

@@ -592,6 +592,7 @@ namespace ft
 			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
 			iterator insert (iterator position, const value_type& val)
 			{
+				//std::cout << "IN 1\n";
 				pointer p = position._ptr;
 
 				if (_end < _capacity)
@@ -605,10 +606,14 @@ namespace ft
 					p = _reallocate_with_insert(p, val);
 				return iterator(p);
 			}
-			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
+			// Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				//std::cout << "Hello\n";
+				//std::cout << "IN 2\n";
+
+				if (n == 0)
+					return ;
+
 				pointer p = position._ptr;
 
 				if (_end < _capacity)
@@ -625,6 +630,7 @@ namespace ft
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
+				std::cout << "IN 3\n";
 				pointer p = position._ptr;
 				
 				if (_end < _capacity)

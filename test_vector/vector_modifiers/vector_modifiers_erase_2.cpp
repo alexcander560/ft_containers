@@ -9,12 +9,12 @@ int	main ()
 	ft::vector<int> my_1(1);
 	init_vector_all(&orig_1, &my_1);
 
-	std::vector<int> orig_2(SIZE_100);
-	ft::vector<int> my_2(SIZE_100);
+	std::vector<int> orig_2(SIZE_100K);
+	ft::vector<int> my_2(SIZE_100K);
 	init_vector_all(&orig_2, &my_2);
 
-	std::vector<int> orig_3(SIZE_10);
-	ft::vector<int> my_3(SIZE_10);
+	std::vector<int> orig_3(SIZE_100K);
+	ft::vector<int> my_3(SIZE_100K);
 	init_vector_all(&orig_3, &my_3);
 
 	//=============================================================
@@ -58,7 +58,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "erase(begin(), begin()) size=100" << std::endl;
+	std::cout << "erase(begin(), begin()) size=100.000" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -78,7 +78,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "erase(begin(), end()) size=100" << std::endl;
+	std::cout << "erase(begin(), end()) size=100.000" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -98,19 +98,19 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "(start size=10)\nerase(begin(), begin() + 1)" << std::endl;
-	std::cout << "erase(begin() + 1, begin() + 5)" << std::endl;
+	std::cout << "(start size=100.000)\nerase(begin(), begin() + 1)" << std::endl;
+	std::cout << "erase(begin() + 10.000, begin() + 50.000)" << std::endl;
 	std::cout << "erase(end() - 1, end())" << std::endl;
-	std::cout << "erase(end() - 3, end() - 1)" << std::endl;
+	std::cout << "erase(end() - 30.000, end() - 10.000)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_3);
 
 	orig_3.erase(orig_3.begin(), orig_3.begin() + 1);
-	orig_3.erase(orig_3.begin() + 1, orig_3.begin() + 5);
+	orig_3.erase(orig_3.begin() + 10000, orig_3.begin() + 50000);
 	orig_3.erase(orig_3.end() - 1, orig_3.end());
-	orig_3.erase(orig_3.end() - 3, orig_3.end() - 1);
+	orig_3.erase(orig_3.end() - 30000, orig_3.end() - 10000);
 
 	temp_orig += vektor_base_test(&orig_3);
 	time_orig = clock() - time_orig;
@@ -120,9 +120,9 @@ int	main ()
 	temp_my += vektor_base_test(&my_3);
 
 	my_3.erase(my_3.begin(), my_3.begin() + 1);
-	my_3.erase(my_3.begin() + 1, my_3.begin() + 5);
+	my_3.erase(my_3.begin() + 10000, my_3.begin() + 50000);
 	my_3.erase(my_3.end() - 1, my_3.end());
-	my_3.erase(my_3.end() - 3, my_3.end() - 1);
+	my_3.erase(my_3.end() - 30000, my_3.end() - 10000);
 
 	temp_my += vektor_base_test(&my_3);
 	//temp_my += " ";
