@@ -39,7 +39,7 @@
     6) bash test.sh resize
     
     Allocator:
-    1)bash test.sh get_allocator
+    1) bash test.sh get_allocator
     
     Iterators:
     1) bash test.sh iterator
