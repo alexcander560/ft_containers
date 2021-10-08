@@ -53,17 +53,17 @@
     
     Modifiers:
     1) bash test.sh assign            (все тесты)
-    1.1) bash test.sh assign_1        (assign(InputIterator first, InputIterator last))
-    1.2) bash test.sh assign_2        (assign(size_type n, const value_type& val))
+        1.1) bash test.sh assign_1    (assign(InputIterator first, InputIterator last))
+        1.2) bash test.sh assign_2    (assign(size_type n, const value_type& val))
     2) bash test.sh push_back
     3) bash test.sh pop_back
     4) bash test.sh insert            (все тесты)
-    4.1) bash test.sh insert_1        (insert(iterator position, const value_type& val))
-    4.2) bash test.sh insert_2        (insert(iterator position, size_type n, const value_type& val))
-    4.3) bash test.sh insert_3        (insert(iterator position, InputIterator first, InputIterator last))
+        4.1) bash test.sh insert_1    (insert(iterator position, const value_type& val))
+        4.2) bash test.sh insert_2    (insert(iterator position, size_type n, const value_type& val))
+        4.3) bash test.sh insert_3    (insert(iterator position, InputIterator first, InputIterator last))
     5) bash test.sh erase             (все тесты)
-    5.1) bash test.sh erase_1         erase(iterator position)
-    5.2) bash test.sh erase_2         erase(iterator first, iterator last)
+        5.1) bash test.sh erase_1     erase(iterator position)
+        5.2) bash test.sh erase_2     erase(iterator first, iterator last)
     6) bash test.sh Mod_swap          (bash test.sh swap все тесты для swap)
     7) bash test.sh clear
     
