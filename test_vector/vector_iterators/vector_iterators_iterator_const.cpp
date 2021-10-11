@@ -110,8 +110,103 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "check SELF! operator->() { return (_ptr); }\n";
+	//std::cout << "check SELF! operator->() { return (_ptr); }\n";
+	std::cout << "test operator->\n";
 
+	temp_orig = "", temp_my = "";
+	time_orig = clock();
+
+	std::vector<std::pair<int, char> > orig_pair;
+	orig_pair.push_back(std::make_pair(1, 'a'));
+	std::vector<std::pair<int, char> >::const_iterator it_orig_pair(orig_pair.begin());
+	for (size_t i = 0; i < SIZE_100K; i++)
+	{
+		temp_orig += std::to_string(it_orig_pair->first);
+		temp_orig += std::to_string(it_orig_pair->second);
+	}
+
+	time_orig = clock() - time_orig;
+
+	time_my = clock();
+
+	ft::vector<ft::pair<int, char> > my_pair;
+	my_pair.push_back(ft::make_pair(1, 'a'));
+	ft::vector<ft::pair<int, char> >::const_iterator it_my_pair(my_pair.begin());
+	for (size_t i = 0; i < SIZE_100K; i++)
+	{
+		temp_my += std::to_string(it_my_pair->first);
+		temp_my += std::to_string(it_my_pair->second);
+	}
+	//temp_my += " ";
+
+	time_my = clock() - time_my;
+
+	rez += print_status_comp(temp_orig, temp_my);
+	rez += print_status_time(time_orig, time_my);
+	//=============================================================
+		long long int	long_per = 9223372036854775807;
+	char 			ch = 'a';
+	int 			per = 42;
+	temp_orig = "", temp_my = "";
+	long_per--;
+	it1_orig = orig.begin() + 1;
+	it1_my = my.begin() + 1;
+	
+	std::cout << "test other\n";
+	time_orig = clock();
+	//Оригинал
+	it1_orig = it1_orig + ch;
+	it1_orig = it1_orig - ch;
+	it1_orig = ch + it1_orig;
+	it1_orig = -ch + it1_orig;
+	//--
+	it1_orig = it1_orig + per;
+	it1_orig = it1_orig - per;
+	it1_orig = per + it1_orig;
+	it1_orig = -per + it1_orig;
+	//--
+	it1_orig = it1_orig + long_per;
+	it1_orig = it1_orig - long_per;
+	it1_orig = long_per + it1_orig;
+	it1_orig = 1L + it1_orig;
+	it1_orig = 1LL + it1_orig;
+	it1_orig = -long_per + it1_orig;
+	//--
+
+	//std::cout << "it1_orig= " << *it1_orig << std::endl;
+	temp_orig += std::to_string(*it1_orig);
+
+	time_orig = clock() - time_orig;
+
+	time_my = clock();
+	//Мой код
+	it1_my = it1_my + ch;
+	it1_my = it1_my - ch;
+	it1_my = ch + it1_my;
+	it1_my = -ch + it1_my;
+	//--
+	it1_my = it1_my + per;
+	it1_my = it1_my - per;
+	it1_my = per + it1_my;
+	it1_my = -per + it1_my;
+	//--
+	it1_my = it1_my + long_per;
+	it1_my = it1_my - long_per;
+	it1_my = long_per + it1_my;
+	it1_my = 1L + it1_my;
+	it1_my = 1LL + it1_my;
+	it1_my = -long_per + it1_my;
+	//--
+
+	//std::cout << "it1_my= " << *it1_my << std::endl;
+	temp_my += std::to_string(*it1_my);
+	//temp_my += " ";
+
+	time_my = clock() - time_my;
+
+	rez += print_status_comp(temp_orig, temp_my);
+	rez += print_status_time(time_orig, time_my);
+	//=============================================================
 
 	return (!rez);
 }

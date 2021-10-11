@@ -4,6 +4,14 @@ int	main ()
 {
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 
+	ft::vector<int> k;
+	ft::vector<int> k1(k.get_allocator());
+
+	if (k.get_allocator() == k1.get_allocator())
+		rez += print_status_comp(" ", " ");
+	else
+		rez += print_status_comp("какая жалость", "какая жалость");
+
 	std::vector<int> orig_1;
 	ft::vector<int> my_1;
 

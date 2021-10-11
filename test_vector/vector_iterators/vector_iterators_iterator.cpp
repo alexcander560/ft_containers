@@ -1,22 +1,5 @@
 #include "../test_utility.cpp"
 
-// class Test_class
-// {
-// 	public:
-// 		std::vector<int>::iterator iter;
-// };
-
-// void	test_iter(Test_class it, Test_class *it_r)
-// {
-// 	//std::cout << "Hello\n";
-// 	std::vector<int>::iterator iter;
-
-// 	iter = it.iter;
-// 	std::cout << "1: " << *iter << std::endl;
-// 	std::cout << "2: " << *(it.iter) << std::endl;
-// 	std::cout << "3: " << *(it_r->iter) << std::endl;
-// }
-
 int	main ()
 {
 	std::string	temp_orig = "", temp_my = "";
@@ -36,12 +19,11 @@ int	main ()
 	it2_my = my.end();
 	init_vector_all(&orig, &my);
 
+	//std::cout << "it1_orig= " << *it1_orig << std::endl;
+	//std::cout << "it1_my= " << *it1_my << std::endl;
+
 	std::cout << "all test operator\n";
 	time_orig = clock();
-
-	// Test_class test_clas_var;
-	// test_clas_var.iter = it1_orig;
-	// test_iter(test_clas_var, &test_clas_var);
 
 	while (it1_orig != it2_orig)
 	{
@@ -128,7 +110,103 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "check SELF! operator->() { return (_ptr); }\n";
+	//std::cout << "check SELF! operator->() { return (_ptr); }\n";
+	std::cout << "test operator->\n";
+
+	temp_orig = "", temp_my = "";
+	time_orig = clock();
+
+	std::vector<std::pair<int, char> > orig_pair;
+	orig_pair.push_back(std::make_pair(1, 'a'));
+	std::vector<std::pair<int, char> >::iterator it_orig_pair(orig_pair.begin());
+	for (size_t i = 0; i < SIZE_100K; i++)
+	{
+		temp_orig += std::to_string(it_orig_pair->first);
+		temp_orig += std::to_string(it_orig_pair->second);
+	}
+
+	time_orig = clock() - time_orig;
+
+	time_my = clock();
+
+	ft::vector<ft::pair<int, char> > my_pair;
+	my_pair.push_back(ft::make_pair(1, 'a'));
+	ft::vector<ft::pair<int, char> >::iterator it_my_pair(my_pair.begin());
+	for (size_t i = 0; i < SIZE_100K; i++)
+	{
+		temp_my += std::to_string(it_my_pair->first);
+		temp_my += std::to_string(it_my_pair->second);
+	}
+	//temp_my += " ";
+
+	time_my = clock() - time_my;
+
+	rez += print_status_comp(temp_orig, temp_my);
+	rez += print_status_time(time_orig, time_my);
+	//=============================================================
+	long long int	long_per = 9223372036854775807;
+	char 			ch = 'a';
+	int 			per = 42;
+	temp_orig = "", temp_my = "";
+	long_per--;
+	it1_orig = orig.begin() + 1;
+	it1_my = my.begin() + 1;
+	
+	std::cout << "test other\n";
+	time_orig = clock();
+	//Оригинал
+	it1_orig = it1_orig + ch;
+	it1_orig = it1_orig - ch;
+	it1_orig = ch + it1_orig;
+	it1_orig = -ch + it1_orig;
+	//--
+	it1_orig = it1_orig + per;
+	it1_orig = it1_orig - per;
+	it1_orig = per + it1_orig;
+	it1_orig = -per + it1_orig;
+	//--
+	it1_orig = it1_orig + long_per;
+	it1_orig = it1_orig - long_per;
+	it1_orig = long_per + it1_orig;
+	it1_orig = 1L + it1_orig;
+	it1_orig = 1LL + it1_orig;
+	it1_orig = -long_per + it1_orig;
+	//--
+
+	//std::cout << "it1_orig= " << *it1_orig << std::endl;
+	temp_orig += std::to_string(*it1_orig);
+
+	time_orig = clock() - time_orig;
+
+	time_my = clock();
+	//Мой код
+	it1_my = it1_my + ch;
+	it1_my = it1_my - ch;
+	it1_my = ch + it1_my;
+	it1_my = -ch + it1_my;
+	//--
+	it1_my = it1_my + per;
+	it1_my = it1_my - per;
+	it1_my = per + it1_my;
+	it1_my = -per + it1_my;
+	//--
+	it1_my = it1_my + long_per;
+	it1_my = it1_my - long_per;
+	it1_my = long_per + it1_my;
+	it1_my = 1L + it1_my;
+	it1_my = 1LL + it1_my;
+	it1_my = -long_per + it1_my;
+	//--
+
+	//std::cout << "it1_my= " << *it1_my << std::endl;
+	temp_my += std::to_string(*it1_my);
+	//temp_my += " ";
+
+	time_my = clock() - time_my;
+
+	rez += print_status_comp(temp_orig, temp_my);
+	rez += print_status_time(time_orig, time_my);
+	//=============================================================
 
 	return (!rez);
 }

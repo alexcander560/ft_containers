@@ -18,11 +18,11 @@ declare -i rez=0
 #=========================================================================================
 #==============================Element access=============================================
 #=========================================================================================
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]]; then
 	printf "$PURPLE Element access $DEFAULT\n"
 fi
 # 1
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "acc" ]]; then
 	printf "$YELLOW Test [] $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -37,7 +37,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc" ]]; then
 	rm -rf vector_prog
 fi
 # 2
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc_const" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "acc_const" ]]; then
 	printf "$YELLOW Test [] const $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_operator_const.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -52,7 +52,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "acc_const" ]]; then
 	rm -rf vector_prog
 fi
 # 3
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "at" ]]; then
 	printf "$YELLOW Test at $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -67,7 +67,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at" ]]; then
 	rm -rf vector_prog
 fi
 # 4
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at_const" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "at_const" ]]; then
 	printf "$YELLOW Test at const $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_at_const.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -82,7 +82,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "at_const" ]]; then
 	rm -rf vector_prog
 fi
 # 5
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "front" ]]; then
 	printf "$YELLOW Test front $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -97,7 +97,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front" ]]; then
 	rm -rf vector_prog
 fi
 # 6
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front_const" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "front_const" ]]; then
 	printf "$YELLOW Test front const $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_front_const.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -112,7 +112,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "front_const" ]]; then
 	rm -rf vector_prog
 fi
 # 7
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "bask" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "bask" ]]; then
 	printf "$YELLOW Test back $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -127,7 +127,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "bask" ]]; then
 	rm -rf vector_prog
 fi
 # 8
-if [[ "$1" == "" ]] || [[ "$1" == "ACC" ]] || [[ "$1" == "bask_const" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "bask_const" ]]; then
 	printf "$YELLOW Test back const $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back_const.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -458,7 +458,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" 
 fi
 #4.3
 if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" == "insert_3" ]]; then
-	printf "$YELLOW Test insert(???) $DEFAULT \n"
+	printf "$YELLOW Test insert(iterator position, InputIterator first, InputIterator last) $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_insert_3.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
 	rez=$?
@@ -473,7 +473,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" 
 fi
 #5.1
 if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_1" ]]; then
-	printf "$YELLOW Test erase (1 arg) $DEFAULT \n"
+	printf "$YELLOW Test erase(iterator position) $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_erase_1.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
 	rez=$?
@@ -488,7 +488,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" =
 fi
 #5.2
 if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_2" ]]; then
-	printf "$YELLOW Test erase (2 arg) $DEFAULT \n"
+	printf "$YELLOW Test erase(iterator first, iterator last) $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_modifiers/vector_modifiers_erase_2.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
 	rez=$?

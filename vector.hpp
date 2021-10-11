@@ -39,6 +39,9 @@ namespace ft
 			pointer			_end;
 			pointer 		_capacity;
 
+			//------------------------------------------------------------------------
+			//---------------------------MyIterator-----------------------------------
+			//------------------------------------------------------------------------
 			class MyIterator: public ft::iterator<std::random_access_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, value_type>	parent;
@@ -57,11 +60,17 @@ namespace ft
 
 					const MyIterator		&operator=(const MyIterator &it)
 					{
-						if (this != &it) _ptr = it._ptr;
+						//std::cout << "Hello NO const iter =\n";
+						if (this != &it)
+							_ptr = it._ptr;
 						return (*this);
 					}
-					reference				operator*()												{ return (*_ptr); }
-					pointer					operator->()											{ return (_ptr); }
+					reference				operator*()
+					{ //std::cout << "HEllo operator *\n";
+						return (*_ptr); }
+					pointer					operator->()											{
+						//std::cout << "HEllo operator ->\n";
+						return (_ptr); }
 					MyIterator&				operator++()
 					{
 						++_ptr;
@@ -75,11 +84,13 @@ namespace ft
 					}
 					MyIterator&				operator--()
 					{
+						//std::cout << "HEllo operator --()\n";
 						--_ptr;
 						return (*this);
 					}
 					MyIterator				operator--(int)
 					{
+						//std::cout << "HEllo operator --(int)\n";
 						MyIterator tmp = *this;
 						--(*this);
 						return (tmp);
@@ -91,9 +102,12 @@ namespace ft
 					friend bool				operator<= (const MyIterator lhs, const MyIterator rhs)	{ return (!(rhs._ptr < lhs._ptr)); }
 					friend bool				operator> (const MyIterator lhs, const MyIterator rhs)	{ return (rhs < lhs); }
 					friend bool				operator>= (const MyIterator lhs, const MyIterator rhs)	{ return !(lhs < rhs); }
-					MyIterator				operator+ (difference_type n) const						{ return (MyIterator(_ptr + n)); }
+					MyIterator				operator+ (difference_type n) const						{ 
+						//std::cout << "Hello operator+\n";
+						return (MyIterator(_ptr + n)); }
 					friend MyIterator		operator+(int n, MyIterator& p)
 					{
+						//std::cout << "Hello operator+(int n, ConstMyIterator& p)\n";
 						p._ptr = p._ptr + n;
 						return (p._ptr);
 					}
@@ -107,6 +121,9 @@ namespace ft
 					reference				operator[](difference_type n) const						{ return (_ptr[n]); }
 			};
 
+			//------------------------------------------------------------------------
+			//---------------------------ConstMyIterator------------------------------
+			//------------------------------------------------------------------------
 			class ConstMyIterator: public ft::iterator<std::random_access_iterator_tag, const value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, const value_type>	parent;
@@ -123,12 +140,15 @@ namespace ft
 
 					const ConstMyIterator	&operator=(const ConstMyIterator &it)
 					{
+						//std::cout << "Hello const iter =\n";
 						if (this != &it)
 							_ptr = it._ptr;
 						return (*this);
 					}
 					reference				operator*()															{ return (*_ptr); }
-					pointer					operator->()														{ return (_ptr); }
+					pointer					operator->()														{ 
+						//std::cout << "Hello operator-> const\n";
+						return (_ptr); }
 					ConstMyIterator&		operator++()
 					{
 						++_ptr;
@@ -158,9 +178,12 @@ namespace ft
 					friend bool				operator<= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(rhs._ptr < lhs._ptr); }
 					friend bool				operator> (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return rhs < lhs; }
 					friend bool				operator>= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(lhs < rhs); }
-					ConstMyIterator			operator+ (difference_type n) const									{ return (ConstMyIterator(_ptr + n)); }
-					friend ConstMyIterator	operator+(int n, ConstMyIterator& p)
+					ConstMyIterator			operator+ (difference_type n) const									{ 
+						//std::cout << "Hello\n";
+						return (ConstMyIterator(_ptr + n)); }
+					friend ConstMyIterator	operator+(difference_type n, ConstMyIterator& p)
 					{
+						//std::cout << "Hello const operator+(difference_type n, ConstMyIterator& p)\n";
 						p._ptr = p._ptr + n;
 						return (p._ptr);
 					}
@@ -270,9 +293,10 @@ namespace ft
 				return new_buf + sz_p1;
 			}
 			template <typename InputIterator>
-			pointer					_reallocate_with_insert(pointer position, InputIterator first, InputIterator last,
-															typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
+			pointer					_reallocate_with_insert(pointer position, InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{
+				//std::cout << "_reallocate_with_insert\n";
+
 				const size_type n		= static_cast<size_type>(std::distance(first, last));
 				const size_type	newsz	= size() + n;
 				const size_type sz_p1	= static_cast<size_type>(position - _begin);
@@ -312,10 +336,14 @@ namespace ft
 				_end += n;
 			}
 			template <typename InputIterator>
-			void					_insert_not_end(pointer position, InputIterator first, InputIterator last,
-													typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
+			void					_insert_not_end(pointer position, InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{
+				//std::cout << "ALLO BLAT 2\n";
 				const size_type n		= static_cast<size_type>(std::distance(first, last));
+
+				//std::cout << "n: " << n << std::endl;
+				//std::cout << "dop: " << first - _begin << std::endl;
+
 				pointer			end_copy_pos;
 				
 				for (size_type i = 1; i <= n; ++i)
@@ -324,15 +352,33 @@ namespace ft
 					
 					end_copy_pos = _end - i;	
 					if (end_copy_pos >= _begin)
+					{
+						//std::cout << "1\n";
 						pval = end_copy_pos;
+					}
 					else
+					{
+						//std::cout << "2\n";
 						pval = &(*--last);
+					}
 					_alloc.construct(_end + n - i, *pval);
+
+					//std::cout << "pos start: " << *(pval) << "\n";
 				}
 				for (pointer p = end_copy_pos - 1; p > position - 1; --p)
+				{
+					//std::cout << "pos mid: " << *p << std::endl;
 					*(p + n) = *p;
-				for (; first != last; ++first, ++position)
-					*position = *first;
+				}
+
+				for (; first != last;)
+				{
+					//std::cout << "pos end до: " << *position << std::endl;
+					*(position + n - 1) = *(last - 1);
+					//std::cout << "pos end по: " << *position << std::endl;
+					--last;
+					--position;
+				}
 				_end += n;
 			}
 
@@ -420,7 +466,8 @@ namespace ft
 			{
 				if (this != &x)
 				{
-					assign(x.begin, x.end);
+					// assign(x.begin, x.end);
+					assign(x._begin, x._end);
 				}
 				return *this;
 			}
@@ -525,7 +572,7 @@ namespace ft
 			// Возвращает ссылку на последний элемент вектора
 			const_reference back() const					{ return (*(_end - 1)); }
 			//------------------------------------------------------------------------
-			//-----------------------------Modifiers(11/11)----------------------------
+			//-----------------------------Modifiers(11/11)---------------------------
 			//------------------------------------------------------------------------
 			template <class InputIterator>
 			//Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
@@ -589,7 +636,7 @@ namespace ft
 				_end = _end - 1;
 				*/
 			}
-			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
+			// Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
 			iterator insert (iterator position, const value_type& val)
 			{
 				//std::cout << "IN 1\n";
@@ -609,14 +656,12 @@ namespace ft
 			// Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				//std::cout << "IN 2\n";
-
 				if (n == 0)
 					return ;
 
 				pointer p = position._ptr;
 
-				if (_end < _capacity)
+				if (_end + n <= _capacity)
 				{
 					if (p == _end)
 						_construct_at_end(n, val);
@@ -630,15 +675,20 @@ namespace ft
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
-				std::cout << "IN 3\n";
 				pointer p = position._ptr;
+
+				if (first == last)
+					return ;
 				
-				if (_end < _capacity)
+				if (_end + (last - first) <= _capacity)
 				{
 					if (p == _end)
 						_construct_at_end(first, last);
 					else
+					{
+						//std::cout << "ALLO BLAT\n";
 						_insert_not_end(p, first, last);
+					}
 				}
 				else
 					_reallocate_with_insert(p, first, last);

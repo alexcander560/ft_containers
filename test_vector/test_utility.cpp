@@ -20,7 +20,7 @@
 
 # define RANDOM		10
 # define STR_PART	100
-# define STR_MAX	1000
+# define STR_MAX	10000
 
 # define SIZE_0		0
 # define SIZE_1		1
@@ -31,6 +31,8 @@
 # define SIZE_50K	50000
 # define SIZE_100K	100000
 # define SIZE_1M	1000000
+# define SIZE_10M	10000000
+# define SIZE_100M	100000000
 
 // Иницилихация вектора std, ft одними параметрами
 template <typename T>
@@ -48,32 +50,35 @@ void	init_vector_all(std::vector<T>* a_orig, ft::vector<T>* a_my)
 		(*a_orig)[i] = (*a_my)[i] = (rand() % RANDOM) + 0.5;
 }
 
-// Иницилихация вектора std
+// Иницилихация вектора
 template <typename T>
-void	init_vector(std::vector<T>* a)
+void	init_vector(T *a)
 {
-	std::srand(time(NULL));
+	//std::srand(time(NULL));
 	int	size = (*a).size();
 	for (int i = 0; i < size; i++)
-		(*a)[i] = (rand() % RANDOM) + 0.5;
+		(*a)[i] = (rand() % 10) + 0.5;
 }
 
+// Иницилихация вектора std
+//Было удалено
+
 // Иницилихация вектора ft
-template <typename T>
-void	init_vector(ft::vector<T>* a)
-{
-	std::srand(time(NULL));
-	int	size = (*a).size();
-	for (int i = 0; i < size; i++)
-		(*a)[i] = (rand() % RANDOM) + 0.5;
-}
+// template <typename T>
+// void	init_vector(ft::vector<T>* a)
+// {
+// 	std::srand(time(NULL));
+// 	int	size = (*a).size();
+// 	for (int i = 0; i < size; i++)
+// 		(*a)[i] = (rand() % RANDOM) + 0.5;
+// }
 
 // Печать булевого значения с красивом виде
 std::string	print_status(bool t)
 {
 	std::string ret;
 	if (t)
-		ret =  GREEN " OK " DEFAULT;
+		ret = GREEN " OK " DEFAULT;
 	else
 		ret = RED " KO " DEFAULT;
 	return (ret);
@@ -158,8 +163,9 @@ bool	print_status_time(int orig, int my)
 }
 
 template <typename T>
-std::string	vektor_base_test(std::vector<T> *a)
+std::string	vektor_base_test(T *a)
 {
+	//std::cout << "\n\n\n\n";
 	size_t size = 0;
 	std::string	temp = "";
 
@@ -171,16 +177,16 @@ std::string	vektor_base_test(std::vector<T> *a)
 	return (temp);
 }
 
-template <typename T>
-std::string	vektor_base_test(ft::vector<T> *a)
-{
-	size_t size = 0;
-	std::string	temp = "";
+// template <typename T>
+// std::string	vektor_base_test(ft::vector<T> *a)
+// {
+// 	size_t size = 0;
+// 	std::string	temp = "";
 
-	size = (*a).size();
-	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
-	for (size_t i = 0; i < size; i++)
-		temp += std::to_string((*a)[i]);
+// 	size = (*a).size();
+// 	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
+// 	for (size_t i = 0; i < size; i++)
+// 		temp += std::to_string((*a)[i]);
 
-	return (temp);
-}
+// 	return (temp);
+// }

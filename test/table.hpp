@@ -8,7 +8,7 @@ std::string	print_status(bool t)
 {
 	std::string ret;
 	if (t)
-		ret =  GREEN " OK " DEFAULT;
+		ret = GREEN " OK " DEFAULT;
 	else
 		ret = RED " KO " DEFAULT;
 	return (ret);
