@@ -18,7 +18,7 @@ namespace ft
 		class ConstMyIterator;
 		public:
 			//------------------------------------------------------------------------
-			//---------------------------typedef(12/12)--------------------------------
+			//---------------------------typedef(12/12)-------------------------------
 			//------------------------------------------------------------------------
 			typedef T											value_type;
 			typedef Allocator									allocator_type;
@@ -386,94 +386,74 @@ namespace ft
 			//------------------------------------------------------------------------
 			//------------------------------constructor(4/4)--------------------------
 			//------------------------------------------------------------------------
-			// Конструктор без параметров
+			// ПРОВЕРЕНО Конструктор без параметров
 			explicit vector (const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
-				_begin = NULL;
-				_end = NULL;
-				_capacity = NULL;
-
+				_begin = _end = _capacity = NULL;
 			}
-			// Конструктор с 1 параметром (длина вектора)
+			// ПРОВЕРЕНО Конструктор с 1 параметром (длина вектора)
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
-				_nallocate(n);
-				_construct_at_end(n, val);
-				/*
 				if (n > max_size())
 					throw std::length_error("vector");
 				_begin = _alloc.allocate(n);
-				_end = _begin + n;
-				_capacity = _end;
+				_end = _capacity = _begin + n;
 				for (pointer i = _begin; i != _end; i++)
 					_alloc.construct(i, val);
-				*/
 			}
-			// Конструктор с 2 параметрами (набор значений)
+			// ПРОВЕРЕНО Конструктор с 2 параметрами (набор значений)
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
-				_nallocate(std::distance(first, last));
-				_construct_at_end(first, last);
-			}
-			// Конструктор копирования
-			vector (const vector& x): _alloc(x.get_allocator())
-			{
-				pointer pos;
-				size_type n = x.size();
-
-				_nallocate(n);
-				pos = _begin;
-				for (size_type i = 0; i < n; ++i, ++pos)
-					_alloc.construct(pos, *(x._begin + i));
-				_end = pos;
-				/*
-				pointer pos;
-				size_type n = x.size();
+				size_type n = std::distance(first, last);
 
 				if (n > max_size())
 					throw std::length_error("vector");
 				_begin = _alloc.allocate(n);
-				pos = _begin;
-				_end = _begin + n;
-				_capacity = _end;
-				for (size_type i = 0; i < n; i++, ++pos)
-					_alloc.construct(pos, *(x._begin + i));
-				*/
+				_end = _capacity = _begin + n;
+				for (pointer i = _begin; first != last; first++, i++)
+					_alloc.construct(i, *first);
+			}
+			// ПРОВЕРЕНО Конструктор копирования
+			vector (const vector& x): _alloc(x.get_allocator())
+			{
+				//std::cout << "Конструктор копирования\n";
+				size_type n = x.size();
+				pointer pos, pos_copy = x._begin;
+
+				_begin = pos = _alloc.allocate(n);
+				_end = _capacity = _begin + n;
+				for (size_type i = 0; i < n; i++, pos++, pos_copy++)
+					_alloc.construct(pos, *(pos_copy));
 			}
 			//------------------------------------------------------------------------
 			//------------------------------destructor(1/1)---------------------------
 			//------------------------------------------------------------------------
+			// ПРОВЕРЕНО Деструктор
 			~vector ()
 			{
-				_deallocate();
-				/*
+				//std::cout << "Деструктор\n";
 				if (_begin != NULL)
 				{
-					while (_end != _begin)
-						_alloc.destroy(--_end);
+					clear();
 					_alloc.deallocate(_begin, capacity());
-					_begin = NULL;
-					_end = NULL;
-					_capacity = NULL;
+					_begin = _end = _capacity = NULL;
 				}
-				*/
 			}
 			//------------------------------------------------------------------------
 			//------------------------------operator=(1/1)----------------------------
 			//------------------------------------------------------------------------
+			// ПРОВЕРЕНО
 			const vector &operator=(const vector &x)
 			{
 				if (this != &x)
-				{
-					// assign(x.begin, x.end);
 					assign(x._begin, x._end);
-				}
-				return *this;
+				return (*this);
 			}
 			//------------------------------------------------------------------------
 			//------------------------------Iterators(8/8)----------------------------
 			//------------------------------------------------------------------------
+			// ПРОВЕРЕНО ВЕСЬ БЛОК
 			iterator				begin()					{ return (iterator(_begin)); }
 			const_iterator			begin() const			{ return (const_iterator(_begin)); }
 			iterator				end()					{ return (iterator(_end)); }
@@ -485,97 +465,84 @@ namespace ft
 			//------------------------------------------------------------------------
 			//------------------------------Capacity(6/6)-----------------------------
 			//------------------------------------------------------------------------
-			// Возвращает длину вектора
+			// ПРОВЕРЕНО Возвращает длину вектора
 			size_type	size() const						{ return (_end - _begin); }
-			// Возвращает максимальное количество элементов, которое может содержать вектор
+			// ПРОВЕРЕНО Возвращает максимальное количество элементов, которое может содержать вектор
 			size_type	max_size() const					{ return (_alloc.max_size()); }
-			// Изменяет размер контейнера, чтобы он содержал n элементов
+			// ПРОВЕРЕНО Изменяет размер контейнера, чтобы он содержал n элементов
 			void		resize(size_type n, value_type val = value_type())
 			{
-				// Возможно должно быть исключение
-				const size_type size_temp = size();
+				size_type size = this->size();
 
-				if (size_temp < n)
+				if (n > max_size())
+					throw std::length_error("vector");
+				else if (n < size)
 				{
-					if (static_cast<size_type>(_capacity - _end) >= n - size_temp)
-						_construct_at_end(n - size_temp, val);
-					else
+					while (size > n)
 					{
-						_reallocate(_get_new_cap(size() + n - size_temp));
-						_construct_at_end(n - size_temp, val);
+						_end--;
+						size--;
+						_alloc.destroy(_end);
 					}
 				}
-				else if (size_temp > n)
-					_destruct_at_end(_begin + n);
+				else
+					insert(end(), n - size, val);
 			}
-			// Возвращает размер памяти выделенный для вектора в элементах
+			// ПРОВЕРЕНО Возвращает размер памяти выделенный для вектора в элементах
 			size_type	capacity() const					{ return _capacity - _begin; }
-			// Пустой ли вектор?
+			// ПРОВЕРЕНО Пустой ли вектор?
 			bool		empty() const						{ return (size() ? false : true); }
-			// Пытается сделать ёмкость вектора как минимум достаточной для размещения n элементов
+			// ПРОВЕРЕНО Пытается сделать ёмкость вектора как минимум достаточной для размещения n элементов
 			void		reserve (size_type n)
 			{
-				// Возможно должно быть исключение
-				if (n > capacity())
-				{
-					_reallocate(n);
-				}
-				/*
+				pointer		begin_old = _begin, begin_temp = _begin, end_old = _end;
+				size_type	capacity_old = capacity();
+
 				if (n > max_size())
 					throw std::length_error("vector");
 				else if (n > capacity())
 				{
-					size_type size_temp = size();
-					pointer	new_buf = _alloc.allocate(n);
-
-					for (size_type i = 0; i < n; ++i)
-						_alloc.construct(new_buf + i, _begin[i]);
-					if (_begin != NULL)
-					{
-						while (_end != _begin)
-							_alloc.destroy(--_end);
-						_alloc.deallocate(_begin, capacity());
-					}
-					_begin = new_buf;
-					_end = new_buf + size_temp;
-					_capacity = new_buf + n;
+					_begin = _end = _alloc.allocate( n );
+					_capacity = _begin + n;
+					while (begin_old != end_old)
+						_alloc.construct(_end++, *begin_old++);
+					_alloc.deallocate(begin_temp, capacity_old);
 				}
-				*/
 			}
 			//------------------------------------------------------------------------
 			//---------------------------Element access(8/8)--------------------------
 			//------------------------------------------------------------------------
-			// Доступ к элементу без защиты
+			// ПРОВЕРЕНО Доступ к элементу без защиты
 			reference		operator[](size_type n)			{ return *(_begin + n); }
-			// Доступ к элементу без защиты
+			// ПРОВЕРЕНО Доступ к элементу без защиты
 			const_reference operator[](size_type n) const	{ return *(_begin + n); }
-			// Доступ к элементу с защитой
+			// ПРОВЕРЕНО Доступ к элементу с защитой
 			reference 		at(size_type n)
 			{
 				if (n >= size())
 					throw std::out_of_range("vector");
 				return (*(_begin + n));
 			}
-			// Доступ к элементу с защитой
+			// ПРОВЕРЕНО Доступ к элементу с защитой
 			const_reference at(size_type n) const
 			{
 				if (n >= size())
 					throw std::out_of_range("vector");
 				return (*(_begin + n));
 			}
-			// Возвращает ссылку на первый элемент вектора
+			// ПРОВЕРЕНО Возвращает ссылку на первый элемент вектора
 			reference		front()							{ return (*_begin); }
-			// Возвращает ссылку на первый элемент вектора
+			// ПРОВЕРЕНО Возвращает ссылку на первый элемент вектора
 			const_reference front() const					{ return (*_begin); }
-			// Возвращает ссылку на последний элемент вектора
+			// ПРОВЕРЕНО Возвращает ссылку на последний элемент вектора
 			reference 		back()							{ return (*(_end - 1)); }
-			// Возвращает ссылку на последний элемент вектора
+			// ПРОВЕРЕНО Возвращает ссылку на последний элемент вектора
 			const_reference back() const					{ return (*(_end - 1)); }
 			//------------------------------------------------------------------------
 			//-----------------------------Modifiers(11/11)---------------------------
 			//------------------------------------------------------------------------
 			template <class InputIterator>
-			//Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			// СЛОЖНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void assign (InputIterator first, InputIterator last)
 			{
 				size_type csz = static_cast<size_type>(std::distance(first, last));
@@ -598,7 +565,7 @@ namespace ft
 						_construct_at_end(first, last);
 				}
 			}
-			//Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			//СЛОЖНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void assign (size_type n, const value_type& val)
 			{
 				if (capacity() < n)
@@ -620,23 +587,28 @@ namespace ft
 						_construct_at_end(n - sz, val);
 				}
 			}
-			// Добавляет новый элемент в конец вектора
+			// ПРОВЕРЕНО Добавляет новый элемент в конец вектора
 			void push_back (const value_type& val)
 			{
+				size_t size = this->size();
+
 				if (_end == _capacity)
-					_reallocate(_get_new_cap(size() + 1));
-				_construct_one_at_end(val);
+				{
+					if (size == 0)
+						reserve(1);
+					else
+						reserve(size * 2);
+				}
+				_alloc.construct(_end, val);
+				_end++;
 			}
-			// Удаляет последний элемент в векторе (вектор пуст -> неопределённое поведение)
+			// ПРОВЕРЕНО Удаляет последний элемент в векторе (вектор пуст -> неопределённое поведение)
 			void pop_back()
 			{
-				_destruct_at_end(_end - 1);
-				/*
-				_alloc.destroy(_end - 1);
-				_end = _end - 1;
-				*/
+				_alloc.destroy(&back());
+				_end--;
 			}
-			// Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
+			// СЛОЖНО Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
 			iterator insert (iterator position, const value_type& val)
 			{
 				//std::cout << "IN 1\n";
@@ -653,7 +625,7 @@ namespace ft
 					p = _reallocate_with_insert(p, val);
 				return iterator(p);
 			}
-			// Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
+			// СЛОЖНО Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				if (n == 0)
@@ -671,7 +643,7 @@ namespace ft
 				else
 					_reallocate_with_insert(p, val, n);
 			}
-			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
+			// СЛОЖНО Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
@@ -693,46 +665,38 @@ namespace ft
 				else
 					_reallocate_with_insert(p, first, last);
 			}
-			//Удаляет из вектора один элемент 
+			// ПРОВЕРЕНО Удаляет из вектора один элемент 
 			iterator erase (iterator position)
 			{
-				pointer p = position._ptr;
+				pointer		p = position._ptr;
+				size_type	size_new = static_cast<size_type>((_end - p - 1) * sizeof(value_type));
 
 				if ( p == _end - 1)
-					_destruct_at_end(p);
+					_alloc.destroy(position._ptr);
 				else
-				{
-					size_type sz = static_cast<size_type>((_end - p - 1) * sizeof(value_type));
-					
+				{				
 					_alloc.destroy(p);
-					std::memmove(p, p + 1, sz);
-					--_end;
+					std::memmove(p, p + 1, size_new);
 				}
-				return iterator(p);
+				_end--;
+				return (iterator(p));
 			}
-			//Удаляет из вектора диапазон элементов
+			// ПРОВЕРЕНО Удаляет из вектора диапазон элементов
 			iterator erase (iterator first, iterator last)
 			{
-				pointer		fp = first._ptr;
-				pointer		lp = last._ptr;
-
-				//std::cout << "Hello\n";
-
-				if (lp == _end)
-					_destruct_at_end(fp);
-				else
-				{
-					size_type i		= 0; 
-					size_type sz	= static_cast<size_type>((_end - lp) * sizeof(value_type));
+				pointer		first_ptr = first._ptr, first_ptr_temp = first_ptr, last_ptr = last._ptr;
+				size_type	size_new = static_cast<size_type>((_end - last_ptr) * sizeof(value_type));
 					
-					for (; fp + i != lp; ++i)
-						_alloc.destroy(fp + i);
-					std::memmove(fp, lp, sz);
-					_end -= i;
+				if (first_ptr != last_ptr)
+				{
+					for (size_type i = 0; first_ptr_temp != last_ptr; i++, first_ptr_temp++)
+						_alloc.destroy(first_ptr);
+					std::memmove(first_ptr, last_ptr, size_new);
+					_end -= last_ptr - first_ptr;
 				}
-				return iterator(fp);
+				return (iterator(first_ptr));
 			}
-			// Заменяет содержимое контейнера содержимым x , который является другим векторным объектом того же типа
+			// ПРОВЕРЕНО Заменяет содержимое контейнера содержимым x , который является другим векторным объектом того же типа
 			void swap (vector& x)
 			{
 				if (this != &x)
@@ -742,37 +706,32 @@ namespace ft
 					std::swap(_capacity, x._capacity);
 				}
 			}
-			// Удаляет все элементы из вектора
+			// ПРОВЕРЕНО Удаляет все элементы из вектора
 			void clear()
 			{
-				_destruct_at_end(_begin);
-				/*
-				while (_end != _begin)
-					_alloc.destroy(--_end);
-				_end = _begin;
-				*/
+				size_type size = this->size();
+
+				for (size_type i = 0; i < size; i++)
+					_alloc.destroy(_end--);
 			}
 			//------------------------------------------------------------------------
 			//-----------------------------Allocator(1/1)-----------------------------
 			//------------------------------------------------------------------------
+			// ПРОВЕРЕНО
 			allocator_type	get_allocator() const			{ return (_alloc); }
 	};
 
 	//------------------------------------------------------------------------
 	//-------------------Non-member function overloads(7/7)-------------------
 	//------------------------------------------------------------------------
+	// ПРОВЕРЕНО ВЕСЬ БЛОК
 	typedef	std::size_t		size_type;
 	template <typename T, typename Alloc>
-	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-	{
-		if (lhs.size() != rhs.size())
-			return (false);
-		return (equal(lhs.begin(), lhs.end(), rhs.begin()));
-	};
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{return (lhs.size() != rhs.size() ? false : equal(lhs.begin(), lhs.end(), rhs.begin())); }
 	template <typename T, typename Alloc>
 	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return !(lhs == rhs); }
 	template <typename T, typename Alloc>
-	bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)		{	return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); };
+	bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)		{ return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); }
 	template <typename T, typename Alloc>
 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (!(rhs < lhs)); }
 	template <typename T, typename Alloc>

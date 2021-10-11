@@ -23,14 +23,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.erase(orig_1.begin());
+	temp_orig += std::to_string (*orig_1.erase(orig_1.begin()));
 	temp_orig += vektor_base_test(&orig_1);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.erase(my_1.begin());
+	temp_my += std::to_string (*my_1.erase(my_1.begin()));
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -44,7 +44,7 @@ int	main ()
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_2);
 	for (size_t i = 0; i < SIZE_100K; i++)
-		orig_2.erase(orig_2.begin());
+		temp_orig += std::to_string (*orig_2.erase(orig_2.begin()));
 	temp_orig += vektor_base_test(&orig_2);
 	time_orig = clock() - time_orig;
 
@@ -52,7 +52,7 @@ int	main ()
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_2);
 	for (size_t i = 0; i < SIZE_100K; i++)
-		my_2.erase(my_2.begin());
+		temp_my += std::to_string (*my_2.erase(my_2.begin()));
 	temp_my += vektor_base_test(&my_2);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -70,11 +70,11 @@ int	main ()
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_3);
 
-	orig_3.erase(orig_3.begin() + 1000);
-	orig_3.erase(orig_3.begin() + 3000);
-	orig_3.erase(orig_3.begin() + 5000);
-	orig_3.erase(orig_3.begin() + 6000);
-	orig_3.erase(orig_3.begin() + 5000);
+	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 1000));
+	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 3000));
+	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 5000));
+	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 6000));
+	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 5000));
 
 	temp_orig += vektor_base_test(&orig_3);
 	time_orig = clock() - time_orig;
@@ -83,11 +83,11 @@ int	main ()
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_3);
 
-	my_3.erase(my_3.begin() + 1000);
-	my_3.erase(my_3.begin() + 3000);
-	my_3.erase(my_3.begin() + 5000);
-	my_3.erase(my_3.begin() + 6000);
-	my_3.erase(my_3.begin() + 5000);
+	temp_my += std::to_string (*my_3.erase(my_3.begin() + 1000));
+	temp_my += std::to_string (*my_3.erase(my_3.begin() + 3000));
+	temp_my += std::to_string (*my_3.erase(my_3.begin() + 5000));
+	temp_my += std::to_string (*my_3.erase(my_3.begin() + 6000));
+	temp_my += std::to_string (*my_3.erase(my_3.begin() + 5000));
 
 	temp_my += vektor_base_test(&my_3);
 	//temp_my += " ";

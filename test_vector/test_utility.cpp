@@ -60,19 +60,6 @@ void	init_vector(T *a)
 		(*a)[i] = (rand() % 10) + 0.5;
 }
 
-// Иницилихация вектора std
-//Было удалено
-
-// Иницилихация вектора ft
-// template <typename T>
-// void	init_vector(ft::vector<T>* a)
-// {
-// 	std::srand(time(NULL));
-// 	int	size = (*a).size();
-// 	for (int i = 0; i < size; i++)
-// 		(*a)[i] = (rand() % RANDOM) + 0.5;
-// }
-
 // Печать булевого значения с красивом виде
 std::string	print_status(bool t)
 {
