@@ -266,8 +266,7 @@ namespace ft
 				_end = new_last;
 			}
 			template <typename InputIterator>
-			void					_construct_at_end(InputIterator first, InputIterator last,
-										typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
+			void					_construct_at_end(InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{	
 				pointer pos = _end; 
 				for (; first != last; ++first, ++pos)
@@ -295,8 +294,6 @@ namespace ft
 			template <typename InputIterator>
 			pointer					_reallocate_with_insert(pointer position, InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{
-				//std::cout << "_reallocate_with_insert\n";
-
 				const size_type n		= static_cast<size_type>(std::distance(first, last));
 				const size_type	newsz	= size() + n;
 				const size_type sz_p1	= static_cast<size_type>(position - _begin);
@@ -542,49 +539,55 @@ namespace ft
 			//-----------------------------Modifiers(11/11)---------------------------
 			//------------------------------------------------------------------------
 			template <class InputIterator>
-			// СЛОЖНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			// ПРОВЕРЕНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void assign (InputIterator first, InputIterator last)
 			{
-				size_type csz = static_cast<size_type>(std::distance(first, last));
+				// Может ли быть исключение, когда n > msx_size? хз другие тоже хз
+				// Делаем временные переменные, так как Iterator может ссылаться на изменяемый массив
+				size_type	n = static_cast<size_type>(std::distance(first, last)), capacity = this->capacity();
+				pointer		first_ptr = first._ptr, last_ptr = last._ptr;
+				pointer		begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
 
-				if (capacity() < csz)
+				clear();
+				if (n == 0)
+					return ;
+
+				if (capacity >= n)
 				{
-					_deallocate();
-					_nallocate(csz);
-					_construct_at_end(first, last);
+					for(; first_ptr != last_ptr; first_ptr++, _end++)
+						_alloc.construct(_end, *first_ptr);
 				}
 				else
 				{
-					size_t n = static_cast<size_type>(std::min(csz, size()));
-
-					for (size_type i = 0; i < n; ++i, ++first)
-						*(_begin + i) = *first;
-					if (size() > n)	
-						_destruct_at_end(_begin + n);
-					else
-						_construct_at_end(first, last);
+					for(; first_ptr != last._ptr; first_ptr++, end_new++)
+						_alloc.construct(end_new, *first_ptr);
+					_alloc.deallocate(_begin, capacity);
+					_begin = begin_new;
+					_end = end_new;
+					_capacity = capacity_new;
 				}
 			}
-			//СЛОЖНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			// ПРОВЕРЕНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void assign (size_type n, const value_type& val)
 			{
-				if (capacity() < n)
+				// Может ли быть исключение, когда n > msx_size? хз другие тоже хз
+				size_type capacity = this->capacity();
+
+				clear();
+				if (n == 0)
+					return ;
+				if (capacity >= n)
 				{
-					_deallocate();
-					_nallocate(n);
-					_construct_at_end(n, val);
+					for (; n; n--)
+						_alloc.construct(_end++ , val);
 				}
 				else
 				{
-					size_t sz = size();
-					size_t end = static_cast<size_type>(std::min(sz, n));
-
-					for (size_type i = 0; i < end; ++i)
-						*(_begin + i) = val;
-					if (sz > n)
-						_destruct_at_end(_begin + n);
-					else
-						_construct_at_end(n - sz, val);
+					_alloc.deallocate(_begin, capacity);
+					_begin = _end = _alloc.allocate(n);
+					_capacity = _begin + n;
+					for (; n; n--)
+						_alloc.construct(_end++, val);
 				}
 			}
 			// ПРОВЕРЕНО Добавляет новый элемент в конец вектора
@@ -735,7 +738,7 @@ namespace ft
 	template <typename T, typename Alloc>
 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (!(rhs < lhs)); }
 	template <typename T, typename Alloc>
-	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (rhs < lhs); }
+	bool operator> (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)		{ return (rhs < lhs); }
 	template <typename T, typename Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (!(lhs < rhs)); }
 	template <class T, class Alloc>
