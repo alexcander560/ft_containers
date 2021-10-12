@@ -22,6 +22,8 @@ int	main ()
 	ft::vector<int>::const_reverse_iterator it2_my(it1_my);
 	it2_my = my.rend();
 
+	//=============================================================
+
 	std::cout << "all test operator const\n";
 	time_orig = clock();
 
@@ -62,7 +64,6 @@ int	main ()
 			break ;
 	}
 	
-	//temp_orig += "|";
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
@@ -103,14 +104,12 @@ int	main ()
 			break ;
 	}
 
-	//temp_my += "||";
 	time_my = clock() - time_my;
 
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	//std::cout << "check SELF! operator->() { return (_ptr); }\n";
 	std::cout << "test operator->\n";
 
 	temp_orig = "", temp_my = "";
@@ -136,8 +135,6 @@ int	main ()
 	my_pair.push_back(ft::make_pair(1, 'a'));
 
 	ft::vector<ft::pair<int, char> >::const_reverse_iterator it_my_pair(my_pair.rbegin());
-
-	//it_my_pair = my_pair.rbegin();
 
 	for (size_t i = 0; i < SIZE_100K; i++)
 	{
@@ -180,7 +177,6 @@ int	main ()
 	it1_orig = -long_per + it1_orig;
 	//--
 
-	//std::cout << "it1_orig= " << *it1_orig << std::endl;
 	temp_orig += std::to_string(*it1_orig);
 
 	time_orig = clock() - time_orig;
@@ -205,7 +201,6 @@ int	main ()
 	it1_my = -long_per + it1_my;
 	//--
 
-	//std::cout << "it1_my= " << *it1_my << std::endl;
 	temp_my += std::to_string(*it1_my);
 	//temp_my += " ";
 

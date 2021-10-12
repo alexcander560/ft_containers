@@ -2,7 +2,6 @@
 #define UTILS_HPP
 
 #include <iterator>
-
 #include "reverse_iterator.hpp"
 #include "iterator.hpp"
 #include "pair.hpp"

@@ -13,6 +13,8 @@ int	main ()
 
 	init_vector_all(&orig_base, &my_base);
 
+	//=============================================================
+
 	time_orig = clock();
 	for (size_t i = 0; i < SIZE_100K; i++)
 		temp_orig += std::to_string(orig[i]) + " ";
@@ -23,9 +25,10 @@ int	main ()
 		temp_my += std::to_string(my[i]) + " ";
 	time_my = clock() - time_my;
 
-	//std::cout << "Test [] const\n";
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
+	//=============================================================
 
 	return (!rez);
 }

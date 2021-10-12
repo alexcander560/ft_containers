@@ -792,11 +792,6 @@ int	table_assign(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	ft::vector<T> my(3);
 	init_vector_all(&orig, &my);
 
-	// point += table_str("no changes", " ", " ");
-	// point += table_elements(a_orig, a_my, 0);
-	// point += table_size(a_orig, a_my, 0);
-	// point += table_capacity(a_orig, a_my, 0);
-
 	point += table_str("assign(iterator)", " ", " ");
 	(*a_orig).assign (orig.begin(), orig.end());
 	(*a_my).assign (my.begin(), my.end());
@@ -826,11 +821,6 @@ int	table_erase(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	std::vector<T> orig(3);
 	ft::vector<T> my(3);
 	init_vector_all(&orig, &my);
-
-	// point += table_str("no changes", " ", " ");
-	// point += table_elements(a_orig, a_my, 0);
-	// point += table_size(a_orig, a_my, 0);
-	// point += table_capacity(a_orig, a_my, 0);
 
 	point += table_str("erase(begin)", " ", " ");
 	(*a_orig).erase ((*a_orig).begin());
@@ -866,10 +856,6 @@ int	table_erase(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	point += table_elements(a_orig, a_my, 0);
 	point += table_size(a_orig, a_my, 0);
 	point += table_capacity(a_orig, a_my, 0);
-
-	//std::cout << "OOO= " << (*a_orig)[2] << "\n";
-
-
 
 	if (f)
 		table_head(3);
@@ -914,16 +900,10 @@ int	table_allocator(std::vector<T> *a_orig, ft::vector<T> *a_my, bool f)
 	std::string	temp_orig, temp_my;
 	int	point = 0;
 
-	// std::allocator<T> orig = (*a_orig).get_allocator();
-	// std::allocator<T> my = (*a_my).get_allocator();
 	(*a_orig).get_allocator();
 	(*a_my).get_allocator();
 
-	// bool rez = (orig == my);
-	// std::cout << rez << std::endl;
-	
 	point += table_str("get_allocator", "?", "?");
-
 
 	if (f)
 		table_head(3);
@@ -937,7 +917,6 @@ void	test_tabl(std::vector<T> a_orig, ft::vector<T> a_my)
 	std::string	temp_orig, temp_my;
 	int 		point = 0;
 
-	// печать заголовка
 	table_head(1);
 
 	point += table_elements(&a_orig, &a_my, 1);
@@ -965,12 +944,7 @@ void	test_tabl(std::vector<T> a_orig, ft::vector<T> a_my)
 	point += table_clear(&a_orig, &a_my, 1); 
 	point += table_allocator(&a_orig, &a_my, 0);
 
-	//std::cout << "Hello\n";
-
-	// печать конца таблицы
-
 	table_head(2);
 	float finish = (float)point/(float)all_test * 100;
 	std::cout << point << "/" << all_test << "(" << std::setprecision(4) << finish << "%)" << std::endl;
-	//std::cout << "Hello\n";
 }

@@ -9,12 +9,7 @@ int	main ()
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1(SIZE_100K);
 	ft::vector<int> my_1(SIZE_100K);
-	// std::vector<int> orig_2(10);
-	// ft::vector<int> my_2(10);
-	// orig_2.reserve(100);
-	// my_2.reserve(100);
 	init_vector_all(&orig_1, &my_1);
-	//init_vector_all(&orig_2, &my_2);
 
 	std::cout << "size = 100.000 (1 use)" << std::endl;
 	time_orig = clock();

@@ -20,6 +20,8 @@ int	main ()
 	it2_my = my.rend();
 	init_vector_all(&orig, &my);
 
+	//=============================================================
+
 	std::cout << "all test operator\n";
 	time_orig = clock();
 
@@ -60,7 +62,6 @@ int	main ()
 			break ;
 	}
 	
-	//temp_orig += "|";
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
@@ -101,14 +102,12 @@ int	main ()
 			break ;
 	}
 
-	//temp_my += "||";
 	time_my = clock() - time_my;
 
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	//std::cout << "check SELF! operator->() { return (_ptr); }\n";
 	std::cout << "test operator->\n";
 
 	temp_orig = "", temp_my = "";
@@ -171,7 +170,6 @@ int	main ()
 	it1_orig = -long_per + it1_orig;
 	//--
 
-	//std::cout << "it1_orig= " << *it1_orig << std::endl;
 	temp_orig += std::to_string(*it1_orig);
 
 	time_orig = clock() - time_orig;
@@ -196,7 +194,6 @@ int	main ()
 	it1_my = -long_per + it1_my;
 	//--
 
-	//std::cout << "it1_my= " << *it1_my << std::endl;
 	temp_my += std::to_string(*it1_my);
 	//temp_my += " ";
 
@@ -205,7 +202,6 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-
 
 	return (!rez);
 }

@@ -10,7 +10,7 @@ int	main ()
 	if (k.get_allocator() == k1.get_allocator())
 		rez += print_status_comp(" ", " ");
 	else
-		rez += print_status_comp("какая жалость", "какая жалость");
+		rez += print_status_comp("какая жалость", "не вышло");
 
 	std::vector<int> orig_1;
 	ft::vector<int> my_1;
@@ -24,6 +24,8 @@ int	main ()
 	init_vector_all(&orig_3, &my_3);
 	std::vector<int> orig_4(orig_3.begin() + 13, orig_3.end() - 42);
 	ft::vector<int> my_4(my_3.begin() + 13, my_3.end() - 42);
+
+	//=============================================================
 
 	time_orig = clock();
 	orig_1.get_allocator();
@@ -41,7 +43,9 @@ int	main ()
 
 	//rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	std::cout << "check SELF! allocator_type get_allocator() const { return (_alloc); }\n";
+	//std::cout << "check SELF! allocator_type get_allocator() const { return (_alloc); }\n";
+
+	//=============================================================
 
 	return (!rez);
 }

@@ -37,6 +37,8 @@ int	main ()
 	my_5[0 + SIZE_100K] = 7; my_5[1 + SIZE_100K] = 2; my_5[2 + SIZE_100K] = 7; my_5[3 + SIZE_100K] = 3;
 	my_6[0 + SIZE_100K] = 7; my_6[1 + SIZE_100K] = 2; my_6[2 + SIZE_100K] = 9; my_6[3 + SIZE_100K] = 3;
 
+	//=============================================================
+
 	std::cout << "Test ==\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
@@ -204,7 +206,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	
-
+	//=============================================================
 
 	return (!rez);
 }

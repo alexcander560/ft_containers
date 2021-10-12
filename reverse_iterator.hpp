@@ -25,18 +25,11 @@ namespace ft
 			typedef typename iterator_traits<_Iter>::value_type			value_type;
 
 			explicit reverse_iterator(): current() {}
-			explicit reverse_iterator(_Iter itr): current(itr) {
-				//std::cout << "Hello 111\n";
-			}
-
-			// new ??? походу заработало, я думал, что помру
+			explicit reverse_iterator(_Iter itr): current(itr) {}
 			template <class Iter>
-                reverse_iterator (const reverse_iterator<Iter>& rev_it)
-                :
-                    current(rev_it.base())
-                {}
+			reverse_iterator (const reverse_iterator<Iter>& rev_it): current(rev_it.base()){}
 
-			iterator_type base() const { return (current); }
+			iterator_type		base() const						{ return (current); }
 
 			reference			operator*() const					{ iterator_type tmp = current; return (*--tmp); }
 			pointer				operator->() const					{ return (&(operator*())); }

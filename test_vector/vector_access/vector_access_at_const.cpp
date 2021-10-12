@@ -4,6 +4,7 @@ int	main ()
 {
 	int new_size = SIZE_100 + 10;
 
+	//=============================================================
 	std::string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 	std::vector<int> orig_base(SIZE_100);
@@ -30,7 +31,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-
+	//=============================================================
 
 	return (!rez);
 }

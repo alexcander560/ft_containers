@@ -5,6 +5,8 @@ int	main ()
 	std::string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 
+	//=============================================================
+
 	std::cout << "Test 1" << std::endl;
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1_base(1);
@@ -47,6 +49,8 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
+	//=============================================================
 
 	return (!rez);
 }

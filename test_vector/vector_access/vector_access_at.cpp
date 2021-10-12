@@ -11,6 +11,8 @@ int	main ()
 
 	init_vector_all(&orig, &my);
 
+	//=============================================================
+
 	time_orig = clock();
 	for (int i = -10; i < new_size; i++)
 	{
@@ -29,6 +31,8 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
+	//=============================================================
 
 	return (!rez);
 }
