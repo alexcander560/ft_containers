@@ -117,6 +117,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	std::cout << "size=99.920 assign (begin(), end())" << std::endl;
 	temp_orig = "", temp_my = "";
@@ -192,7 +193,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	//=============================================================
+	//============================================================
 
 	return (!rez);
 }

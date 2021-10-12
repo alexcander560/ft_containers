@@ -66,7 +66,7 @@ namespace ft
 						return (*this);
 					}
 					reference				operator*()
-					{ //std::cout << "HEllo operator *\n";
+					{ 	//std::cout << "HEllo operator *\n";
 						return (*_ptr); }
 					pointer					operator->()											{
 						//std::cout << "HEllo operator ->\n";
@@ -540,37 +540,40 @@ namespace ft
 			//------------------------------------------------------------------------
 			template <class InputIterator>
 			// ПРОВЕРЕНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			// Может ли быть исключение, когда n > max_size? хз другие тоже хз
+			// Делаем временные переменные, так как Iterator может ссылаться на изменяемый массив
 			void assign (InputIterator first, InputIterator last)
 			{
-				// Может ли быть исключение, когда n > msx_size? хз другие тоже хз
-				// Делаем временные переменные, так как Iterator может ссылаться на изменяемый массив
-				size_type	n = static_cast<size_type>(std::distance(first, last)), capacity = this->capacity();
-				pointer		first_ptr = first._ptr, last_ptr = last._ptr;
-				pointer		begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
+				size_type	n = static_cast<size_type>(std::distance(first, last));
 
-				clear();
-				if (n == 0)
-					return ;
+				if (n >= 0)
+				{
+					size_type	capacity = this->capacity();
+					pointer		first_ptr = first._ptr, last_ptr = last._ptr;
 
-				if (capacity >= n)
-				{
-					for(; first_ptr != last_ptr; first_ptr++, _end++)
-						_alloc.construct(_end, *first_ptr);
-				}
-				else
-				{
-					for(; first_ptr != last._ptr; first_ptr++, end_new++)
-						_alloc.construct(end_new, *first_ptr);
-					_alloc.deallocate(_begin, capacity);
-					_begin = begin_new;
-					_end = end_new;
-					_capacity = capacity_new;
+					clear();
+					if (capacity >= n)
+					{
+						for(; first_ptr != last_ptr; first_ptr++, _end++)
+							_alloc.construct(_end, *first_ptr);
+					}
+					else
+					{
+						pointer		begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
+
+						for(; first_ptr != last_ptr; first_ptr++, end_new++)
+							_alloc.construct(end_new, *first_ptr);
+						_alloc.deallocate(_begin, capacity);
+						_begin = begin_new;
+						_end = end_new;
+						_capacity = capacity_new;
+					}
 				}
 			}
 			// ПРОВЕРЕНО Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
+			// Может ли быть исключение, когда n > max_size? хз другие тоже хз
 			void assign (size_type n, const value_type& val)
 			{
-				// Может ли быть исключение, когда n > msx_size? хз другие тоже хз
 				size_type capacity = this->capacity();
 
 				clear();
@@ -596,12 +599,7 @@ namespace ft
 				size_t size = this->size();
 
 				if (_end == _capacity)
-				{
-					if (size == 0)
-						reserve(1);
-					else
-						reserve(size * 2);
-				}
+					reserve (size == 0 ? 1 : size * 2);
 				_alloc.construct(_end, val);
 				_end++;
 			}
@@ -611,62 +609,71 @@ namespace ft
 				_alloc.destroy(&back());
 				_end--;
 			}
-			// СЛОЖНО Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
+			// ПРОВЕРЕНО Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
 			iterator insert (iterator position, const value_type& val)
 			{
-				//std::cout << "IN 1\n";
-				pointer p = position._ptr;
+				pointer		new_pos = NULL;
+				size_type	size = this->size(), len_pos = position._ptr - _begin;
 
-				if (_end < _capacity)
+				if (_end == _capacity)
+					reserve(size > 0 ? capacity() * 2 : 1);
+				new_pos = _begin + len_pos;
+				if (size > 0)
 				{
-					if (p == _end)
-						_construct_one_at_end(val);
-					else
-						_insert_not_end(p, val);
+					for (pointer i = _end; i >= new_pos; i--)
+						_alloc.construct(i + 1, *i);
 				}
-				else
-					p = _reallocate_with_insert(p, val);
-				return iterator(p);
+				_alloc.construct(new_pos, val);
+				_end++;
+				return (iterator(new_pos));
 			}
 			// СЛОЖНО Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				if (n == 0)
-					return ;
-
-				pointer p = position._ptr;
-
-				if (_end + n <= _capacity)
+				if (n != 0)
 				{
-					if (p == _end)
-						_construct_at_end(n, val);
-					else
-						_insert_not_end(p, val, n);
+					pointer		new_pos = NULL;
+					size_type	size = this->size(), len_pos = position._ptr - _begin;
+
+					if (_end + n > _capacity)
+						reserve (std::max(size + n, capacity() * 2));
+					new_pos = _begin + len_pos;
+					if (size > 0)
+					{
+						for (pointer i = _end; i >= new_pos; i--)
+							_alloc.construct(i + n, *i);
+					}
+					for (size_type i = 0; i < n; i++)
+						_alloc.construct(new_pos + i, val);
+					_end = _end + n;
 				}
-				else
-					_reallocate_with_insert(p, val, n);
 			}
 			// СЛОЖНО Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
+			// Надо ли destroy созданных элементов? хз, но deallocate лучше сделать
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
-				pointer p = position._ptr;
-
-				if (first == last)
-					return ;
-				
-				if (_end + (last - first) <= _capacity)
+				if (first != last)
 				{
-					if (p == _end)
-						_construct_at_end(first, last);
-					else
+					pointer		new_pos = NULL;
+					size_type	n = static_cast<size_type>(std::distance(first, last)), size = this->size(), len_pos = position._ptr - _begin;
+					pointer		begin_new = _alloc.allocate(n), end_new = begin_new;
+
+					for (; first != last; end_new++, first++)
+						_alloc.construct(end_new, *first);
+					if (_end + n > _capacity)
+						reserve (std::max(size + n, capacity() * 2));
+					new_pos = _begin + len_pos;
+					if (size > 0)
 					{
-						//std::cout << "ALLO BLAT\n";
-						_insert_not_end(p, first, last);
+						for (pointer i = _end; i >= new_pos; i--)
+							_alloc.construct(i + n, *i);
 					}
+					for (size_type i = 0; i < n; i++)
+						_alloc.construct(new_pos + i, *(begin_new + i));
+					_end = _end + n;
+					_alloc.deallocate(begin_new, n);
 				}
-				else
-					_reallocate_with_insert(p, first, last);
 			}
 			// ПРОВЕРЕНО Удаляет из вектора один элемент 
 			iterator erase (iterator position)
@@ -743,8 +750,6 @@ namespace ft
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{ return (!(lhs < rhs)); }
 	template <class T, class Alloc>
 	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)							{ x.swap(y); }
-
-	//vector<bool> необязательно!
 };
 
 #endif

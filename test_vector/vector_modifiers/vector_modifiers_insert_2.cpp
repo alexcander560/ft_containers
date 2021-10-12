@@ -7,8 +7,8 @@ int	main ()
 
 	std::vector<int> orig_1(0);
 	ft::vector<int> my_1(0);
-	std::vector<int> orig_2(SIZE_100K);
-	ft::vector<int> my_2(SIZE_100K);
+	std::vector<int> orig_2(SIZE_10);
+	ft::vector<int> my_2(SIZE_10);
 
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_2, &my_2);
@@ -92,7 +92,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin(), (size_t)SIZE_100K, 42);
+	orig_1.insert(orig_1.begin(), (size_t)SIZE_10, 42);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -101,7 +101,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin(), (size_t)SIZE_100K, 42);
+	my_1.insert(my_1.begin(), (size_t)SIZE_10, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -165,7 +165,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)SIZE_100K, 21);
+	orig_1.insert(orig_1.end(), (size_t)SIZE_10, 21);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -174,7 +174,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)SIZE_100K, 21);
+	my_1.insert(my_1.end(), (size_t)SIZE_10, 21);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -193,7 +193,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)SIZE_100K, 13);
+	orig_1.insert(orig_1.end(), (size_t)SIZE_10, 13);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -202,7 +202,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)SIZE_100K, 13);
+	my_1.insert(my_1.end(), (size_t)SIZE_10, 13);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -218,7 +218,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin() + SIZE_100K, (size_t)SIZE_50K, 7);
+	orig_1.insert(orig_1.begin() + SIZE_10, (size_t)SIZE_50K, 7);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -227,7 +227,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin() + SIZE_100K, (size_t)SIZE_50K, 7);
+	my_1.insert(my_1.begin() + SIZE_10, (size_t)SIZE_50K, 7);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	

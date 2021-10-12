@@ -47,6 +47,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	std::cout << "self size=0 insert(begin(), begin() , end())" << std::endl;
 	temp_orig = "", temp_my = "";
@@ -97,6 +98,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	std::cout << "other size=0 insert(begin(), begin(), end())" << std::endl;
 	temp_orig = "", temp_my = "";
@@ -121,6 +123,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	//=========================self size=100=======================
 	//=============================================================
@@ -147,6 +150,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	std::cout << "self size=100 insert(begin(), begin(), end())" << std::endl;
 	temp_orig = "", temp_my = "";
@@ -171,6 +175,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	//=========================other size=200======================
 	//=============================================================
@@ -197,6 +202,7 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
 	//=============================================================
 	std::cout << "self size=200 insert(begin(), begin(), end())" << std::endl;
 	temp_orig = "", temp_my = "";
@@ -279,7 +285,7 @@ int	main ()
 	//=============================================================
 	//=========================self size=10 capacity=15 ==========
 	//=============================================================
-	std::cout << "self size=518 insert(begin() + 1, begin() + 3, end() - 1)" << std::endl;
+	std::cout << "self size=10 insert(begin() + 1, begin() + 3, end() - 1)" << std::endl;
 	temp_orig = "", temp_my = "";
 
 
@@ -317,6 +323,38 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+
+	//=============================================================
+	//=========================self size=14 capacity=50============
+	//=============================================================
+	std::cout << "self size=14 insert(begin() + 8, begin() + 1, end() - 3)" << std::endl;
+	temp_orig = "", temp_my = "";
+
+	orig_4.reserve(50);
+	my_4.reserve(50);
+
+	//действия c оригиналом
+	time_orig = clock();
+
+	temp_orig += vektor_base_test(&orig_4);
+	orig_4.insert(orig_4.begin() + 8, orig_4.begin() + 1, orig_4.end() - 3);
+	temp_orig += vektor_base_test(&orig_4);
+
+	time_orig = clock() - time_orig;
+
+	//действия c собственной копией
+	time_my = clock();
+
+	temp_my += vektor_base_test(&my_4);
+	my_4.insert(my_4.begin() + 8, my_4.begin() + 1, my_4.end() - 3);
+	temp_my += vektor_base_test(&my_4);
+	//temp_my += " ";
+
+	time_my = clock() - time_my;
+
+	rez += print_status_comp(temp_orig, temp_my);
+	rez += print_status_time(time_orig, time_my);
+	//=============================================================
 
 	return (!rez);
 }

@@ -23,14 +23,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	temp_orig += std::to_string (*orig_1.erase(orig_1.begin(), orig_1.begin()));
+	temp_orig += " iter=" + std::to_string (*orig_1.erase(orig_1.begin(), orig_1.begin()));
 	temp_orig += vektor_base_test(&orig_1);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	temp_my += std::to_string (*my_1.erase(my_1.begin(), my_1.begin()));
+	temp_my += " iter=" + std::to_string (*my_1.erase(my_1.begin(), my_1.begin()));
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -43,14 +43,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	temp_orig += std::to_string (*orig_1.erase(orig_1.begin(), orig_1.end()));
+	temp_orig += " iter=" + std::to_string (*orig_1.erase(orig_1.begin(), orig_1.end()));
 	temp_orig += vektor_base_test(&orig_1);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	temp_my += std::to_string (*my_1.erase(my_1.begin(), my_1.end()));
+	temp_my += " iter=" + std::to_string (*my_1.erase(my_1.begin(), my_1.end()));
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -63,14 +63,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_2);
-	temp_orig += std::to_string (*orig_2.erase(orig_2.begin(), orig_2.begin()));
+	temp_orig += " iter=" + std::to_string (*orig_2.erase(orig_2.begin(), orig_2.begin()));
 	temp_orig += vektor_base_test(&orig_2);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_2);
-	temp_my += std::to_string (*my_2.erase(my_2.begin(), my_2.begin()));
+	temp_my += " iter=" + std::to_string (*my_2.erase(my_2.begin(), my_2.begin()));
 	temp_my += vektor_base_test(&my_2);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -83,14 +83,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_2);
-	temp_orig += std::to_string (*orig_2.erase(orig_2.begin(), orig_2.end()));
+	temp_orig += " iter=" + std::to_string (*orig_2.erase(orig_2.begin(), orig_2.end()));
 	temp_orig += vektor_base_test(&orig_2);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_2);
-	temp_my += std::to_string (*my_2.erase(my_2.begin(), my_2.end()));
+	temp_my += " iter=" + std::to_string (*my_2.erase(my_2.begin(), my_2.end()));
 	temp_my += vektor_base_test(&my_2);
 	//temp_my += " ";
 	time_my = clock() - time_my;
@@ -107,10 +107,10 @@ int	main ()
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_3);
 
-	temp_orig += std::to_string (*orig_3.erase(orig_3.begin(), orig_3.begin() + 1));
-	temp_orig += std::to_string (*orig_3.erase(orig_3.begin() + 10000, orig_3.begin() + 50000));
-	temp_orig += std::to_string (*orig_3.erase(orig_3.end() - 1, orig_3.end()));
-	temp_orig += std::to_string (*orig_3.erase(orig_3.end() - 30000, orig_3.end() - 10000));
+	temp_orig += " iter=" + std::to_string (*orig_3.erase(orig_3.begin(), orig_3.begin() + 1));
+	temp_orig += " iter=" + std::to_string (*orig_3.erase(orig_3.begin() + 10000, orig_3.begin() + 50000));
+	temp_orig += " iter=" + std::to_string (*orig_3.erase(orig_3.end() - 1, orig_3.end()));
+	temp_orig += " iter=" + std::to_string (*orig_3.erase(orig_3.end() - 30000, orig_3.end() - 10000));
 
 	temp_orig += vektor_base_test(&orig_3);
 	time_orig = clock() - time_orig;
@@ -119,10 +119,10 @@ int	main ()
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_3);
 
-	temp_my += std::to_string (*my_3.erase(my_3.begin(), my_3.begin() + 1));
-	temp_my += std::to_string (*my_3.erase(my_3.begin() + 10000, my_3.begin() + 50000));
-	temp_my += std::to_string (*my_3.erase(my_3.end() - 1, my_3.end()));
-	temp_my += std::to_string (*my_3.erase(my_3.end() - 30000, my_3.end() - 10000));
+	temp_my += " iter=" + std::to_string (*my_3.erase(my_3.begin(), my_3.begin() + 1));
+	temp_my += " iter=" + std::to_string (*my_3.erase(my_3.begin() + 10000, my_3.begin() + 50000));
+	temp_my += " iter=" + std::to_string (*my_3.erase(my_3.end() - 1, my_3.end()));
+	temp_my += " iter=" + std::to_string (*my_3.erase(my_3.end() - 30000, my_3.end() - 10000));
 
 	temp_my += vektor_base_test(&my_3);
 	//temp_my += " ";
@@ -136,18 +136,14 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_3);
-
-	temp_orig += std::to_string (*orig_3.erase(orig_3.begin(), orig_3.end()));
-
+	temp_orig += " iter=" + std::to_string (*orig_3.erase(orig_3.begin(), orig_3.end()));
 	temp_orig += vektor_base_test(&orig_3);
 	time_orig = clock() - time_orig;
 
 	time_my = clock();
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_3);
-
-	temp_my += std::to_string (*my_3.erase(my_3.begin(), my_3.end()));
-
+	temp_my += " iter=" + std::to_string (*my_3.erase(my_3.begin(), my_3.end()));
 	temp_my += vektor_base_test(&my_3);
 	//temp_my += " ";
 	time_my = clock() - time_my;
