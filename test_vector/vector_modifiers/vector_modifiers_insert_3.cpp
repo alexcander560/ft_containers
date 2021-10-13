@@ -355,6 +355,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
+	//std::string str_leaks; std::cin >> str_leaks;
 
 	return (!rez);
 }

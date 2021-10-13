@@ -274,16 +274,18 @@ namespace ft
 			void		reserve (size_type n)
 			{
 				pointer		begin_old = _begin, begin_temp = _begin, end_old = _end;
-				size_type	capacity_old = capacity();
+				size_type	capacity_old = capacity(), size_old = size();
 
 				if (n > max_size())
 					throw std::length_error("vector");
 				else if (n > capacity())
 				{
-					_begin = _end = _alloc.allocate( n );
+					_begin = _end = _alloc.allocate(n);
 					_capacity = _begin + n;
 					while (begin_old != end_old)
 						_alloc.construct(_end++, *begin_old++);
+					for (size_t i = 0; i < size_old; i++)
+						_alloc.destroy(begin_temp + i);
 					_alloc.deallocate(begin_temp, capacity_old);
 				}
 			}
@@ -319,7 +321,6 @@ namespace ft
 			//-----------------------------Modifiers(11/11)---------------------------
 			template <class InputIterator>
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
-			// Может ли быть исключение, когда n > max_size? хз другие тоже хз
 			void assign (InputIterator first, InputIterator last)
 			{
 				size_type	n = static_cast<size_type>(std::distance(first, last));
@@ -349,7 +350,6 @@ namespace ft
 				}
 			}
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
-			// Может ли быть исключение, когда n > max_size? хз другие тоже хз
 			void assign (size_type n, const value_type& val)
 			{
 				size_type capacity = this->capacity();
@@ -427,7 +427,6 @@ namespace ft
 				}
 			}
 			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
-			// Надо ли destroy созданных элементов? хз, но deallocate лучше сделать, хотя ликов не будет
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last)
 			{
@@ -450,6 +449,8 @@ namespace ft
 					for (size_type i = 0; i < n; i++)
 						_alloc.construct(new_pos + i, *(begin_new + i));
 					_end = _end + n;
+					for (size_type i = 0; i < n; i++)
+						_alloc.destroy(begin_new + i);
 					_alloc.deallocate(begin_new, n);
 				}
 			}
