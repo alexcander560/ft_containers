@@ -1,5 +1,5 @@
 #ifndef VECTOR_HPP
-# define VECTOR_HPP
+#define VECTOR_HPP
 
 #include <iterator>
 #include <cstddef>
@@ -51,7 +51,7 @@ namespace ft
 					// constructor/destructor
 					MyIterator(pointer begin = NULL): _ptr(begin) {}
 					MyIterator(const MyIterator &copy): _ptr(copy._ptr) {}
-					~MyIterator() {};
+					~MyIterator() {}
 					// operator
 					const MyIterator		&operator=(const MyIterator &it)
 					{
@@ -118,7 +118,7 @@ namespace ft
 					ConstMyIterator(const nonconst_v &it): _ptr(it._ptr) {}
 					ConstMyIterator(pointer begin = NULL): _ptr(begin) {}
 					ConstMyIterator(const ConstMyIterator &copy): _ptr(copy._ptr) {}
-					~ConstMyIterator() {};
+					~ConstMyIterator() {}
 					// operator
 					const ConstMyIterator	&operator=(const ConstMyIterator &it)
 					{

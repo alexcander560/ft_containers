@@ -1,4 +1,4 @@
-#include <vector>
+#include <stack>
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../vector.hpp"
+#include "../stack.hpp"
 
 # define DEFAULT	"\033[0m"
 # define BOLD		"\033[1m"
@@ -34,30 +34,24 @@
 # define SIZE_10M	10000000
 # define SIZE_100M	100000000
 
-// Иницилихация вектора std, ft одними параметрами
+// Иницилихация стака std, ft одними параметрами заданной длины
 template <typename T>
-void	init_vector_all(std::vector<T>* a_orig, ft::vector<T>* a_my)
+void	init_stack(std::stack<T>* a_orig, ft::stack<T>* a_my, int size)
 {
-	std::srand(time(NULL));
-	int	size_orig = (*a_orig).size();
-	int	size_my = (*a_my).size();
-	if (size_orig != size_my)
-	{
+	if (size < 0)
 		std::cout << "Error size" << std::endl;
-		return ;
-	}
-	for (int i = 0; i < size_orig; i++)
-		(*a_orig)[i] = (*a_my)[i] = (rand() % RANDOM) + 0.5;
-}
+	else
+	{
+		T temp = 0;
 
-// Иницилихация вектора
-template <typename T>
-void	init_vector(T *a)
-{
-	//std::srand(time(NULL));
-	int	size = (*a).size();
-	for (int i = 0; i < size; i++)
-		(*a)[i] = (rand() % 10) + 0.5;
+		std::srand(time(NULL));
+		for (int i = 0; i < size; i++)
+		{
+			temp = (rand() % RANDOM) + 0.5;
+			(*a_orig).push(temp);
+			(*a_my).push(temp);
+		}
+	}
 }
 
 std::string	print_status(bool t)
@@ -147,15 +141,11 @@ bool	print_status_time(int orig, int my)
 }
 
 template <typename T>
-std::string	vektor_base_test(T *a)
+std::string	stack_base_test(T *a)
 {
-	size_t size = 0;
 	std::string	temp = "";
 
-	size = (*a).size();
-	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
-	for (size_t i = 0; i < size; i++)
-		temp += std::to_string((*a)[i]);
+	temp += " size=" + std::to_string((*a).size()) + " top=" + std::to_string((*a).top());
 
 	return (temp);
 }
