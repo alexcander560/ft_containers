@@ -6,6 +6,9 @@
 
 Запуск отдельных блоков
 
+<details>
+<summary>Блоки</summary>
+
     bash test_vector.sh Acc    (Element access)
     
     bash test_vector.sh Cap    (Capacity)
@@ -18,7 +21,12 @@
     
     bash test_vector.sh Mod    (Modifiers)
     
+</details>
+    
 Запуск отдельных функций
+
+<details>
+<summary>Функции</summary>
 
     Element access:
     1) bash test_vector.sh acc               (test [])
@@ -67,3 +75,4 @@
     6) bash test_vector.sh Mod_swap          (bash test_vector.sh swap все тесты для swap)
     7) bash test_vector.sh clear
     
+</details>
