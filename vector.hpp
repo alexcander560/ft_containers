@@ -1,12 +1,6 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <iterator>
-#include <cstddef>
-#include <algorithm>
-#include <cstring>
-#include <stdexcept>
-
 #include "utils.hpp"
 
 namespace ft
@@ -18,18 +12,18 @@ namespace ft
 		class ConstMyIterator;
 		public:
 			//---------------------------typedef(12/12)-------------------------------
-			typedef T											value_type;
-			typedef Allocator									allocator_type;
-			typedef typename allocator_type::reference			reference;
-			typedef typename allocator_type::const_reference	const_reference;
-			typedef typename allocator_type::pointer			pointer;
-			typedef typename allocator_type::const_pointer		const_pointer;
-			typedef MyIterator									iterator;
-			typedef ConstMyIterator								const_iterator;
-			typedef ft::reverse_iterator<iterator>				reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
-			typedef std::ptrdiff_t								difference_type;
-			typedef std::size_t									size_type;
+			typedef T																value_type;
+			typedef Allocator														allocator_type;
+			typedef typename allocator_type::reference								reference;
+			typedef typename allocator_type::const_reference						const_reference;
+			typedef typename allocator_type::pointer								pointer;
+			typedef typename allocator_type::const_pointer							const_pointer;
+			typedef MyIterator														iterator;
+			typedef ConstMyIterator													const_iterator;
+			typedef ft::reverse_iterator<iterator>									reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterator;
+			typedef std::ptrdiff_t													difference_type;
+			typedef std::size_t														size_type;
 
 		private:
 			allocator_type	_alloc;
@@ -59,8 +53,8 @@ namespace ft
 							_ptr = it._ptr;
 						return (*this);
 					}
-					reference				operator*()												{ return (*_ptr); }
-					pointer					operator->()											{ return (_ptr); }
+					reference				operator*()														{ return (*_ptr); }
+					pointer					operator->()													{ return (_ptr); }
 					MyIterator&				operator++()
 					{
 						++_ptr;
@@ -83,14 +77,14 @@ namespace ft
 						--(*this);
 						return (tmp);
 					}
-					friend difference_type	operator- (const MyIterator& a, const MyIterator& b)	{ return (a._ptr - b._ptr); }
-					friend bool				operator== (const MyIterator& a, const MyIterator& b)	{ return (a._ptr == b._ptr); }
-					friend bool				operator!= (const MyIterator& a, const MyIterator& b)	{ return !(a == b); }
-					friend bool				operator< (const MyIterator lhs, const MyIterator rhs)	{ return (lhs._ptr < rhs._ptr); }
-					friend bool				operator<= (const MyIterator lhs, const MyIterator rhs)	{ return (!(rhs._ptr < lhs._ptr)); }
-					friend bool				operator> (const MyIterator lhs, const MyIterator rhs)	{ return (rhs < lhs); }
-					friend bool				operator>= (const MyIterator lhs, const MyIterator rhs)	{ return !(lhs < rhs); }
-					MyIterator				operator+ (difference_type n) const						{ return (MyIterator(_ptr + n)); }
+					friend difference_type	operator- (const MyIterator& a, const MyIterator& b)			{ return (a._ptr - b._ptr); }
+					friend bool				operator== (const MyIterator& a, const MyIterator& b)			{ return (a._ptr == b._ptr); }
+					friend bool				operator!= (const MyIterator& a, const MyIterator& b)			{ return !(a == b); }
+					friend bool				operator< (const MyIterator lhs, const MyIterator rhs)			{ return (lhs._ptr < rhs._ptr); }
+					friend bool				operator<= (const MyIterator lhs, const MyIterator rhs)			{ return (!(rhs._ptr < lhs._ptr)); }
+					friend bool				operator> (const MyIterator lhs, const MyIterator rhs)			{ return (rhs < lhs); }
+					friend bool				operator>= (const MyIterator lhs, const MyIterator rhs)			{ return !(lhs < rhs); }
+					MyIterator				operator+ (difference_type n) const								{ return (MyIterator(_ptr + n)); }
 					friend MyIterator		operator+(int n, MyIterator& p)
 					{
 						p._ptr = p._ptr + n;
@@ -101,9 +95,9 @@ namespace ft
 						MyIterator(_ptr + n);
 						return (*this);
 					}
-					MyIterator				operator- (difference_type n) const						{ return (*this + (-n)); }
-					MyIterator				&operator-=(difference_type n)							{ return (*this += -n); }
-					reference				operator[](difference_type n) const						{ return (_ptr[n]); }
+					MyIterator				operator- (difference_type n) const								{ return (*this + (-n)); }
+					MyIterator				&operator-=(difference_type n)									{ return (*this += -n); }
+					reference				operator[](difference_type n) const								{ return (_ptr[n]); }
 			};
 			//---------------------------ConstMyIterator------------------------------
 			class ConstMyIterator: public ft::iterator<std::random_access_iterator_tag, const value_type>
@@ -227,28 +221,28 @@ namespace ft
 				}
 			}
 			//------------------------------operator=(1/1)----------------------------
-			const vector &operator=(const vector &x)
+			const vector			&operator=(const vector &x)
 			{
 				if (this != &x)
 					assign(x._begin, x._end);
 				return (*this);
 			}
 			//------------------------------Iterators(8/8)----------------------------
-			iterator				begin()					{ return (iterator(_begin)); }
-			const_iterator			begin() const			{ return (const_iterator(_begin)); }
-			iterator				end()					{ return (iterator(_end)); }
-			const_iterator			end() const				{ return (const_iterator(_end)); }
-			reverse_iterator		rbegin()				{ return (reverse_iterator(end())); }
-			const_reverse_iterator	rbegin() const			{ return (const_reverse_iterator(end())); }
-			reverse_iterator		rend()					{ return (reverse_iterator(begin())); }
-			const_reverse_iterator	rend() const			{ return (const_reverse_iterator(begin())); }
+			iterator				begin()										{ return (iterator(_begin)); }
+			const_iterator			begin() const								{ return (const_iterator(_begin)); }
+			iterator				end()										{ return (iterator(_end)); }
+			const_iterator			end() const									{ return (const_iterator(_end)); }
+			reverse_iterator		rbegin()									{ return (reverse_iterator(end())); }
+			const_reverse_iterator	rbegin() const								{ return (const_reverse_iterator(end())); }
+			reverse_iterator		rend()										{ return (reverse_iterator(begin())); }
+			const_reverse_iterator	rend() const								{ return (const_reverse_iterator(begin())); }
 			//------------------------------Capacity(6/6)-----------------------------
-			// Возвращает длину вектора
-			size_type	size() const						{ return (_end - _begin); }
+			// Возвращает кол-во элементов вектора
+			size_type				size() const								{ return (_end - _begin); }
 			// Возвращает максимальное количество элементов, которое может содержать вектор
-			size_type	max_size() const					{ return (_alloc.max_size()); }
+			size_type				max_size() const							{ return (_alloc.max_size()); }
 			// Изменяет размер контейнера, чтобы он содержал n элементов
-			void		resize(size_type n, value_type val = value_type())
+			void					resize(size_type n, value_type val = value_type())
 			{
 				size_type size = this->size();
 
@@ -267,11 +261,11 @@ namespace ft
 					insert(end(), n - size, val);
 			}
 			// Возвращает размер памяти выделенный для вектора в элементах
-			size_type	capacity() const					{ return _capacity - _begin; }
+			size_type				capacity() const							{ return (_capacity - _begin); }
 			// Пустой ли вектор?
-			bool		empty() const						{ return (size() ? false : true); }
+			bool					empty() const								{ return (size() ? false : true); }
 			// Пытается сделать ёмкость вектора как минимум достаточной для размещения n элементов
-			void		reserve (size_type n)
+			void					reserve (size_type n)
 			{
 				pointer		begin_old = _begin, begin_temp = _begin, end_old = _end;
 				size_type	capacity_old = capacity(), size_old = size();
@@ -289,39 +283,37 @@ namespace ft
 					_alloc.deallocate(begin_temp, capacity_old);
 				}
 			}
-			//------------------------------------------------------------------------
 			//---------------------------Element access(8/8)--------------------------
-			//------------------------------------------------------------------------
 			// Доступ к элементу без защиты
-			reference		operator[](size_type n)			{ return *(_begin + n); }
+			reference				operator[](size_type n)						{ return (*(_begin + n)); }
 			// Доступ к элементу без защиты
-			const_reference operator[](size_type n) const	{ return *(_begin + n); }
+			const_reference			operator[](size_type n) const				{ return (*(_begin + n)); }
 			// Доступ к элементу с защитой
-			reference 		at(size_type n)
+			reference				at(size_type n)
 			{
 				if (n >= size())
 					throw std::out_of_range("vector");
 				return (*(_begin + n));
 			}
-			// ПДоступ к элементу с защитой
-			const_reference at(size_type n) const
+			// Доступ к элементу с защитой
+			const_reference			at(size_type n) const
 			{
 				if (n >= size())
 					throw std::out_of_range("vector");
 				return (*(_begin + n));
 			}
 			// Возвращает ссылку на первый элемент вектора
-			reference		front()							{ return (*_begin); }
+			reference				front()										{ return (*_begin); }
 			// Возвращает ссылку на первый элемент вектора
-			const_reference front() const					{ return (*_begin); }
+			const_reference			front() const								{ return (*_begin); }
 			// Возвращает ссылку на последний элемент вектора
-			reference 		back()							{ return (*(_end - 1)); }
+			reference				back()										{ return (*(_end - 1)); }
 			// Возвращает ссылку на последний элемент вектора
-			const_reference back() const					{ return (*(_end - 1)); }
+			const_reference			back() const								{ return (*(_end - 1)); }
 			//-----------------------------Modifiers(11/11)---------------------------
 			template <class InputIterator>
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
-			void assign (InputIterator first, InputIterator last)
+			void					assign (InputIterator first, InputIterator last)
 			{
 				size_type	n = static_cast<size_type>(std::distance(first, last));
 
@@ -350,7 +342,7 @@ namespace ft
 				}
 			}
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
-			void assign (size_type n, const value_type& val)
+			void					assign (size_type n, const value_type& val)
 			{
 				size_type capacity = this->capacity();
 
@@ -372,7 +364,7 @@ namespace ft
 				}
 			}
 			// Добавляет новый элемент в конец вектора
-			void push_back (const value_type& val)
+			void					push_back (const value_type& val)
 			{
 				size_t size = this->size();
 
@@ -382,13 +374,13 @@ namespace ft
 				_end++;
 			}
 			// Удаляет последний элемент в векторе (вектор пуст -> неопределённое поведение)
-			void pop_back()
+			void					pop_back()
 			{
 				_alloc.destroy(&back());
 				_end--;
 			}
 			// Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
-			iterator insert (iterator position, const value_type& val)
+			iterator				insert (iterator position, const value_type& val)
 			{
 				pointer		new_pos = NULL;
 				size_type	size = this->size(), len_pos = position._ptr - _begin;
@@ -406,7 +398,7 @@ namespace ft
 				return (iterator(new_pos));
 			}
 			// Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
-			void insert (iterator position, size_type n, const value_type& val)
+			void					insert (iterator position, size_type n, const value_type& val)
 			{
 				if (n != 0)
 				{
@@ -428,7 +420,7 @@ namespace ft
 			}
 			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
 			template <class InputIterator>
-			void insert (iterator position, InputIterator first, InputIterator last)
+			void					insert (iterator position, InputIterator first, InputIterator last)
 			{
 				if (first != last)
 				{
@@ -455,7 +447,7 @@ namespace ft
 				}
 			}
 			// Удаляет из вектора один элемент 
-			iterator erase (iterator position)
+			iterator				erase (iterator position)
 			{
 				pointer		p = position._ptr;
 				size_type	size_new = static_cast<size_type>((_end - p - 1) * sizeof(value_type));
@@ -471,7 +463,7 @@ namespace ft
 				return (iterator(p));
 			}
 			// Удаляет из вектора диапазон элементов
-			iterator erase (iterator first, iterator last)
+			iterator				erase (iterator first, iterator last)
 			{
 				pointer		first_ptr = first._ptr, first_ptr_temp = first_ptr, last_ptr = last._ptr;
 				size_type	size_new = static_cast<size_type>((_end - last_ptr) * sizeof(value_type));
@@ -486,7 +478,7 @@ namespace ft
 				return (iterator(first_ptr));
 			}
 			// Заменяет содержимое контейнера содержимым x , который является другим векторным объектом того же типа
-			void swap (vector& x)
+			void					swap (vector& x)
 			{
 				if (this != &x)
 				{
@@ -496,7 +488,7 @@ namespace ft
 				}
 			}
 			// Удаляет все элементы из вектора
-			void clear()
+			void					clear()
 			{
 				size_type size = this->size();
 
@@ -504,7 +496,7 @@ namespace ft
 					_alloc.destroy(_end--);
 			}
 			//-----------------------------Allocator(1/1)-----------------------------
-			allocator_type	get_allocator() const			{ return (_alloc); }
+			allocator_type			get_allocator() const						{ return (_alloc); }
 	};
 
 	//-------------------Non-member function overloads(7/7)-------------------

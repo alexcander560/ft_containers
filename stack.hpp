@@ -20,17 +20,17 @@ namespace ft
 			~stack() {}
 			//------------------------------Member functions(5/5)----------------------
 			// Пустой ли вектор?
-			bool				empty() const 				{ return (cont.empty()); }
+			bool				empty() const										{ return (cont.empty()); }
 			// Возвращает длину вектора
-			size_type			size() const 				{ return (cont.size()); }
+			size_type			size() const 										{ return (cont.size()); }
 			// Возвращает ссылку на верхний элемент в куче
-			value_type& 		top()						{ return (cont.back()); }
+			value_type& 		top()												{ return (cont.back()); }
 			// Возвращает ссылку на верхний элемент в куче
-			const value_type&	top() const					{ return (cont.back()); }
+			const value_type&	top() const											{ return (cont.back()); }
 			// Вставляет новый элемент вверху кучи, над текущим верхним элементом
-			void				push(const value_type& val)	{ cont.push_back(val); }
+			void				push(const value_type& val)							{ cont.push_back(val); }
 			// Удаляет верхний элемент кучи
-			void				pop()						{ cont.pop_back(); }
+			void				pop()												{ cont.pop_back(); }
 			
 		protected:
 			container_type						cont;

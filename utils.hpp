@@ -2,6 +2,11 @@
 #define UTILS_HPP
 
 #include <iterator>
+#include <cstddef>
+#include <algorithm>
+#include <cstring>
+#include <stdexcept>
+
 #include "reverse_iterator.hpp"
 #include "iterator.hpp"
 #include "pair.hpp"
