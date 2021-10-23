@@ -1,15 +1,13 @@
 # ft_containers
 
-Для этого проекта были написаны собстенные тесты
+Для этого проекта были написаны собстенные тесты, если вы не переопределили нужные типы данны, не реализовали все необходимые конструторы и функции, как этого требует задание, то ваши результаты будут достаточно низкими.
 
-Запуск всех тестов для векора
+Запуск всех тестов для vector
 
     bash test_vector.sh
 
-Запуск отдельных блоков
-
 <details>
-<summary>Блоки</summary>
+<summary>Запуск отдельных блоков vector</summary>
 
     bash test_vector.sh Acc    (Element access)
     
@@ -25,10 +23,8 @@
     
 </details>
     
-Запуск отдельных функций
-
 <details>
-<summary>Функции</summary>
+<summary>Запуск отдельных функций vector</summary>
 
     Element access:
     1) bash test_vector.sh acc               (test [])
@@ -76,5 +72,34 @@
         5.2) bash test_vector.sh erase_2     erase(iterator first, iterator last)
     6) bash test_vector.sh Mod_swap          (bash test_vector.sh swap все тесты для swap)
     7) bash test_vector.sh clear
+    
+</details>
+
+Запуск всех тестов для stack
+
+    bash test_stack.sh 
+
+<details>
+<summary>Запуск отдельных блоков stack</summary>
+    
+    bash test_stack.sh Member (Member functions)
+    
+    bash test_stack.sh Non (Non-member function overloads)
+    
+</details>
+    
+<details>
+<summary>Запуск отдельных функций stack</summary>
+    
+    Member functions:
+    1) bash test_stack.sh empty
+    2) bash test_stack.sh size
+    3) bash test_stack.sh top
+    4) bash test_stack.sh top_const
+    5) bash test_stack.sh push
+    6) bash test_stack.sh pop
+    
+    Non-member function overloads:
+    1) bash test_stack.sh operator          (==, !=, <, <=, >, >=)
     
 </details>
