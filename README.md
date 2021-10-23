@@ -115,9 +115,9 @@
     bash test_???.sh 
 
 <details>
-<summary>Запуск отдельных блоков map</summary>
+<summary>Запуск отдельных блоков map</summary> 
     
-   Ничего нет
+    Ничего нет
     
 </details>
     
