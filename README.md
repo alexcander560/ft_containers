@@ -2,6 +2,8 @@
 
 Для этого проекта были написаны собстенные тесты, если вы не переопределили нужные типы данны, не реализовали все необходимые конструторы и функции, как этого требует задание, то ваши результаты будут достаточно низкими.
 
+================================================================================================
+    
 Запуск всех тестов для vector
 
     bash test_vector.sh
@@ -22,7 +24,9 @@
     bash test_vector.sh Mod    (Modifiers)
     
 </details>
-    
+
+================================================================================================
+
 <details>
 <summary>Запуск отдельных функций vector</summary>
 
@@ -82,9 +86,9 @@
 <details>
 <summary>Запуск отдельных блоков stack</summary>
     
-    bash test_stack.sh Member (Member functions)
+    bash test_stack.sh Member   (Member functions)
     
-    bash test_stack.sh Non (Non-member function overloads)
+    bash test_stack.sh Non      (Non-member function overloads)
     
 </details>
     
@@ -103,3 +107,6 @@
     1) bash test_stack.sh operator          (==, !=, <, <=, >, >=)
     
 </details>
+
+================================================================================================
+
