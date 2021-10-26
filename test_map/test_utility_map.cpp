@@ -1,4 +1,4 @@
-#include <vector>
+#include <map>
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../vector.hpp"
+#include "../map.hpp"
 
 # define DEFAULT	"\033[0m"
 # define BOLD		"\033[1m"
@@ -18,7 +18,7 @@
 # define BLUE		"\033[34m"
 # define AQUA		"\033[36m"
 
-# define RANDOM		10
+# define RANDOM		1000
 # define STR_PART	100
 # define STR_MAX	1000
 
@@ -34,30 +34,26 @@
 # define SIZE_10M	10000000
 # define SIZE_100M	100000000
 
-// Иницилихация вектора std, ft одними параметрами
-template <typename T>
-void	init_vector_all(std::vector<T>* a_orig, ft::vector<T>* a_my)
+// Иницилихация стака std, ft одними параметрами заданной длины
+void	init_map(std::map<int, std::string>* a_orig, ft::map<int, std::string>* a_my, int size)
 {
-	std::srand(time(NULL));
-	int	size_orig = (*a_orig).size();
-	int	size_my = (*a_my).size();
-	if (size_orig != size_my)
-	{
+	if (size < 0)
 		std::cout << "Error size" << std::endl;
-		return ;
-	}
-	for (int i = 0; i < size_orig; i++)
-		(*a_orig)[i] = (*a_my)[i] = (rand() % RANDOM) + 0.5;
-}
+	else
+	{
+		int			temp;
+		std::string	temp_str;
 
-// Иницилихация вектора
-template <typename T>
-void	init_vector(T *a)
-{
-	//std::srand(time(NULL));
-	int	size = (*a).size();
-	for (int i = 0; i < size; i++)
-		(*a)[i] = (rand() % 10) + 0.5;
+		std::srand(time(NULL));
+		for (int i = 0; i < size; i++)
+		{
+			temp = (rand() % RANDOM);
+			temp_str = std::to_string(temp) + "_str";
+
+			(*a_orig).insert(std::pair<int, std::string>(temp, temp_str));
+			(*a_my).insert(ft::pair<int, std::string>(temp, temp_str));
+		}
+	}
 }
 
 std::string	print_status(bool t)
@@ -109,12 +105,12 @@ bool	print_status_comp(std::string orig, std::string my)
 	std::cout << "Comp: ";
 	if (orig == my)
 	{
-		std::cout << "" GREEN " OK \n" DEFAULT;
+		std::cout << print_status(1) << std::endl;
 		return (0);
 	}
 	else
 	{
-		std::cout << RED " KO \n" DEFAULT;
+		std::cout << print_status(0) << std::endl;
 		print_status_comp_str("orig", orig);
 		print_status_comp_str("my", my);
 		return (1);
@@ -134,28 +130,47 @@ bool	print_status_time(int orig, int my)
 	std::string ret;
 	if (temp < 20)
 	{	
-		std::cout << GREEN " OK " DEFAULT;
-		std::cout << GREEN "slower " << std::setprecision(4) << temp << DEFAULT << std::endl;
+		std::cout << print_status(1) << GREEN "slower " << std::setprecision(4) << temp << DEFAULT << std::endl;
 		return (0);
 	}
 	else
 	{
-		std::cout << RED " KO " DEFAULT;
+		std::cout << print_status(0) << RED " KO " DEFAULT;
 		std::cout << RED "slower " << std::setprecision(4) << temp << DEFAULT << std::endl;
 		return (1);
 	}
 }
 
-template <typename T>
-std::string	vektor_base_test(T *a)
+std::string	map_base_test(std::map<int, std::string>* a)
 {
 	size_t size = 0;
 	std::string	temp = "";
 
-	size = (*a).size();
-	temp += " size=" + std::to_string(size) + " capacity=" + std::to_string((*a).capacity()) + " elem=";
-	for (size_t i = 0; i < size; i++)
-		temp += std::to_string((*a)[i]);
+	std::map<int, std::string>::iterator it_1 = a->begin();
+	std::map<int, std::string>::iterator it_2 = a->end();
 
+	size = (*a).size();
+	temp += " size=" + std::to_string(size) + " elem=";
+
+	for (; it_1 != it_2; it_1++)
+		temp += "(" + std::to_string(it_1->first) + ", " + it_1->second + ") ";
+	
+	return (temp);
+}
+
+std::string	map_base_test(ft::map<int, std::string>* a)
+{
+	size_t size = 0;
+	std::string	temp = "";
+
+	ft::map<int, std::string>::iterator it_1 = a->begin();
+	ft::map<int, std::string>::iterator it_2 = a->end();
+
+	size = (*a).size();
+	temp += " size=" + std::to_string(size) + " elem=";
+
+	for (; it_1 != it_2; it_1++)
+		temp += "(" + std::to_string(it_1->first) + ", " + it_1->second + ") ";
+	
 	return (temp);
 }

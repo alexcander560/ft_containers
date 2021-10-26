@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <cstring>
 #include <stdexcept>
+#include <functional>
+#include <cmath>
 
 #include "reverse_iterator.hpp"
 #include "iterator.hpp"

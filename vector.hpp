@@ -11,7 +11,7 @@ namespace ft
 		class MyIterator;
 		class ConstMyIterator;
 		public:
-			//---------------------------typedef(12/12)-------------------------------
+			//------------------------------------------------------typedef(12/12)---------------------------------------------------------
 			typedef T																value_type;
 			typedef Allocator														allocator_type;
 			typedef typename allocator_type::reference								reference;
@@ -30,7 +30,7 @@ namespace ft
 			pointer			_begin;
 			pointer			_end;
 			pointer 		_capacity;
-			//---------------------------MyIterator-----------------------------------
+			//------------------------------------------------------MyIterator-------------------------------------------------------------
 			class MyIterator: public ft::iterator<std::random_access_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, value_type>	parent;
@@ -99,7 +99,7 @@ namespace ft
 					MyIterator				&operator-=(difference_type n)									{ return (*this += -n); }
 					reference				operator[](difference_type n) const								{ return (_ptr[n]); }
 			};
-			//---------------------------ConstMyIterator------------------------------
+			//------------------------------------------------------ConstMyIterator--------------------------------------------------------
 			class ConstMyIterator: public ft::iterator<std::random_access_iterator_tag, const value_type>
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, const value_type>	parent;
@@ -170,7 +170,7 @@ namespace ft
 			};
 
 		public:
-			//------------------------------constructor(4/4)--------------------------
+			//---------------------------------------------------------constructor(4/4)----------------------------------------------------
 			// Конструктор без параметров
 			explicit vector (const allocator_type& alloc = allocator_type()): _alloc(alloc)
 			{
@@ -210,7 +210,7 @@ namespace ft
 				for (size_type i = 0; i < n; i++, pos++, pos_copy++)
 					_alloc.construct(pos, *(pos_copy));
 			}
-			//------------------------------destructor(1/1)---------------------------
+			//---------------------------------------------------------destructor(1/1)-----------------------------------------------------
 			~vector ()
 			{
 				if (_begin != NULL)
@@ -220,14 +220,14 @@ namespace ft
 					_begin = _end = _capacity = NULL;
 				}
 			}
-			//------------------------------operator=(1/1)----------------------------
+			//---------------------------------------------------------operator=(1/1)------------------------------------------------------
 			const vector			&operator=(const vector &x)
 			{
 				if (this != &x)
 					assign(x._begin, x._end);
 				return (*this);
 			}
-			//------------------------------Iterators(8/8)----------------------------
+			//---------------------------------------------------------Iterators(8/8)------------------------------------------------------
 			iterator				begin()										{ return (iterator(_begin)); }
 			const_iterator			begin() const								{ return (const_iterator(_begin)); }
 			iterator				end()										{ return (iterator(_end)); }
@@ -236,7 +236,7 @@ namespace ft
 			const_reverse_iterator	rbegin() const								{ return (const_reverse_iterator(end())); }
 			reverse_iterator		rend()										{ return (reverse_iterator(begin())); }
 			const_reverse_iterator	rend() const								{ return (const_reverse_iterator(begin())); }
-			//------------------------------Capacity(6/6)-----------------------------
+			//---------------------------------------------------------Capacity(6/6)-------------------------------------------------------
 			// Возвращает кол-во элементов вектора
 			size_type				size() const								{ return (_end - _begin); }
 			// Возвращает максимальное количество элементов, которое может содержать вектор
@@ -283,10 +283,9 @@ namespace ft
 					_alloc.deallocate(begin_temp, capacity_old);
 				}
 			}
-			//---------------------------Element access(8/8)--------------------------
+			//------------------------------------------------------Element access(8/8)----------------------------------------------------
 			// Доступ к элементу без защиты
 			reference				operator[](size_type n)						{ return (*(_begin + n)); }
-			// Доступ к элементу без защиты
 			const_reference			operator[](size_type n) const				{ return (*(_begin + n)); }
 			// Доступ к элементу с защитой
 			reference				at(size_type n)
@@ -295,7 +294,6 @@ namespace ft
 					throw std::out_of_range("vector");
 				return (*(_begin + n));
 			}
-			// Доступ к элементу с защитой
 			const_reference			at(size_type n) const
 			{
 				if (n >= size())
@@ -304,13 +302,11 @@ namespace ft
 			}
 			// Возвращает ссылку на первый элемент вектора
 			reference				front()										{ return (*_begin); }
-			// Возвращает ссылку на первый элемент вектора
 			const_reference			front() const								{ return (*_begin); }
 			// Возвращает ссылку на последний элемент вектора
 			reference				back()										{ return (*(_end - 1)); }
-			// Возвращает ссылку на последний элемент вектора
 			const_reference			back() const								{ return (*(_end - 1)); }
-			//-----------------------------Modifiers(11/11)---------------------------
+			//--------------------------------------------------------Modifiers(11/11)-----------------------------------------------------
 			template <class InputIterator>
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void					assign (InputIterator first, InputIterator last)
@@ -341,7 +337,6 @@ namespace ft
 					}
 				}
 			}
-			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
 			void					assign (size_type n, const value_type& val)
 			{
 				size_type capacity = this->capacity();
@@ -379,7 +374,7 @@ namespace ft
 				_alloc.destroy(&back());
 				_end--;
 			}
-			// Вектор увеличивается путем вставки нового элемента до элемента в заданном положении
+			// Вектор увеличивается путем вставки новых элементов (1 или нескольких)
 			iterator				insert (iterator position, const value_type& val)
 			{
 				pointer		new_pos = NULL;
@@ -397,7 +392,6 @@ namespace ft
 				_end++;
 				return (iterator(new_pos));
 			}
-			// Вектор увеличивается путем вставки n новых элементов до элемента в заданном положении
 			void					insert (iterator position, size_type n, const value_type& val)
 			{
 				if (n != 0)
@@ -418,7 +412,6 @@ namespace ft
 					_end = _end + n;
 				}
 			}
-			// Вектор увеличивается путем вставки новых элементов до элемента в заданном положении
 			template <class InputIterator>
 			void					insert (iterator position, InputIterator first, InputIterator last)
 			{
@@ -446,7 +439,7 @@ namespace ft
 					_alloc.deallocate(begin_new, n);
 				}
 			}
-			// Удаляет из вектора один элемент 
+			// Удаляет из вектора элементы (1 или несколько) 
 			iterator				erase (iterator position)
 			{
 				pointer		p = position._ptr;
@@ -462,7 +455,6 @@ namespace ft
 				_end--;
 				return (iterator(p));
 			}
-			// Удаляет из вектора диапазон элементов
 			iterator				erase (iterator first, iterator last)
 			{
 				pointer		first_ptr = first._ptr, first_ptr_temp = first_ptr, last_ptr = last._ptr;
@@ -495,11 +487,11 @@ namespace ft
 				for (size_type i = 0; i < size; i++)
 					_alloc.destroy(_end--);
 			}
-			//-----------------------------Allocator(1/1)-----------------------------
+			//--------------------------------------------------------Allocator(1/1)-------------------------------------------------------
 			allocator_type			get_allocator() const						{ return (_alloc); }
 	};
 
-	//-------------------Non-member function overloads(7/7)-------------------
+	//---------------------------------------------------Non-member function overloads(7/7)------------------------------------------------
 	typedef	std::size_t		size_type;
 	template <typename T, typename Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)	{return (lhs.size() != rhs.size() ? false : equal(lhs.begin(), lhs.end(), rhs.begin())); }
