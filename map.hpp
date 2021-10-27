@@ -128,7 +128,7 @@ namespace ft
 			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const				{ return (make_pair(lower_bound(k), upper_bound(k))); }
 			pair<iterator,iterator>				equal_range (const key_type& k)						{ return (make_pair(lower_bound(k), upper_bound(k))); }
 			// Функции печати мапы (её на самом деле нет)
-			void								print_tree()										{ _tree.AVLTreePrint();}
+			void								print_tree(int mod = 0)								{ _tree.AVLTreePrint(mod);}
 
 	private:
 			//----------------------------------------------------------AVL Tree Implementation---------------------------------------------------------------------------
@@ -293,8 +293,14 @@ namespace ft
 							if (mod_h == 1 || mod_h == 2)
 								std::cout << "|" << lev_tree_height[i] << std::endl;
 						}
-
 						std::cout << "\nTime: " << (float)(clock() - time_tree) / (float)1000000 << " c" << std::endl;
+						if (check_parent(tree) == 0)
+							std::cout << "OK" << std::endl;
+						else
+						{
+							std::cout << "KO" << std::endl;
+							exit (1);
+						}
 					}
 					// Считает кол-во элементов в дереве (функция была добавленна для корректного тестирвоания при создании мапы)
 					int size(node *tree)
@@ -320,6 +326,29 @@ namespace ft
 						int rightDepth = depth(tree->right);
 
 						return (leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1);
+					}
+					// Проверяет правильно ли определились родители
+					int	check_parent(node *tree)
+					{
+						int rez = 0;
+
+						if (tree == NULL)
+							return (0);
+						if (tree->left != NULL)
+						{
+							if (tree->left->parent != tree)
+								rez++;
+							else
+								rez += check_parent(tree->left);
+						}
+						if (tree->right != NULL)
+						{
+							if (tree->right->parent != tree)
+								rez++;
+							else
+								rez += check_parent(tree->right);
+						}
+						return (rez);
 					}
 					//----------------------------------------------------------------------------------------------
 					//---------------------------Функции для корректной вставки узла в дерево-----------------------
@@ -440,175 +469,86 @@ namespace ft
 
 						return (res);
 					}
-
-
-										// ??? ??? ???
-					pair<iterator, bool> _insert(node* p, const_reference v)
+					//----------------------------------------------------------------------------------------------
+					//---------------------------Функции для корректного удаления элементов дерева------------------
+					//----------------------------------------------------------------------------------------------
+					// Удалить узел
+					void _delnode(node* p)
 					{
-						if (!p)
-							return make_pair(iterator(_newnode(v), this), true);
-						for (node* cur = p; cur != NULL; )
+						_alloc.destroy(p->data);
+						_alloc.deallocate(p->data, 1);
+						delete p;
+					}
+					// Удалить все узлы
+					void _clear(node *n)
+					{
+						if (n == NULL)
+							return ;
+						_clear(n->left);
+						_clear(n->right);
+						_delnode(n);
+					}
+					// Поиск узла с минимальным ключом в дереве
+					node* _findmin_AVL(node* p)
+					{
+						return (p->left ? _findmin_AVL(p->left) : p);
+					}
+					// Удаление узла с минимальным ключом из дерева
+					node* _removemin_AVL(node* p) // удаление узла с минимальным ключом из дерева p
+					{
+						if(p->left == 0)
 						{
-							p = cur;
-							if (_kc(v.first, cur->data->first))
-								cur = cur->left;
-							else if (_kc(cur->data->first, v.first))
-								cur = cur->right;
-							else
-								return make_pair(iterator(p, this), false);
+							if (p->right)
+								p->right->parent = p->parent;
+							return (p->right);
 						}
-						node **newn = _kc(v.first, p->data->first) ? &p->left : &p->right;
-						*newn = _newnode(v, p);
-						return make_pair(*newn, true);
+						p->left = _removemin_AVL(p->left);
+						return (_balance_AVL(p));
 					}
-					pair<iterator, bool> _make_insert_pair(node* n, bool is_inserted) const
+					// Удаляет элемент из дерева
+					node* _remove_AVL(node* p, const key_type& k) // удаление ключа k из дерева p
 					{
-						return make_pair(iterator(n, this), is_inserted);
-					}
-                    void _delnode(node* p)
-                    {
-                        _alloc.destroy(p->data);
-                        _alloc.deallocate(p->data, 1);
-                        delete p;
-                    }
-
-                    static size_t _height(node* p)
-					{
-						return p ? p->height : 0;
-					}
-
-					static int _bfactor(node* p)
-					{
-						return _height(p->right) - _height(p->left);
-					}
-
-					static void _fixheight(node* p)
-					{
-						p->height = std::max(_height(p->left), _height(p->right)) + 1;
-					}
-
-					static bool _is_left_branch(const node *n)
-					{
-						return n->parent != NULL && n->parent->left == n;
-					}
-
-					static void _assign_new_parent(node *n, node *new_parent, bool is_left)
-					{
-						if (n != NULL)
-							n->parent = new_parent;
-						if (new_parent != NULL)
+						if(!p)
+							return (0);
+						if(_kc(k, p->data->first))
+							p->left = _remove_AVL(p->left ,k);
+						else if(_kc(p->data->first, k))
+							p->right = _remove_AVL(p->right, k);	
+						else
 						{
-							if (is_left)
-								new_parent->left = n;
-							else
-								new_parent->right = n;
+							node* q = p->left;
+							node* r = p->right;
+							node* temp_parent = p->parent;
+							//delete p; // сега
+							_delnode(p);
+							_size--;
+							if(!r)
+							{
+								if (q)
+									q->parent = p->parent;
+								return (q);
+							}
+							node* min = _findmin_AVL(r);
+							min->right = _removemin_AVL(r);
+							if (min->right)
+								min->right->parent = min;
+							min->left = q;
+							if (min->left)
+								min->left->parent = min;
+							min->parent = temp_parent;
+							return (_balance_AVL(min));
 						}
+						return (_balance_AVL(p));
 					}
-
-					static void _make_parent(node *new_parent, node *n)
-					{
-						_assign_new_parent(new_parent, n->parent, _is_left_branch(n));
-						n->parent = new_parent;
-					}
-
-					static void	_assign_branch(node **dest, node *new_branch, node* parent)
-					{
-						*dest = new_branch;
-						if (*dest)
-							(*dest)->parent = parent;
-					}
-
-					static node* _rotateright(node* p)
-					{
-						node* q = p->left;
-						_assign_branch(&p->left, q->right, p);
-						q->right = p;
-						_make_parent(q, p);
-						_fixheight(p);
-						_fixheight(q);
-						return q;
-					}
-
-					static node* _rotateleft(node* q)
-					{
-						node* p = q->right;
-						_assign_branch(&q->right, p->left, q);
-						p->left = q;
-						_make_parent(p, q);
-						_fixheight(q);
-						_fixheight(p);
-						return p;
-					}
-
-					static node* __balance(node* p)
-					{
-						_fixheight(p);
-						if (_bfactor(p) == 2)
-						{
-							if (_bfactor(p->right) < 0)
-                                p->right = _rotateright(p->right);
-							return _rotateleft(p);
-						}
-						if (_bfactor(p) == -2)
-						{
-							if (_bfactor(p->left) > 0)
-								p->left = _rotateleft(p->left);
-							return _rotateright(p);
-						}
-						return p;
-					}
-			
-					static node* _balance(node* p)
-					{
-                        for (;;)
-						{
-							p = __balance(p);
-							if (p->parent)
-								p = p->parent;
-							else
-								return p;
-						}
-                    }
+					//=================================================
+					//================ НИЖЕ БЛОК НЕ РАЗОБРАН ==========
+					//=================================================
 
 					static node* _findmin(node* p)
 					{
 						return p && p->left ? _findmin(p->left) : p;
 					}
-
-					static node* _removemin(node* p)
-					{
-						if (p->left == NULL)
-							return p->right;
-						p->left = _removemin(p->left);
-						return __balance(p);
-					}
-
-                    node* _delnode_with_rebalance(node* p)
-                    {
-                        node* q = p->left;
-                        node* r = p->right;
-						node* parent = p->parent;
-                        node* res;
-
-						if (r == NULL)
-						{
-							_assign_new_parent(q, parent, _is_left_branch(p));
-							res = q;
-						}
-						else
-						{
-                        	node* min = _findmin(r);
-							_assign_new_parent(min, parent, _is_left_branch(p));
-							_assign_branch(&min->right, _removemin(r), min);
-                        	_assign_branch(&min->left, q, min);
-							res = min;
-						}
-						_delnode(p);
-						return res ? _balance(res) : 
-									parent ? _balance(parent) : NULL;
-                    }
-
-                    node* _find(node* n, const key_type k) const
+					node* _find(node* n, const key_type k) const
                     {
                         if (n == NULL)
                             return NULL;
@@ -619,15 +559,6 @@ namespace ft
                         else
                             return n;
                     }
-
-					pair<iterator, bool> _insert_tree(iterator pos, const_reference v)
-					{
-						for (; pos._node != NULL && _kc(pos._node->data->first, v.first); ++pos)
-							;
-						if (pos._node == NULL) --pos;
-						return _insert_tree(pos._node, v);
-					}
-
 					node* _remove(node* p, const key_type& k)
 					{
                         while (p != NULL)
@@ -644,15 +575,6 @@ namespace ft
 						}
                         return _root;
 					}
-					
-                    void _clear(node *n)
-                    {
-                        if (n == NULL) return;
-                        _clear(n->left);
-                        _clear(n->right);
-                        _delnode(n);
-                    }
-
 					node* _lower_bound(node* root, const key_type& k) const
 					{
 						node* larger = NULL;
@@ -670,7 +592,6 @@ namespace ft
 						}
 						return larger;
 					}
-
 					node* _upper_bound(node* root, const key_type& k) const
 					{
 						node* larger = NULL;
@@ -700,17 +621,18 @@ namespace ft
 						return larger;
 					}
 
+					//=================================================
 				public:
 					// Конструктор дерева
 					AVLTree(const key_compare &key_comp, const allocator_type& alloc): _root(NULL), _kc(key_comp), _size(0), _alloc(alloc){}
 					// Деструктор дерева
 					~AVLTree()												{ clear(); }
 					// Распечатать дерево (создано для тестирвония AVL дерева)
-					void				AVLTreePrint()
+					void					AVLTreePrint(int mod)
 					{
 						std::cout << "Печатаем дерево" << std::endl;
 						std::cout << "================================================" << std::endl;
-						print_tree(_root, 0);
+						print_tree(_root, mod);
 						std::cout << "================================================" << std::endl;
 					}
 					//	Удаляет все элементы из дерева
@@ -729,19 +651,26 @@ namespace ft
 					const_iterator			end() const						{ return (const_iterator(NULL, this)); }
 					// Вставка элемента, запускает вставку в дерево, при этом дерево автоматически балансируется
 					pair<iterator, bool>	insert(const_reference val)		{ return (_insert_tree(_root, val, _root)); }
-					iterator insert (iterator position, const_reference val)
+					iterator				insert (iterator position, const_reference val)
 					{
-						if (position._node != NULL && _kc(position._node->data->first, val.first))
-						{
-							return _insert_tree(++position, val).first;
-						}
-						else
-							return insert(val).first;
+						(void)position;		// Что не смеетесь? Не смешно? Не поняли?
+						return (_insert_tree(_root, val, _root).first);
+					}
+					// Удаляет элемент (по позиции или ключу), автоматически балансирует дерево
+					void					erase(iterator position)		{ _root = _remove_AVL(_root, (*position).first); }
+					size_t					erase(const key_type& k)
+					{
+						size_type old_size = _size;
+
+						_root = _remove_AVL(_root, k);
+						return (old_size != _size);
 					}
 					// Возвращает аллокатор
 					allocator_type			get_allocator() const			{ return (_alloc); }
 
-
+					//=================================================
+					//================ НИЖЕ БЛОК НЕ РАЗОБРАН ==========
+					//=================================================
                     void                clone(const AVLTree &copy)
                     {
                         if (_root != NULL) clear();
@@ -785,20 +714,6 @@ namespace ft
 					        clone(tree);
                         return *this;
                     }
-
-                    void erase(iterator position)
-                    {
-                        _root = _delnode_with_rebalance(position._node);
-                        --_size;
-                    }
-
-                    size_t erase(const key_type& k)
-					{
-					    const size_type old_size = _size;
-
-					    _root = _remove(_root, k);
-                        return old_size != _size;
-					}
 
 					void swap(AVLTree& x)
                     {
@@ -1082,7 +997,7 @@ namespace ft
 	template <typename T, typename Alloc>
 	bool operator> (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return (rhs < lhs); }
 	template <typename T, typename Alloc>
-	bool operator>= (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return !(lhs < rhs); }
+	bool operator>= (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return (!(lhs < rhs)); }
 	template <typename T, typename Alloc>
 	void swap (map<T,Alloc>& x, map<T,Alloc>& y)						{ x.swap(y); }
 };
