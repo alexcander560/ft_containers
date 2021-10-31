@@ -78,10 +78,10 @@ namespace ft
 			// Возвращает кол-во элементов мапы
 			size_type							size() const 										{ return (_tree._size_AVL()); }
 			// Возвращает максимальное количество элементов, которое может содержать мапа
-			size_type							max_size() const									{ return (_tree.get_allocator().max_size()); }
+			size_type							max_size() const									{ return (_tree.get_allocator().max_size()/2); }
 			//----------------------------------------------------------Element access(1/1)-------------------------------------------------------------------------------
 			// Если k соответствует ключу элемента в контейнере, функция возвращает ссылку на его отображаемое значение
-			mapped_type& 						operator[] (const key_type& k)						{ return (*insert(make_pair(k, mapped_type())).first).second; }
+			mapped_type& 						operator[] (const key_type& k)						{ return (*insert(ft::make_pair(k, mapped_type())).first).second; }
 			//------------------------------------------------------------Modifiers(8/8)----------------------------------------------------------------------------------
 			// Мапа увеличивается путем вставки нового элемента, если ключ уникален (одного или нескольких)
 			pair<iterator, bool>				insert (const value_type& val)						{ return (_tree.insert(val)); }
@@ -108,7 +108,7 @@ namespace ft
 			// Возвращает копию объекта сравнения, используемого контейнером для сравнения ключей
 			key_compare							key_comp() const									{ return (key_compare()); }
 			// Возвращает объект сравнения, который можно использовать для сравнения двух элементов
-			value_compare						value_comp() const									{ return (value_compare()); }
+			value_compare						value_comp() const									{ return (value_compare(key_compare())); }
 			//---------------------------------------------------------Allocator(1/1)-------------------------------------------------------------------------------------
 			allocator_type						get_allocator() const								{ return (_tree.get_allocator()); }
 			//---------------------------------------------------------Operations(9/9)------------------------------------------------------------------------------------

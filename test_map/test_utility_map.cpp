@@ -30,9 +30,14 @@
 # define SIZE_10K	10000
 # define SIZE_50K	50000
 # define SIZE_100K	100000
+# define SIZE_200K	200000
 # define SIZE_1M	1000000
 # define SIZE_10M	10000000
 # define SIZE_100M	100000000
+
+# define clear() printf("\033[H\033[J")
+
+using namespace std;
 
 // Иницилихация стака std, ft одними параметрами заданной длины
 void	init_map(std::map<int, std::string>* a_orig, ft::map<int, std::string>* a_my, int size)
