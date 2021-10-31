@@ -108,7 +108,7 @@ namespace ft
 			// Возвращает копию объекта сравнения, используемого контейнером для сравнения ключей
 			key_compare							key_comp() const									{ return (key_compare()); }
 			// Возвращает объект сравнения, который можно использовать для сравнения двух элементов
-			value_compare						value_comp() const									{ return (value_compare(key_compare())); }
+			value_compare						value_comp() const									{ return (value_compare()); }
 			//---------------------------------------------------------Allocator(1/1)-------------------------------------------------------------------------------------
 			allocator_type						get_allocator() const								{ return (_tree.get_allocator()); }
 			//---------------------------------------------------------Operations(9/9)------------------------------------------------------------------------------------
@@ -124,8 +124,8 @@ namespace ft
 			iterator							upper_bound (const key_type& k)						{ return (_tree.upper_bound(k)); }
 			const_iterator						upper_bound (const key_type& k) const				{ return (_tree.upper_bound(k)); }
 			// Возвращает границы диапазона, который включает все элементы в контейнере с ключом, эквивалентным k
-			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const				{ return (make_pair(lower_bound(k), upper_bound(k))); }
 			pair<iterator,iterator>				equal_range (const key_type& k)						{ return (make_pair(lower_bound(k), upper_bound(k))); }
+			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const				{ return (make_pair(lower_bound(k), upper_bound(k))); }
 			//---------------------------------------------------------My function(9/9)-----------------------------------------------------------------------------------
 			// Функции печати мапы (её на самом деле нет)
 			void								print_tree(int mod = 0)								{ _tree.AVLTreePrint(mod); }
