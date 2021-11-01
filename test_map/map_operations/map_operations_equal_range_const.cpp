@@ -15,16 +15,19 @@ int	test_1()
 	orig.insert(std::pair<int, string>(42, "school_"));
 	my.insert(ft::pair<int, string>(42, "school_"));
 
+	std::map<int, string> const orig_const(orig);
+	ft::map<int, string> const my_const(my);
+
 	cout << "Test 1 (1 elem, 1 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	orig_pair = orig.equal_range(21);
+	orig_pair = orig_const.equal_range(21);
 	temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	my_pair = my.equal_range(21);
+	my_pair = my_const.equal_range(21);
 	temp_my += my_pair.first->second + my_pair.second->second + "|";
 
 	if (TEST)
@@ -33,7 +36,7 @@ int	test_1()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_2()
@@ -49,19 +52,22 @@ int	test_2()
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
-		my.insert(ft::pair<int, string>(i, num_str));		
+		my.insert(ft::pair<int, string>(i, num_str));
 	}
+
+	std::map<int, string> const orig_const(orig);
+	ft::map<int, string> const my_const(my);
 
 	cout << "Test 2 (100 elem, 201 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
 
-	orig_pair = orig.equal_range(-420);
+	orig_pair = orig_const.equal_range(-420);
 	temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_200; i++)
 	{
-		orig_pair = orig.equal_range(i);
+		orig_pair = orig_const.equal_range(i);
 		temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 	}
 
@@ -69,12 +75,12 @@ int	test_2()
 	//============================MY===============================
 	time_my = clock();
 	
-	my_pair = my.equal_range(-420);
+	my_pair = my_const.equal_range(-420);
 	temp_my += my_pair.first->second + my_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_200; i++)
 	{
-		my_pair = my.equal_range(i);
+		my_pair = my_const.equal_range(i);
 		temp_my += my_pair.first->second + my_pair.second->second + "|";
 	}
 
@@ -84,7 +90,7 @@ int	test_2()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_3()
@@ -103,16 +109,19 @@ int	test_3()
 		my.insert(ft::pair<int, string>(i, num_str));		
 	}
 
+	std::map<int, string> const orig_const(orig);
+	ft::map<int, string> const my_const(my);
+
 	cout << "Test 3 (10.000 elem, 20.001 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
 
-	orig_pair = orig.equal_range(-42000);
+	orig_pair = orig_const.equal_range(-42000);
 	temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_20K; i++)
 	{
-		orig_pair = orig.equal_range(i);
+		orig_pair = orig_const.equal_range(i);
 		temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 	}
 
@@ -120,12 +129,12 @@ int	test_3()
 	//============================MY===============================
 	time_my = clock();
 	
-	my_pair = my.equal_range(-42000);
+	my_pair = my_const.equal_range(-42000);
 	temp_my += my_pair.first->second + my_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_20K; i++)
 	{
-		my_pair = my.equal_range(i);
+		my_pair = my_const.equal_range(i);
 		temp_my += my_pair.first->second + my_pair.second->second + "|";
 	}
 
@@ -135,7 +144,7 @@ int	test_3()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_4()
@@ -154,16 +163,19 @@ int	test_4()
 		my.insert(ft::pair<int, string>(i, num_str));		
 	}
 
+	std::map<int, string> const orig_const(orig);
+	ft::map<int, string> const my_const(my);
+
 	cout << "Test 4 (1.000.000 elem, 2.000.001 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
 
-	orig_pair = orig.equal_range(-4200000);
+	orig_pair = orig_const.equal_range(-4200000);
 	temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_2M; i++)
 	{
-		orig_pair = orig.equal_range(i);
+		orig_pair = orig_const.equal_range(i);
 		temp_orig += orig_pair.first->second + orig_pair.second->second + "|";
 	}
 
@@ -171,12 +183,12 @@ int	test_4()
 	//============================MY===============================
 	time_my = clock();
 	
-	my_pair = my.equal_range(-4200000);
+	my_pair = my_const.equal_range(-4200000);
 	temp_my += my_pair.first->second + my_pair.second->second + "|";
 
 	for (int i = 0; i < SIZE_2M; i++)
 	{
-		my_pair = my.equal_range(i);
+		my_pair = my_const.equal_range(i);
 		temp_my += my_pair.first->second + my_pair.second->second + "|";
 	}
 
@@ -186,7 +198,7 @@ int	test_4()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	main()

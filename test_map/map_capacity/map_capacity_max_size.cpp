@@ -24,7 +24,7 @@ int	test_1()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_2()
@@ -51,7 +51,7 @@ int	test_2()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_3()
@@ -81,7 +81,7 @@ int	test_3()
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	main()

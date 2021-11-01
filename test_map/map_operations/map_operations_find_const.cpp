@@ -8,40 +8,29 @@ int	test_1()
 	string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 	std::map<int, string> orig;
-	std::map<int, string>::const_iterator orig_it;
 	ft::map<int, string> my;
-	ft::map<int, string>::const_iterator my_it;
 
-	orig.insert(std::pair<int, string>(42, "school_"));
-	my.insert(ft::pair<int, string>(42, "school_"));
+	orig.insert(std::pair<int, string>(42, "school"));
+	my.insert(ft::pair<int, string>(42, "school"));
 
 	std::map<int, string> const orig_const(orig);
 	ft::map<int, string> const my_const(my);
 
-	cout << "Test 1 (1 elem, 3 call)" << endl;
+	cout << "Test 1 (1 elem, 1 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	temp_orig += orig_const.upper_bound(21)->second;
-	orig_it = --orig_const.upper_bound(42);
-	temp_orig += orig_it->second;
-	orig_it = --orig_const.upper_bound(100);
-	temp_orig += orig_it->second;
-
+	temp_orig += orig_const.find(42)->second;
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	temp_my += my_const.upper_bound(21)->second;
-	my_it = --my_const.upper_bound(42);
-	temp_my += my_it->second;
-	my_it = --my_const.upper_bound(100);
-	temp_my += my_it->second;
+	temp_my += my_const.find(42)->second;
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_2()
@@ -49,51 +38,35 @@ int	test_2()
 	string	temp_orig = "", temp_my = "", num_str = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 	std::map<int, string> orig;
-	std::map<int, string>::const_iterator orig_it;
 	ft::map<int, string> my;
-	ft::map<int, string>::const_iterator my_it;
 
-	for (size_t i = 2; i <= SIZE_200; i = i + 2)
+	for (size_t i = 0; i < SIZE_100; i++)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
-		my.insert(ft::pair<int, string>(i, num_str));		
+		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
 	std::map<int, string> const orig_const(orig);
 	ft::map<int, string> const my_const(my);
 
-	cout << "Test 2 (100 elem, 202 call)" << endl;
+	cout << "Test 2 (100 elem, 100 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-
-	temp_orig += orig_const.upper_bound(-420)->second;
-
-	for (int i = 0; i < SIZE_200; i++)
-		temp_orig += orig_const.upper_bound(i)->second;
-
-	orig_it = --orig_const.upper_bound(420);
-	temp_orig += orig_it->second;
-
+	for (size_t i = 0; i < SIZE_100; i++)
+		temp_orig += orig_const.find(i)->second;
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	
-	temp_my += my_const.upper_bound(-420)->second;
-
-	for (int i = 0; i < SIZE_200; i++)
-		temp_my += my_const.upper_bound(i)->second;
-
-	my_it = --my_const.upper_bound(420);
-	temp_my += my_it->second;
-
+	for (size_t i = 0; i < SIZE_100; i++)
+		temp_my += my_const.find(i)->second;
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_3()
@@ -101,51 +74,35 @@ int	test_3()
 	string	temp_orig = "", temp_my = "", num_str = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 	std::map<int, string> orig;
-	std::map<int, string>::const_iterator orig_it;
 	ft::map<int, string> my;
-	ft::map<int, string>::const_iterator my_it;
 
-	for (size_t i = 2; i <= SIZE_20K; i = i + 2)
+	for (size_t i = 0; i < SIZE_10K; i++)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
-		my.insert(ft::pair<int, string>(i, num_str));		
+		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
 	std::map<int, string> const orig_const(orig);
 	ft::map<int, string> const my_const(my);
 
-	cout << "Test 3 (10.000 elem, 20.002 call)" << endl;
+	cout << "Test 3 (10.000 elem, 10.000 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-
-	temp_orig += orig_const.upper_bound(-42000)->second;
-
-	for (int i = 0; i < SIZE_20K; i++)
-		temp_orig += orig_const.upper_bound(i)->second;
-
-	orig_it = --orig_const.upper_bound(42000);
-	temp_orig += orig_it->second;
-
+	for (size_t i = 0; i < SIZE_10K; i++)
+		temp_orig += orig_const.find(i)->second;
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	
-	temp_my += my_const.upper_bound(-42000)->second;
-
-	for (int i = 0; i < SIZE_20K; i++)
-		temp_my += my_const.upper_bound(i)->second;
-
-	my_it = --my_const.upper_bound(42000);
-	temp_my += my_it->second;
-
+	for (size_t i = 0; i < SIZE_10K; i++)
+		temp_my += my_const.find(i)->second;
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_4()
@@ -153,51 +110,36 @@ int	test_4()
 	string	temp_orig = "", temp_my = "", num_str = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
 	std::map<int, string> orig;
-	std::map<int, string>::const_iterator orig_it;
 	ft::map<int, string> my;
-	ft::map<int, string>::const_iterator my_it;
 
-	for (size_t i = 2; i <= SIZE_2M; i = i + 2)
+	for (size_t i = 0; i < SIZE_1M; i++)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
-		my.insert(ft::pair<int, string>(i, num_str));		
+		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
 	std::map<int, string> const orig_const(orig);
 	ft::map<int, string> const my_const(my);
 
-	cout << "Test 4 (1.000.000 elem, 2.000.002 call)" << endl;
+
+	cout << "Test 4 (1.000.000 elem, 1.000.000 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-
-	temp_orig += orig_const.upper_bound(-4200000)->second;
-
-	for (int i = 0; i < SIZE_2M; i++)
-		temp_orig += orig_const.upper_bound(i)->second;
-
-	orig_it = --orig_const.upper_bound(4200000);
-	temp_orig += orig_it->second;
-
+	for (size_t i = 0; i < SIZE_1M; i++)
+		temp_orig += orig_const.find(i)->second;
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	
-	temp_my += my_const.upper_bound(-4200000)->second;
-
-	for (int i = 0; i < SIZE_2M; i++)
-		temp_my += my_const.upper_bound(i)->second;
-
-	my_it = --my_const.upper_bound(4200000);
-	temp_my += my_it->second;
-
+	for (size_t i = 0; i < SIZE_1M; i++)
+		temp_my += my_const.find(i)->second;
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	main()

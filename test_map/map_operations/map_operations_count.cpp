@@ -16,18 +16,18 @@ int	test_1()
 	cout << "Test 1 (1 elem, 1 call)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	temp_orig += orig.find(42)->second;
+	temp_orig += to_string(orig.count(42));
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	temp_my += my.find(42)->second;
+	temp_my += to_string(my.count(42));
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_2()
@@ -44,23 +44,23 @@ int	test_2()
 		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
-	cout << "Test 2 (100 elem, 100 cal)" << endl;
+	cout << "Test 2 (100 elem, 300 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	for (size_t i = 0; i < SIZE_100; i++)
-		temp_orig += orig.find(i)->second;
+	for (int i = -SIZE_100; i < SIZE_200; i++)
+		temp_orig += to_string(orig.count(i));
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	for (size_t i = 0; i < SIZE_100; i++)
-		temp_my += my.find(i)->second;
+	for (int i = -SIZE_100; i < SIZE_200; i++)
+		temp_my += to_string(my.count(i));
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_3()
@@ -77,23 +77,23 @@ int	test_3()
 		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
-	cout << "Test 3 (10.000 elem, 10.000 cal)" << endl;
+	cout << "Test 3 (10.000 elem, 30.000 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	for (size_t i = 0; i < SIZE_10K; i++)
-		temp_orig += orig.find(i)->second;
+	for (int i = -SIZE_10K; i < SIZE_20K; i++)
+		temp_orig += to_string(orig.count(i));
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	for (size_t i = 0; i < SIZE_10K; i++)
-		temp_my += my.find(i)->second;
+	for (int i = -SIZE_10K; i < SIZE_20K; i++)
+		temp_my += to_string(my.count(i));
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	test_4()
@@ -103,30 +103,30 @@ int	test_4()
 	std::map<int, string> orig;
 	ft::map<int, string> my;
 
-	for (size_t i = 0; i < SIZE_1M; i++)
+	for (size_t i = 0; i < SIZE_10K; i++)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
 		my.insert(ft::pair<int, string>(i, num_str));
 	}
 
-	cout << "Test 4 (1.000.000 elem, 1.000.000 cal)" << endl;
+	cout << "Test 4 (1.000.000 elem, 3.000.000 cal)" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	for (size_t i = 0; i < SIZE_1M; i++)
-		temp_orig += orig.find(i)->second;
+	for (int i = -SIZE_1M; i < SIZE_2M; i++)
+		temp_orig += to_string(orig.count(i));
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	for (size_t i = 0; i < SIZE_1M; i++)
-		temp_my += my.find(i)->second;
+	for (int i = -SIZE_1M; i < SIZE_2M; i++)
+		temp_my += to_string(my.count(i));
 	if (TEST)
 		temp_my += " ";
 	time_my = clock() - time_my;
 	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-	return (!rez);
+	return (rez);
 }
 
 int	main()
