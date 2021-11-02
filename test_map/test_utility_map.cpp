@@ -24,19 +24,22 @@
 
 # define SIZE_0		0
 # define SIZE_1		1
+# define SIZE_2		2
 # define SIZE_10	10
 # define SIZE_100	100
 # define SIZE_200	200
 # define SIZE_1K	1000
+# define SIZE_2K	2000
 # define SIZE_10K	10000
 # define SIZE_20K	20000
-# define SIZE_50K	50000
 # define SIZE_100K	100000
 # define SIZE_200K	200000
 # define SIZE_1M	1000000
 # define SIZE_2M	2000000
 # define SIZE_10M	10000000
+# define SIZE_20M	20000000
 # define SIZE_100M	100000000
+# define SIZE_200M	200000000
 
 # define clear() printf("\033[H\033[J")
 

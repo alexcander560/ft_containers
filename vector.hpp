@@ -148,9 +148,9 @@ namespace ft
 					friend bool				operator== (const ConstMyIterator& a, const ConstMyIterator& b)		{ return (a._ptr == b._ptr); }
 					friend bool				operator!= (const ConstMyIterator& a, const ConstMyIterator& b)		{ return (!(a == b)); }
 					friend bool				operator< (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return (lhs._ptr < rhs._ptr); }
-					friend bool				operator<= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(rhs._ptr < lhs._ptr); }
-					friend bool				operator> (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return rhs < lhs; }
-					friend bool				operator>= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return !(lhs < rhs); }
+					friend bool				operator<= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return (!(rhs._ptr < lhs._ptr)); }
+					friend bool				operator> (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return (rhs < lhs); }
+					friend bool				operator>= (const ConstMyIterator lhs, const ConstMyIterator rhs)	{ return (!(lhs < rhs)); }
 					ConstMyIterator			operator+ (difference_type n) const									{ return (ConstMyIterator(_ptr + n)); }
 					friend ConstMyIterator	operator+(difference_type n, ConstMyIterator& p)
 					{

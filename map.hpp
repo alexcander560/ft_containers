@@ -68,10 +68,10 @@ namespace ft
 			const_iterator						begin() const										{ return (_tree.begin()); }
 			iterator							end()												{ return (_tree.end()); }
 			const_iterator						end() const											{ return (_tree.end()); }
-			reverse_iterator					rbegin()											{ return (reverse_iterator(begin())); }
-			const_reverse_iterator				rbegin() const										{ return (const_reverse_iterator(begin())); }
-			reverse_iterator					rend()												{ return (reverse_iterator(end())); }
-			const_reverse_iterator				rend() const										{ return (const_reverse_iterator(end())); }
+			reverse_iterator					rbegin()											{ return (reverse_iterator(--begin())); }
+			const_reverse_iterator				rbegin() const										{ return (const_reverse_iterator(--begin())); }
+			reverse_iterator					rend()												{ return (reverse_iterator(++end())); }
+			const_reverse_iterator				rend() const										{ return (const_reverse_iterator(++end())); }
 			//------------------------------------------------------------Capacity(3/3)-----------------------------------------------------------------------------------
 			// Пустая ли мапа?
 			bool								empty() const										{ return (_tree._size_AVL() ? false : true); }
@@ -521,6 +521,10 @@ namespace ft
 					{
 						return (p && p->left ? _findmin_AVL(p->left) : p);
 					}
+					node*								_findmin_AVL(node* p) const
+					{
+						return (p && p->left ? _findmin_AVL(p->left) : p);
+					}
 					// Удаление узла с минимальным ключом из дерева
 					node*								_removemin_AVL(node* p) // удаление узла с минимальным ключом из дерева p
 					{
@@ -731,7 +735,15 @@ namespace ft
 					pointer		operator->()								{ return (_node->data); }
 					self&		operator++()
 					{
-						if (_node->right != NULL)					// Если есть узел справа, то искомый узел будет находиться в правом поддереве
+						if (_node == NULL)							// Что бы можно было сделать ++ от rbegin()
+						{
+							_node = _tree->get_root();
+							if (_node == NULL)
+								throw std::underflow_error("++ requested for an empty iterator");
+							while (_node->left != NULL)
+								_node = _node->left;
+						}
+						else if (_node->right != NULL)				// Если есть узел справа, то искомый узел будет находиться в правом поддереве
 						{
 							_node = _node->right;
 							while (_node->left != NULL)				// Что бы найти следующйй узел от текущего нужно перейти к самому левому потомку
@@ -761,6 +773,8 @@ namespace ft
 						if (_node == NULL)								// Что бы можно было сделать -- от end()
 						{
 							_node = _tree->get_root();
+							if (_node == NULL)
+								throw std::underflow_error("-- requested for an empty iterator");
 							while (_node->right != NULL)
 								_node = _node->right;
 						}
@@ -827,7 +841,15 @@ namespace ft
 					pointer		operator->()								{ return (_node->data); }
 					self&		operator++()
 					{
-						if (_node->right != NULL)
+						if (_node == NULL)
+						{
+							_node = _tree->get_root();
+							if (_node == NULL)
+								throw std::underflow_error("++ requested for an empty iterator");
+							while (_node->left != NULL)
+								_node = _node->left;
+						}
+						else if (_node->right != NULL)
 						{
 							_node = _node->right;
 							while (_node->left != NULL)
@@ -857,6 +879,8 @@ namespace ft
 						if (_node == NULL)
 						{
 							_node = _tree->get_root();
+							if (_node == NULL)
+								throw std::underflow_error("-- requested for an empty iterator");
 							while (_node->right != NULL)
 								_node = _node->right;
 						}
@@ -897,7 +921,7 @@ namespace ft
 	};
 
 	template <typename T, typename Alloc>
-	bool operator== (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return (lhs._size_AVL() == rhs._size_AVL() && equal(lhs.begin(), lhs.end(), rhs.begin())); }
+	bool operator== (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin())); }
 	template <typename T, typename Alloc>
 	bool operator!= (const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{ return (!(lhs == rhs)); }
 	template <typename T, typename Alloc>

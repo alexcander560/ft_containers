@@ -3,7 +3,7 @@
 #define	TEST 0
 #define	LEAK 0
 
-int	test_1()
+int	test()
 {
 	string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
@@ -63,7 +63,7 @@ int	main()
 	int		rez = 0;
 
 	//=============================================================
-	rez += test_1();
+	rez += test();
 	//=============================================================
 	if (LEAK)
 		cin >> str_leaks;
