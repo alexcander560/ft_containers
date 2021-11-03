@@ -41,7 +41,7 @@
 # define SIZE_100M	100000000
 # define SIZE_200M	200000000
 
-# define clear() printf("\033[H\033[J")
+//# define clear() printf("\033[H\033[J")
 
 using namespace std;
 

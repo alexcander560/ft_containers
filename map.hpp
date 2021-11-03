@@ -97,8 +97,8 @@ namespace ft
 			size_type							erase(const key_type& k)							{ return (_tree.erase(k)); }
 			void								erase(iterator first, iterator last)
 			{
-				for (; first != last; first++)
-					erase(first);
+				for (; first != last;)
+					erase(first++);
 			}
 			// Заменяет содержимое контейнера содержимым x ,который является другим объектом того же типа
 			void								swap (map& x)										{ _tree.swap(x._tree); }
@@ -543,12 +543,20 @@ namespace ft
 						if(!p)
 							return (NULL);
 						if(_kc(k, p->data->first))
+						{
 							p->left = _remove_AVL(p->left ,k);
+						}
 						else if(_kc(p->data->first, k))
-							p->right = _remove_AVL(p->right, k);	
+						{
+		
+							p->right = _remove_AVL(p->right, k);
+
+						}
 						else
 						{
-							node* q = p->left, r = p->right, temp_parent = p->parent;
+							node* q = p->left;
+							node* r = p->right;
+							node *temp_parent = p->parent;
 
 							_delnode(p);
 							_size--;

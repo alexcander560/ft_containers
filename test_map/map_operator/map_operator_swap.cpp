@@ -14,6 +14,7 @@ int	test(std::map<int, string> orig_1, std::map<int, string> orig_2, ft::map<int
 
 	temp_orig += map_base_test(&orig_1);
 	temp_orig += map_base_test(&orig_2);
+	swap(orig_1, orig_1);
 	swap(orig_1, orig_2);
 	temp_orig += map_base_test(&orig_1);
 	temp_orig += map_base_test(&orig_2);
@@ -47,7 +48,7 @@ int	main()
 	std::map<int, string> orig_0;
 	std::map<int, string> orig_1;
 
-	for (size_t i = 0; i < SIZE_100K; i++)
+	for (size_t i = 0; i < SIZE_10K; i++)
 		orig_1.insert(std::pair<int, string>(i, to_string(i) + "_"));
 
 	std::map<int, string> orig_2(orig_1);
@@ -69,7 +70,7 @@ int	main()
 	ft::map<int, string> my_0;
 	ft::map<int, string> my_1;
 
-	for (size_t i = 0; i < SIZE_100K; i++)
+	for (size_t i = 0; i < SIZE_10K; i++)
 		my_1.insert(ft::pair<int, string>(i, to_string(i) + "_"));
 
 	ft::map<int, string> my_2(my_1);
