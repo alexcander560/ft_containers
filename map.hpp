@@ -68,10 +68,10 @@ namespace ft
 			const_iterator						begin() const										{ return (_tree.begin()); }
 			iterator							end()												{ return (_tree.end()); }
 			const_iterator						end() const											{ return (_tree.end()); }
-			reverse_iterator					rbegin()											{ return (reverse_iterator(--begin())); }
-			const_reverse_iterator				rbegin() const										{ return (const_reverse_iterator(--begin())); }
-			reverse_iterator					rend()												{ return (reverse_iterator(++end())); }
-			const_reverse_iterator				rend() const										{ return (const_reverse_iterator(++end())); }
+			reverse_iterator					rbegin()											{ return (reverse_iterator(_tree.end())); }
+			const_reverse_iterator				rbegin() const										{ return (const_reverse_iterator(_tree.end())); }
+			reverse_iterator					rend()												{ return (reverse_iterator(_tree.begin())); }
+			const_reverse_iterator				rend() const										{ return (const_reverse_iterator(_tree.begin())); }
 			//------------------------------------------------------------Capacity(3/3)-----------------------------------------------------------------------------------
 			// Пустая ли мапа?
 			bool								empty() const										{ return (_tree._size_AVL() ? false : true); }
@@ -89,6 +89,8 @@ namespace ft
 			template <typename InputIterator>
 			void								insert (InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
 			{
+				if (first == last)
+					return ;
 				for (; first != last; first++)
 					insert(*first);
 			}
@@ -146,6 +148,7 @@ namespace ft
 			{
 				private:
 					node*			_root;		// корень дерева
+					node*			_end;		// последний элемент дерева
 					key_compare		_kc;		// ключ сравнения
 					size_type		_size;		// кол-во элементов
 					allocator_type	_alloc;		// аллокатор
@@ -358,6 +361,11 @@ namespace ft
 						_alloc.construct(data, v);
 						return new node(data, parent);
 					}
+					node*								_newnode_zero(node* parent = NULL)
+					{
+						pointer data = _alloc.allocate(1);
+						return new node(data);
+					}
 					// Cоздаёт копию узлов
 					void								_clone_nodes(node* original, node* clone)
 					{
@@ -374,7 +382,6 @@ namespace ft
 							_clone_nodes(original->right, clone->right);
 						}
 					}
-					
 					// Создать копию дерева
 					void								_clone(const AVLTree &copy)
 					{
@@ -507,6 +514,11 @@ namespace ft
 						_alloc.deallocate(p->data, 1);
 						delete p;
 					}
+					void								_delnode_zero(node* p)
+					{
+						_alloc.deallocate(p->data, 1);
+						delete p;
+					}
 					// Удалить все узлы
 					void								_clear(node *n)
 					{
@@ -524,6 +536,15 @@ namespace ft
 					node*								_findmin_AVL(node* p) const
 					{
 						return (p && p->left ? _findmin_AVL(p->left) : p);
+					}
+					// Поиск узла с максимальным ключом в дереве
+					node*								_findmax_AVL(node* p)
+					{
+						return (p && p->right ? _findmax_AVL(p->right) : p);
+					}
+					node*								_findmax_AVL(node* p) const
+					{
+						return (p && p->right ? _findmax_AVL(p->right) : p);
 					}
 					// Удаление узла с минимальным ключом из дерева
 					node*								_removemin_AVL(node* p) // удаление узла с минимальным ключом из дерева p
@@ -543,15 +564,9 @@ namespace ft
 						if(!p)
 							return (NULL);
 						if(_kc(k, p->data->first))
-						{
 							p->left = _remove_AVL(p->left ,k);
-						}
 						else if(_kc(p->data->first, k))
-						{
-		
 							p->right = _remove_AVL(p->right, k);
-
-						}
 						else
 						{
 							node* q = p->left;
@@ -563,7 +578,7 @@ namespace ft
 							if(!r)
 							{
 								if (q)
-									q->parent = p->parent;
+									q->parent = temp_parent;
 								return (q);
 							}
 							node* min = _findmin_AVL(r);
@@ -610,7 +625,7 @@ namespace ft
 							else
 								return (i);
 						}
-						return (node_more);
+						return (node_more ? node_more : _end);
 					}
 					// Возвращает итератор, указывающий на первый элемент в контейнере, ключ которого считается следующим после k
 					node*								_upper_bound(node* root, const key_type& k) const
@@ -637,13 +652,13 @@ namespace ft
 								return (node_more);						// Если правой ветки нет, то искомый узел уже просчитан в node_more
 							}
 						}
-						return (node_more);
+						return (node_more ? node_more : _end);
 					}
 				public:
 					// Конструктор дерева
-					AVLTree(const key_compare &key_comp, const allocator_type& alloc): _root(NULL), _kc(key_comp), _size(0), _alloc(alloc){}
+					AVLTree(const key_compare &key_comp, const allocator_type& alloc): _root(NULL), _kc(key_comp), _size(0), _alloc(alloc), _end(_newnode_zero()){}
 					// Конструктор копирования
-					AVLTree(const AVLTree& copy): _root(NULL), _kc(copy._kc), _size(0), _alloc(copy._alloc)	{ _clone(copy);}
+					AVLTree(const AVLTree& copy): _root(NULL), _kc(copy._kc), _size(0), _alloc(copy._alloc), _end(_newnode_zero()) { _clone(copy); }
 					// Перегрузка оператора =
 					AVLTree&				operator=(const AVLTree& tree)
 					{
@@ -652,7 +667,11 @@ namespace ft
 						return (*this);
 					}
 					// Деструктор дерева
-					~AVLTree()														{ clear(); }
+					~AVLTree()
+					{
+						_delnode_zero(_end);
+						clear();
+					}
 					// Распечатать дерево (создано для тестирвония AVL дерева)
 					void					AVLTreePrint(int mod)
 					{
@@ -671,10 +690,10 @@ namespace ft
 					// Возвращает кол-во элементов дерева
 					size_type				_size_AVL() const						{ return (_size); }
 					// Правильно возвращает итераторы
-					iterator				begin() 								{ return (iterator(_findmin_AVL(_root), this)); }
-					iterator				end()									{ return (iterator(NULL, this)); }
-					const_iterator			begin() const							{ return (const_iterator(_findmin_AVL(_root), this)); }
-					const_iterator			end() const								{ return (const_iterator(NULL, this)); }
+					iterator				begin() 								{ return (_size ? iterator(_findmin_AVL(_root), this) : iterator(_end, this)); }
+					iterator				end()									{ return (iterator(_end, this)); }
+					const_iterator			begin() const							{ return (_size ? const_iterator(_findmin_AVL(_root), this) : const_iterator(_end, this)); }
+					const_iterator			end() const								{ return (const_iterator(_end, this)); }
 					// Вставка элемента, запускает вставку в дерево, при этом дерево автоматически балансируется
 					pair<iterator, bool>	insert(const_reference val)				{ return (_insert_tree(_root, val, _root)); }
 					iterator				insert (iterator position, const_reference val)
@@ -715,6 +734,12 @@ namespace ft
 					allocator_type			get_allocator() const					{ return (_alloc); }
 					// Возвращает корень дерева
 					node*					get_root() const						{ return (_root); }
+					// Возвращает последний элемент дерева
+					node*					get_end() const							{ return (_end); }
+					// Возвращает максимальный элемент дерева
+					node*					get_max() const							{ return (_findmax_AVL(_root)); }
+					// возвращает минимальный элемент дерева
+					node*					get_min() const							{ return (_findmin_AVL(_root)); }
 			};
 
 			class MyIterator: public ft::iterator<std::bidirectional_iterator_tag, value_type>
@@ -743,14 +768,8 @@ namespace ft
 					pointer		operator->()								{ return (_node->data); }
 					self&		operator++()
 					{
-						if (_node == NULL)							// Что бы можно было сделать ++ от rbegin()
-						{
-							_node = _tree->get_root();
-							if (_node == NULL)
-								throw std::underflow_error("++ requested for an empty iterator");
-							while (_node->left != NULL)
-								_node = _node->left;
-						}
+						if (_node == _tree->get_max())				// Что бы с максимального элемента перейти на последний
+							_node = _tree->get_end();
 						else if (_node->right != NULL)				// Если есть узел справа, то искомый узел будет находиться в правом поддереве
 						{
 							_node = _node->right;
@@ -778,14 +797,8 @@ namespace ft
 					}
 					self&		operator--()
 					{
-						if (_node == NULL)								// Что бы можно было сделать -- от end()
-						{
-							_node = _tree->get_root();
-							if (_node == NULL)
-								throw std::underflow_error("-- requested for an empty iterator");
-							while (_node->right != NULL)
-								_node = _node->right;
-						}
+						if (_node == _tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+							_node = _tree->get_max();
 						else if (_node->left != NULL)					// Противоположное ++
 						{
 							_node = _node->left;
@@ -849,14 +862,8 @@ namespace ft
 					pointer		operator->()								{ return (_node->data); }
 					self&		operator++()
 					{
-						if (_node == NULL)
-						{
-							_node = _tree->get_root();
-							if (_node == NULL)
-								throw std::underflow_error("++ requested for an empty iterator");
-							while (_node->left != NULL)
-								_node = _node->left;
-						}
+						if (_node == _tree->get_max())				// Что бы с максимального элемента перейти на последний
+							_node = _tree->get_end();
 						else if (_node->right != NULL)
 						{
 							_node = _node->right;
@@ -884,14 +891,8 @@ namespace ft
 					}
 					self&		operator--()
 					{
-						if (_node == NULL)
-						{
-							_node = _tree->get_root();
-							if (_node == NULL)
-								throw std::underflow_error("-- requested for an empty iterator");
-							while (_node->right != NULL)
-								_node = _node->right;
-						}
+						if (_node == _tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+							_node = _tree->get_max();
 						else if (_node->left != NULL)
 						{
 							_node = _node->left;

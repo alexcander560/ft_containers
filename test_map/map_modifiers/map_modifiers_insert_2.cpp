@@ -68,14 +68,14 @@ int	main()
 
 	srand(time(NULL));
 	//=============================================================
-	rez += test(SIZE_1, "Test 1");
-	rez += test(SIZE_1, "Test 2", true);
-	rez += test(SIZE_100, "Test 3");
-	rez += test(SIZE_100, "Test 4", true);
-	rez += test(SIZE_10K, "Test 5");
-	rez += test(SIZE_10K, "Test 6", true);
-	rez += test(SIZE_100K, "Test 7");
-	rez += test(SIZE_100K, "Test 8", true);
+	rez += test(SIZE_1, "Test 1/8");
+	rez += test(SIZE_1, "Test 2/8", true);
+	rez += test(SIZE_100, "Test 3/8");
+	rez += test(SIZE_100, "Test 4/8", true);
+	rez += test(SIZE_10K, "Test 5/8");
+	rez += test(SIZE_10K, "Test 6/8", true);
+	rez += test(SIZE_100K, "Test 7/8");
+	rez += test(SIZE_100K, "Test 8/8", true);
 	// rez += test(SIZE_1M, "Test 9");
 	// rez += test(SIZE_1M, "Test 10", true);
 

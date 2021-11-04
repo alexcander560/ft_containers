@@ -12,7 +12,7 @@ int	test()
 
 	//orig.insert(std::pair<int, string>(42, "school"));
 
-	cout << "Test 1" << endl;
+	cout << "Test 1/1" << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
 

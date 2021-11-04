@@ -31,7 +31,7 @@ int	test_oper(int size, string test)
 
 	it_1_orig = orig.rbegin();
 	it_2_orig = orig.rend();
-	
+
 	for (; it_1_orig != it_2_orig; it_1_orig++)
 	{
 		it_1_orig++;
@@ -83,9 +83,9 @@ int	main()
 	string	str_leaks = "";
 	int		rez = 0;
 
-	rez += test_oper(SIZE_1, "Test 1");
-	rez += test_oper(SIZE_100, "Test 2");
-	rez += test_oper(SIZE_10K, "Test 3");
+	rez += test_oper(SIZE_1, "Test 1/3");
+	rez += test_oper(SIZE_100, "Test 2/3");
+	rez += test_oper(SIZE_10K, "Test 3/3");
 	//rez += test_oper(SIZE_1M, "Test 4");
 
 	if (LEAK)

@@ -97,13 +97,13 @@ int	main()
 	// my_5.print_tree();
 	// my_6.print_tree();
 
-	rez += test(orig_1, orig_0, my_1, my_0, "Test 1");
-	rez += test(orig_1, orig_1, my_1, my_1, "Test 2");
-	rez += test(orig_1, orig_2, my_1, my_2, "Test 3");
-	rez += test(orig_1, orig_3, my_1, my_3, "Test 4");
-	rez += test(orig_1, orig_4, my_1, my_4, "Test 5");
-	rez += test(orig_1, orig_5, my_1, my_5, "Test 6");
-	rez += test(orig_1, orig_6, my_1, my_6, "Test 7");
+	rez += test(orig_1, orig_0, my_1, my_0, "Test 1/7");
+	rez += test(orig_1, orig_1, my_1, my_1, "Test 2/7");
+	rez += test(orig_1, orig_2, my_1, my_2, "Test 3/7");
+	rez += test(orig_1, orig_3, my_1, my_3, "Test 4/7");
+	rez += test(orig_1, orig_4, my_1, my_4, "Test 5/7");
+	rez += test(orig_1, orig_5, my_1, my_5, "Test 6/7");
+	rez += test(orig_1, orig_6, my_1, my_6, "Test 7/7");
 	//=============================================================
 	if (LEAK)
 		cin >> str_leaks;

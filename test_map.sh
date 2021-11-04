@@ -297,7 +297,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" =
 	rm -rf map_prog
 fi
 #2.3
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_2" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_3" ]]; then
 	printf "$YELLOW Test erase(iterator first, iterator last) $DEFAULT \n"
 	clang++	test_map/map_modifiers/map_modifiers_erase_2.cpp -o map_prog
 	TEST_OUTPUT=$(./map_prog)

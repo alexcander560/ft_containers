@@ -34,6 +34,11 @@ int	test_oper(int size, string test)
 
 	it_1_orig = orig_const.begin();
 	it_2_orig = orig_const.end();
+
+	it_2_orig--;
+	it_2_orig++;
+	it_2_orig == orig.end() ? temp_orig += "YES" : temp_orig += "NO";
+
 	for (; it_1_orig != it_2_orig; it_1_orig++)
 	{
 		it_1_orig++;
@@ -56,6 +61,11 @@ int	test_oper(int size, string test)
 
 	it_1_my = my_const.begin();
 	it_2_my = my_const.end();
+
+	it_2_my--;
+	it_2_my++;
+	it_2_my == my.end() ? temp_my += "YES" : temp_my += "NO";
+
 	for (; it_1_my != it_2_my; it_1_my++)
 	{
 		it_1_my++;
@@ -84,9 +94,9 @@ int	main()
 	string	str_leaks = "";
 	int		rez = 0;
 
-	rez += test_oper(SIZE_1, "Test 1");
-	rez += test_oper(SIZE_100, "Test 2");
-	rez += test_oper(SIZE_10K, "Test 3");
+	rez += test_oper(SIZE_1, "Test 1/3");
+	rez += test_oper(SIZE_100, "Test 2/3");
+	rez += test_oper(SIZE_10K, "Test 3/3");
 	//rez += test_oper(SIZE_1M, "Test 4");
 
 	if (LEAK)

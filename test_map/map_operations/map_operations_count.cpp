@@ -43,11 +43,11 @@ int	main()
 	int		rez = 0;
 
 	//=============================================================
-	rez += test(SIZE_0, "Test 1");
-	rez += test(SIZE_1, "Test 2");
-	rez += test(SIZE_100, "Test 3");
-	rez += test(SIZE_10K, "Test 4");
-	rez += test(SIZE_100K, "Test 5");
+	rez += test(SIZE_0, "Test 1/5");
+	rez += test(SIZE_1, "Test 2/5");
+	rez += test(SIZE_100, "Test 3/5");
+	rez += test(SIZE_10K, "Test 4/5");
+	rez += test(SIZE_100K, "Test 5/5");
 	//rez += test(SIZE_1M, "Test 6");
 	//=============================================================
 	if (LEAK)
