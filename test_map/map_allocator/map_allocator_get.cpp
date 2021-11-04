@@ -3,7 +3,7 @@
 #define	TEST 0
 #define	LEAK 0
 
-int	test()
+int	test(string test)
 {
 	string	temp_orig = "", temp_my = "";
 	unsigned int time_orig = 0, time_my = 0, rez = 0;
@@ -12,7 +12,7 @@ int	test()
 
 	//orig.insert(std::pair<int, string>(42, "school"));
 
-	cout << "Test 1/1" << endl;
+	cout << test << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
 
@@ -63,7 +63,9 @@ int	main()
 	int		rez = 0;
 
 	//=============================================================
-	rez += test();
+
+	rez += test("Test 1/1");
+
 	//=============================================================
 	if (LEAK)
 		cin >> str_leaks;
