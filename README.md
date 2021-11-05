@@ -70,8 +70,8 @@
         4.2) bash test_vector.sh insert_2    (insert(iterator position, size_type n, const value_type& val))
         4.3) bash test_vector.sh insert_3    (insert(iterator position, InputIterator first, InputIterator last))
     5) bash test_vector.sh erase             (все тесты)
-        5.1) bash test_vector.sh erase_1     erase(iterator position)
-        5.2) bash test_vector.sh erase_2     erase(iterator first, iterator last)
+        5.1) bash test_vector.sh erase_1     (erase(iterator position))
+        5.2) bash test_vector.sh erase_2     (erase(iterator first, iterator last))
     6) bash test_vector.sh Mod_swap          (bash test_vector.sh swap все тесты для swap)
     7) bash test_vector.sh clear
     
@@ -112,19 +112,73 @@
 
 Запуск всех тестов для map
 
-    bash test_???.sh 
+    bash test_map.sh
 
 <details>
 <summary>Запуск отдельных блоков map</summary> 
     
-    Ничего нет
+    bash test_map.sh Acc    (Element access)
+    
+    bash test_map.sh Cap    (Capacity)
+    
+    bash test_map.sh Alloc  (Allocator)
+    
+    bash test_map.sh Iter   (Iterators)
+    
+    bash test_map.sh Non    (Non-member function overloads)
+    
+    bash test_map.sh Mod    (Modifiers)
+    
+    bash test_map.sh Oper   (Operations)
     
 </details>
     
 <details>
 <summary>Запуск отдельных функций map</summary>
     
-     Ничего нет
+    Element access:
+    1) bash test_map.sh acc
+    
+    Element access:
+    1) bash test_map.sh size
+    2) bash test_map.sh max_size
+    3) bash test_map.sh empty
+    
+    Allocator:
+    1) bash test_map.sh get_allocator
+    
+    Iterators:
+    1) bash test_map.sh iterator
+    2) bash test_map.sh iterator_const
+    3) bash test_map.sh r_iterator
+    4) bash test_map.sh r_iterator_const
+    
+    Non-member function overloads:
+    1) bash test_map.sh operator        (==, !=, <, <=, >, >=)
+    2) bash test_map.sh Non_swap        (bash test_map.sh swap все тесты для swap)
+    
+    Modifiers:
+    1) bash test_map.sh insert          (все тесты)
+        1.1) bash test_map.sh insert_1  (insert(const value_type& val))
+        1.2) bash test_map.sh insert_2  (insert(iterator position, const value_type& val))
+        1.3) bash test_map.sh insert_3  (insert(InputIterator first, InputIterator last))
+    2) bash test_map.sh erase           (все тесты)      
+        2.1) bash test_map.sh erase_1   (erase(iterator position))
+        2.2) bash test_map.sh erase_2   (erase(const key_type& k))
+        2.3) bash test_map.sh erase_3   (erase(iterator first, iterator last))
+    3) bash test_map.sh Mod_swap        (bash test_map.sh swap все тесты для swap)
+    4) bash test_map.sh clear
+    
+    Operations:
+    1) bash test_map.sh count
+    2) bash test_map.sh equal_range
+    3) bash test_map.sh equal_range_const
+    4) bash test_map.sh find
+    5) bash test_map.sh find_const
+    6) bash test_map.sh lower_bound
+    7) bash test_map.sh lower_bound_const
+    8) bash test_map.sh upper_bound
+    9) bash test_map.sh upper_bound_const
     
 </details>
 
