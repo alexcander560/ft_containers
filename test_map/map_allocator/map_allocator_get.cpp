@@ -5,10 +5,10 @@
 
 int	test(string test)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
+	string					temp_orig = "", temp_my = "";
+	unsigned int			time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>	orig;
+	ft::map<int, string>	my;
 
 	//orig.insert(std::pair<int, string>(42, "school"));
 

@@ -5,12 +5,12 @@
 
 int	test(int size, string test)
 {
-	string	temp_orig = "", temp_my = "", num_str = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
+	string					temp_orig = "", temp_my = "", num_str = "";
+	unsigned int			time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>	orig;
+	ft::map<int, string>	my;
 
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));
@@ -20,12 +20,12 @@ int	test(int size, string test)
 	cout << test << endl;
 	//===========================ORIG==============================
 	time_orig = clock();
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 		temp_orig += orig.find(i)->second;
 	time_orig = clock() - time_orig;
 	//============================MY===============================
 	time_my = clock();
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 		temp_my += my.find(i)->second;
 	if (TEST)
 		temp_my += " ";

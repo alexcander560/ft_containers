@@ -6,17 +6,16 @@
 
 int	test(int size, string test, bool random = false)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0, rand_elem = 0;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
-
-	std::map<int, string> base_orig;
-	ft::map<int, string> base_my;
+	string					temp_orig = "", temp_my = "";
+	unsigned int			time_orig = 0, time_my = 0, rez = 0, rand_elem = 0;
+	std::map<int, string>	orig;
+	ft::map<int, string>	my;
+	std::map<int, string>	base_orig;
+	ft::map<int, string>	base_my;
 
 	if (random)
 	{
-		for (size_t i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			rand_elem = rand();
 			base_orig.insert(std::pair<int, string>(rand_elem, to_string(rand_elem) + "_"));
@@ -25,7 +24,7 @@ int	test(int size, string test, bool random = false)
 	}
 	else
 	{
-		for (size_t i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			base_orig.insert(std::pair<int, string>(i, to_string(i) + "_"));
 			base_my.insert(ft::pair<int, string>(i, to_string(i) + "_"));

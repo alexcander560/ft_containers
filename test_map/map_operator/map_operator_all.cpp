@@ -5,8 +5,8 @@
 
 int	test(std::map<int, string> orig_1, std::map<int, string> orig_2, ft::map<int, string> my_1, ft::map<int, string> my_2, string test)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	string			temp_orig = "", temp_my = "";
+	unsigned int	time_orig = 0, time_my = 0, rez = 0;
 
 	cout << test << endl;
 	//===========================ORIG==============================
@@ -48,7 +48,7 @@ int	main()
 	std::map<int, string> orig_0;
 	std::map<int, string> orig_1;
 
-	for (size_t i = 0; i < SIZE_100K; i++)
+	for (int i = 0; i < SIZE_100K; i++)
 		orig_1.insert(std::pair<int, string>(i, to_string(i) + "_"));
 
 	std::map<int, string> orig_2(orig_1);
@@ -70,7 +70,7 @@ int	main()
 	ft::map<int, string> my_0;
 	ft::map<int, string> my_1;
 
-	for (size_t i = 0; i < SIZE_100K; i++)
+	for (int i = 0; i < SIZE_100K; i++)
 		my_1.insert(ft::pair<int, string>(i, to_string(i) + "_"));
 
 	ft::map<int, string> my_2(my_1);

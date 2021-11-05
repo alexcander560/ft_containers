@@ -6,19 +6,20 @@
 
 int	test(int size, string test, bool random = false)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0, random_elem = 0, size_more = size * 10;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
-	ft::map<int, string>::iterator it_my;
+	string							temp_orig = "", temp_my = "";
+	unsigned int					time_orig = 0, time_my = 0, rez = 0;
+	int								size_more = size * 10;
+	std::map<int, string>			orig;
+	ft::map<int, string>			my;
+	ft::map<int, string>::iterator	it_my;
 
 	std::vector<int> base;
 	if (random)
 	{
-		for (size_t i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 			base.push_back(rand() % size_more);
 	}
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (random)
 		{
@@ -33,7 +34,7 @@ int	test(int size, string test, bool random = false)
 	}
 
 	std::vector<int> vec_erase;
-	for (size_t i = 0; i < size_more; i++)
+	for (int i = 0; i < size_more; i++)
 		vec_erase.push_back(rand() % size_more);
 
 	cout << test << endl;
@@ -44,7 +45,7 @@ int	test(int size, string test, bool random = false)
 	for (std::map<int, string>::iterator it = orig.begin(); it != orig.end(); it++)
 		temp_orig += to_string(it->first) + it->second;
 
-	for (size_t i = 0; i < size_more; i++)
+	for (int i = 0; i < size_more; i++)
 	{
 		if (orig.count(vec_erase[i]))
 			orig.erase(vec_erase[i]);
@@ -62,7 +63,7 @@ int	test(int size, string test, bool random = false)
 	for (ft::map<int, string>::iterator it = my.begin(); it != my.end(); it++)
 		temp_my += to_string(it->first) + it->second;
 
-	for (size_t i = 0; i < size_more; i++)
+	for (int i = 0; i < size_more; i++)
 	{
 		if (my.count(vec_erase[i]))
 			my.erase(vec_erase[i]);

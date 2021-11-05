@@ -5,12 +5,12 @@
 
 int	test(int size, string test)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
+	string					temp_orig = "", temp_my = "";
+	unsigned int			time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>	orig;
+	ft::map<int, string>	my;
 
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		orig.insert(std::pair<int, string>(i, to_string(i) + "_"));
 		my.insert(ft::pair<int, string>(i, to_string(i) + "_"));

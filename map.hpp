@@ -361,7 +361,7 @@ namespace ft
 						_alloc.construct(data, v);
 						return new node(data, parent);
 					}
-					node*								_newnode_zero(node* parent = NULL)
+					node*								_newnode_zero()
 					{
 						pointer data = _alloc.allocate(1);
 						return new node(data);
@@ -493,7 +493,7 @@ namespace ft
 						return (res);
 					}
 					// Вставка элемента с балансированеим (Правильно вернёт пару)
-					pair<iterator, bool>				_insert_tree(node *p, const_reference v, node *parent)
+					pair<iterator, bool>				_insert_tree(const_reference v)
 					{
 						pair<node*, pair <node*, bool> >	my_par= _insert_AVL(_root, v, _root);
 						pair<iterator, bool>				res = make_pair(iterator(my_par.second.first), my_par.second.second);
@@ -656,9 +656,9 @@ namespace ft
 					}
 				public:
 					// Конструктор дерева
-					AVLTree(const key_compare &key_comp, const allocator_type& alloc): _root(NULL), _kc(key_comp), _size(0), _alloc(alloc), _end(_newnode_zero()){}
+					AVLTree(const key_compare &key_comp, const allocator_type& alloc): _root(NULL), _end(_newnode_zero()), _kc(key_comp), _size(0), _alloc(alloc) {}
 					// Конструктор копирования
-					AVLTree(const AVLTree& copy): _root(NULL), _kc(copy._kc), _size(0), _alloc(copy._alloc), _end(_newnode_zero()) { _clone(copy); }
+					AVLTree(const AVLTree& copy): _root(NULL), _end(_newnode_zero()), _kc(copy._kc), _size(0), _alloc(copy._alloc) { _clone(copy); }
 					// Перегрузка оператора =
 					AVLTree&				operator=(const AVLTree& tree)
 					{
@@ -695,11 +695,11 @@ namespace ft
 					const_iterator			begin() const							{ return (_size ? const_iterator(_findmin_AVL(_root), this) : const_iterator(_end, this)); }
 					const_iterator			end() const								{ return (const_iterator(_end, this)); }
 					// Вставка элемента, запускает вставку в дерево, при этом дерево автоматически балансируется
-					pair<iterator, bool>	insert(const_reference val)				{ return (_insert_tree(_root, val, _root)); }
+					pair<iterator, bool>	insert(const_reference val)				{ return (_insert_tree(val)); }
 					iterator				insert (iterator position, const_reference val)
 					{
 						(void)position;
-						return (_insert_tree(_root, val, _root).first);
+						return (_insert_tree(val).first);
 					}
 					// Удаляет элемент (по позиции или ключу), автоматически балансирует дерево
 					void					erase(iterator position)				{ _root = _remove_AVL(_root, (*position).first); }

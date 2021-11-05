@@ -6,17 +6,17 @@
 
 int	test(int size, string test, bool random = false)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	std::map<int, string>::iterator it_orig;
-	ft::map<int, string> my;
-	ft::map<int, string>::iterator it_my;
+	string							temp_orig = "", temp_my = "";
+	unsigned int					time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>			orig;
+	std::map<int, string>::iterator	it_orig;
+	ft::map<int, string>			my;
+	ft::map<int, string>::iterator	it_my;
 
 	std::vector<int> base;
 	if (random)
 	{
-		for (size_t i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 			base.push_back(rand());
 	}
 
@@ -25,7 +25,7 @@ int	test(int size, string test, bool random = false)
 	time_orig = clock();
 	temp_orig += to_string(orig.size()) + " ";
 	
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (random)
 			it_orig = orig.insert(orig.end(), std::pair<int, string>(base[i], to_string(base[i]) + "_"));
@@ -41,7 +41,7 @@ int	test(int size, string test, bool random = false)
 	time_my = clock();
 	temp_my += to_string(my.size()) + " ";
 	
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (random)
 			it_my = my.insert(my.end(), ft::pair<int, string>(base[i], to_string(base[i]) + "_"));

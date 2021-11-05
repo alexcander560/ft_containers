@@ -5,8 +5,8 @@
 
 int	test(std::map<int, string> orig_1, std::map<int, string> orig_2, ft::map<int, string> my_1, ft::map<int, string> my_2, string test)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	string			temp_orig = "", temp_my = "";
+	unsigned int	time_orig = 0, time_my = 0, rez = 0;
 
 	cout << test << endl;
 	//===========================ORIG==============================

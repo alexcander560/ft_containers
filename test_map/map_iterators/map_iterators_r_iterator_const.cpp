@@ -5,19 +5,18 @@
 
 int	test_oper(int size, string test)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	std::map<int, string>::const_reverse_iterator it_1_orig;
-	std::map<int, string>::const_reverse_iterator it_2_orig;
-	std::pair<int, string> pair_orig;
+	string											temp_orig = "", temp_my = "";
+	unsigned int									time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>							orig;
+	std::map<int, string>::const_reverse_iterator	it_1_orig;
+	std::map<int, string>::const_reverse_iterator	it_2_orig;
+	std::pair<int, string>							pair_orig;
+	ft::map<int, string>							my;
+	ft::map<int, string>::const_reverse_iterator	it_1_my;
+	ft::map<int, string>::const_reverse_iterator	it_2_my;
+	ft::pair<int, string>							pair_my;
 
-	ft::map<int, string> my;
-	ft::map<int, string>::const_reverse_iterator it_1_my;
-	ft::map<int, string>::const_reverse_iterator it_2_my;
-	ft::pair<int, string> pair_my;
-
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		orig.insert(std::pair<int, string>(i, to_string(i) + "_"));
 		my.insert(ft::pair<int, string>(i, to_string(i) + "_"));

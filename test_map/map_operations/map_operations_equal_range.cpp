@@ -5,14 +5,14 @@
 
 int	test(int size, string test)
 {
-	string	temp_orig = "", temp_my = "", num_str = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-	std::map<int, string> orig;
-	std::pair<std::map<int, string>::const_iterator, std::map<int, string>::const_iterator> orig_pair;
-	ft::map<int, string> my;
-	ft::pair<ft::map<int, string>::const_iterator, ft::map<int, string>::const_iterator> my_pair;
+	string					temp_orig = "", temp_my = "", num_str = "";
+	unsigned int			time_orig = 0, time_my = 0, rez = 0;
+	std::map<int, string>	orig;
+	ft::map<int, string>	my;
+	std::pair<std::map<int, string>::const_iterator, std::map<int, string>::const_iterator>	orig_pair;
+	ft::pair<ft::map<int, string>::const_iterator, ft::map<int, string>::const_iterator>	my_pair;
 
-	for (size_t i = 2; i <= size; i = i + 2)
+	for (int i = 2; i <= size; i = i + 2)
 	{
 		num_str = to_string(i) + "_";
 		orig.insert(std::pair<int, string>(i, num_str));

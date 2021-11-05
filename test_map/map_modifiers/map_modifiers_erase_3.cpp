@@ -6,20 +6,21 @@
 
 int	test(int size, string test, bool random = false)
 {
-	string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0, random_elem = 0, size_more = size * 10;
-	std::map<int, string> orig;
-	ft::map<int, string> my;
-	ft::map<int, string> my_copy;
-	ft::map<int, string>::iterator it_my;
+	string							temp_orig = "", temp_my = "";
+	unsigned int					time_orig = 0, time_my = 0, rez = 0;
+	int 							size_more = size * 10;
+	std::map<int, string>			orig;
+	ft::map<int, string>			my;
+	ft::map<int, string>			my_copy;
+	ft::map<int, string>::iterator	it_my;
 
 	std::vector<int> base;
 	if (random)
 	{
-		for (size_t i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 			base.push_back(rand() % size_more);
 	}
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (random)
 		{
@@ -35,7 +36,7 @@ int	test(int size, string test, bool random = false)
 	}
 
 	std::vector<int> vec_erase;
-	for (size_t i = 0; i < size_more; i++)
+	for (int i = 0; i < size_more; i++)
 		vec_erase.push_back(rand() % size_more);
 
 	cout << test << endl;
