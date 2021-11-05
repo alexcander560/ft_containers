@@ -2,15 +2,14 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(0);
+	ft::vector<int>		my_1(0);
 
-	std::vector<int> orig_1(0);
-	ft::vector<int> my_1(0);
 	init_vector_all(&orig_1, &my_1);
-
-	std::vector<int> orig_2(1);
-	ft::vector<int> my_2(1);
+	std::vector<int>	orig_2(1);
+	ft::vector<int>		my_2(1);
 	init_vector_all(&orig_2, &my_2);
 
 	std::vector<int> orig_3(SIZE_100K);
@@ -18,7 +17,7 @@ int	main ()
 	init_vector_all(&orig_3, &my_3);
 
 	//=============================================================
-	std::cout << "size=0 assign (begin(), end())" << std::endl;
+	std::cout << "Test 1/7 (size=0 assign (begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -43,7 +42,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=0 assign (begin(), end())" << std::endl;
+	std::cout << "Test 2/7 (size=0 assign (begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -68,7 +67,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=1 assign (begin(), end())" << std::endl;
+	std::cout << "Test 3/7 (size=1 assign (begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -93,7 +92,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=100.000 assign (begin() + 30, end() - 50)" << std::endl;
+	std::cout << "Test 4/7 (size=100.000 assign (begin() + 30, end() - 50))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -119,7 +118,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "size=99.920 assign (begin(), end())" << std::endl;
+	std::cout << "Test 5/7 (size=99.920 assign (begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -144,7 +143,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=100.000 assign (begin() + 71832, begin() + 71833)" << std::endl;
+	std::cout << "Test 6/7 (size=100.000 assign (begin() + 71832, begin() + 71833))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();
@@ -169,7 +168,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=1 assign (begin(), begin())" << std::endl;
+	std::cout << "Test 7/7 (size=1 assign (begin(), begin()))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();

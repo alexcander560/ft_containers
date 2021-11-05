@@ -12,7 +12,7 @@ int	main ()
 	init_stack(&orig_1, &my_1, 100);
 	
 	//=============================================================
-	std::cout << "size=100 pop 100 use\n";
+	std::cout << "Test 1/1\n";
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();

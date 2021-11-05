@@ -16,7 +16,7 @@ int	main ()
 		vec[i] = rand() % 10;
 	
 	//=============================================================
-	std::cout << "size=0 push 100 use\n";
+	std::cout << "Test 1/1\n";
 	temp_orig = "", temp_my = "";
 
 	time_orig = clock();

@@ -34,6 +34,8 @@
 # define SIZE_10M	10000000
 # define SIZE_100M	100000000
 
+using namespace std;
+
 // Иницилихация вектора std, ft одними параметрами
 template <typename T>
 void	init_vector_all(std::vector<T>* a_orig, ft::vector<T>* a_my)

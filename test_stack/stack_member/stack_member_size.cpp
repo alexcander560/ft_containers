@@ -1,100 +1,55 @@
 #include "../test_utility_stack.cpp"
 
-int	main ()
+#define	TEST 0
+#define	LEAK 0
+
+int	test(int size, string test)
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	string			temp_orig = "", temp_my = "";
+	unsigned int	time_orig = 0, time_my = 0, rez = 0;
+	std::stack<int>	orig;
+	ft::stack<int>	my;
 
-	std::stack<int> orig_1;
-	ft::stack<int> my_1;
+	init_stack(&orig, &my, size);
 
-	std::stack<int> orig_2;
-	ft::stack<int> my_2;
-
-	std::stack<int> orig_3;
-	ft::stack<int> my_3;
-
-	std::stack<int> orig_4;
-	ft::stack<int> my_4;
-
-	init_stack(&orig_1, &my_1, 0);
-	init_stack(&orig_2, &my_2, 1);
-	init_stack(&orig_3, &my_3, 10);
-	init_stack(&orig_4, &my_4, 100000);
-
-	//=============================================================
-	std::cout << "size=0\n";
-	temp_orig = "", temp_my = "";
-
+	cout << test << endl;
+	//===========================ORIG==============================
 	time_orig = clock();
-	temp_orig += std::to_string(orig_1.size());
-	temp_orig += std::to_string(orig_1.size());
+
+	temp_orig += std::to_string(orig.size());
+	temp_orig += std::to_string(orig.size());
+
 	time_orig = clock() - time_orig;
-
+	//============================MY===============================
 	time_my = clock();
-	temp_my += std::to_string(my_1.size());
-	temp_my += std::to_string(my_1.size());
-	time_my = clock() - time_my;
-	//temp_my += " ";
 
+	temp_my += std::to_string(my.size());
+	temp_my += std::to_string(my.size());
+	
+	if (TEST)
+		temp_my += " ";
+	time_my = clock() - time_my;
+	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+	return (rez);
+}
+
+int	main()
+{
+	string	str_leaks = "";
+	int		rez = 0;
 
 	//=============================================================
-	std::cout << "size=1\n";
-	temp_orig = "", temp_my = "";
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_2.size());
-	temp_orig += std::to_string(orig_2.size());
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_2.size());
-	temp_my += std::to_string(my_2.size());
-	time_my = clock() - time_my;
-	//temp_my += " ";
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
+	rez += test(SIZE_0, "Test 1/5");
+	rez += test(SIZE_1, "Test 2/5");
+	rez += test(SIZE_100, "Test 3/5");
+	rez += test(SIZE_10K, "Test 4/5");
+	rez += test(SIZE_100K, "Test 5/5");
+	//rez += test(SIZE_1M, "Test 6");
 
 	//=============================================================
-	std::cout << "size=10\n";
-	temp_orig = "", temp_my = "";
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_3.size());
-	temp_orig += std::to_string(orig_3.size());
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_3.size());
-	temp_my += std::to_string(my_3.size());
-	time_my = clock() - time_my;
-	//temp_my += " ";
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
-
-	//=============================================================
-	std::cout << "size=100000\n";
-	temp_orig = "", temp_my = "";
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_4.size());
-	temp_orig += std::to_string(orig_4.size());
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_4.size());
-	temp_my += std::to_string(my_4.size());
-	time_my = clock() - time_my;
-	//temp_my += " ";
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
-
-	//=============================================================
-
+	if (LEAK)
+		cin >> str_leaks;
 	return (!rez);
 }

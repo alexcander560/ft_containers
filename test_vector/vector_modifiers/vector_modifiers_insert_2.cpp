@@ -2,19 +2,17 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-
-	std::vector<int> orig_1(0);
-	ft::vector<int> my_1(0);
-	std::vector<int> orig_2(SIZE_10);
-	ft::vector<int> my_2(SIZE_10);
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(0);
+	ft::vector<int>		my_1(0);
+	std::vector<int>	orig_2(SIZE_10);
+	ft::vector<int>		my_2(SIZE_10);
 
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_2, &my_2);
-
 	//=============================================================
-	std::cout << "size=0 insert(begin(), 0 , 42)" << std::endl;
+	std::cout << "Test 1/10 (size=0 insert(begin(), 0 , 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -38,7 +36,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=0 insert(begin(), 1 , 42)" << std::endl;
+	std::cout << "Test 2/10 (size=0 insert(begin(), 1 , 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -62,7 +60,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=1 insert(begin(), 0 , 42)" << std::endl;
+	std::cout << "Test 3/10 (size=1 insert(begin(), 0 , 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -86,7 +84,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=1 insert(begin(), 100.000 , 42)" << std::endl;
+	std::cout << "Test 4/10 (size=1 insert(begin(), 100.000 , 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -110,7 +108,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=100.001 insert(end(), 0, 21)" << std::endl;
+	std::cout << "Test 5/10 (size=100.001 insert(end(), 0, 21))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -135,7 +133,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "size=100.001 insert(end(), 1, 21)" << std::endl;
+	std::cout << "Test 6/10 (size=100.001 insert(end(), 1, 21))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -159,7 +157,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=100.002 insert(end(), 100.000, 21)" << std::endl;
+	std::cout << "Test 7/10 (size=100.002 insert(end(), 100.000, 21))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -184,7 +182,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "size=200.002 capacity 250.000 insert(end(), 100.000, 13)" << std::endl;
+	std::cout << "Test 8/10 (size=200.002 capacity 250.000 insert(end(), 100.000, 13))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -212,7 +210,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "size=300.002 insert(begin() + 100.000, 50.000, 7)" << std::endl;
+	std::cout << "Test 9/10 (size=300.002 insert(begin() + 100.000, 50.000, 7))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -236,7 +234,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=300.002 insert(begin() + 174, 100, 4)" << std::endl;
+	std::cout << "Test 10/10 (size=300.002 insert(begin() + 174, 100, 4))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -260,7 +258,5 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-
 	return (!rez);
 }
-

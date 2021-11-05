@@ -2,23 +2,21 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(1);
+	ft::vector<int>		my_1(1);
 
-	std::vector<int> orig_1(1);
-	ft::vector<int> my_1(1);
 	init_vector_all(&orig_1, &my_1);
+	std::vector<int>	orig_2(SIZE_100K);
+	ft::vector<int>		my_2(SIZE_100K);
 
-	std::vector<int> orig_2(SIZE_100K);
-	ft::vector<int> my_2(SIZE_100K);
 	init_vector_all(&orig_2, &my_2);
-
-	std::vector<int> orig_3(SIZE_100K);
-	ft::vector<int> my_3(SIZE_100K);
+	std::vector<int>	orig_3(SIZE_100K);
+	ft::vector<int>		my_3(SIZE_100K);
 	init_vector_all(&orig_3, &my_3);
-
 	//=============================================================
-	std::cout << "erase(begin(), begin()) size=1" << std::endl;
+	std::cout << "Test 1/6 (erase(begin(), begin()) size=1)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -38,7 +36,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "erase(begin(), end()) size=1" << std::endl;
+	std::cout << "Test 2/6 (erase(begin(), end()) size=1)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -58,7 +56,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "erase(begin(), begin()) size=100.000" << std::endl;
+	std::cout << "Test 3/6 (erase(begin(), begin()) size=100.000)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -78,7 +76,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "erase(begin(), end()) size=100.000" << std::endl;
+	std::cout << "Test 4/6 (erase(begin(), end()) size=100.000)" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -98,7 +96,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "(start size=100.000)\nerase(begin(), begin() + 1)" << std::endl;
+	std::cout << "Test 5/6 ((start size=100.000)\nerase(begin(), begin() + 1)" << std::endl;
 	std::cout << "erase(begin() + 10.000, begin() + 50.000)" << std::endl;
 	std::cout << "erase(end() - 1, end())" << std::endl;
 	std::cout << "erase(end() - 30.000, end() - 10.000)" << std::endl;
@@ -131,7 +129,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "(start size=39998)\nerase(begin(), end())" << std::endl;
+	std::cout << "Test 6/6 ((start size=39998)\nerase(begin(), end())" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -151,6 +149,5 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-
 	return (!rez);
 }

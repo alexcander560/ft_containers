@@ -2,17 +2,16 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-
-	std::vector<int> orig_1(0);
-	ft::vector<int> my_1(0);
-	std::vector<int> orig_0(0);
-	ft::vector<int> my_0(0);
-	std::vector<int> orig_2(SIZE_100);
-	ft::vector<int> my_2(SIZE_100);
-	std::vector<int> orig_3(SIZE_100);
-	ft::vector<int> my_3(SIZE_100);
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(0);
+	ft::vector<int>		my_1(0);
+	std::vector<int>	orig_0(0);
+	ft::vector<int>		my_0(0);
+	std::vector<int>	orig_2(SIZE_100);
+	ft::vector<int>		my_2(SIZE_100);
+	std::vector<int>	orig_3(SIZE_100);
+	ft::vector<int>		my_3(SIZE_100);
 
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_0, &my_0);
@@ -20,11 +19,10 @@ int	main ()
 	//std::cout << "2: " << orig_2[0] << std::endl;
 	init_vector_all(&orig_3, &my_3);
 	//std::cout << "3: " << orig_3[0] << std::endl; 
-
 	//=============================================================
 	//=========================self size=0 ========================
 	//=============================================================
-	std::cout << "self size=0 insert(begin(), begin() , begin())" << std::endl;
+	std::cout << "Test 1/12 (self size=0 insert(begin(), begin() , begin()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -49,7 +47,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "self size=0 insert(begin(), begin() , end())" << std::endl;
+	std::cout << "Test 2/12 (self size=0 insert(begin(), begin() , end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -75,7 +73,7 @@ int	main ()
 	//=============================================================
 	//=========================other size=0========================
 	//=============================================================
-	std::cout << "other size=0 insert(begin(), begin(), begin())" << std::endl;
+	std::cout << "Test 3/12 (other size=0 insert(begin(), begin(), begin()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -100,7 +98,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "other size=0 insert(begin(), begin(), end())" << std::endl;
+	std::cout << "Test 4/12 (other size=0 insert(begin(), begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -127,7 +125,7 @@ int	main ()
 	//=============================================================
 	//=========================self size=100=======================
 	//=============================================================
-	std::cout << "self size=100 insert(begin(), begin(), begin())" << std::endl;
+	std::cout << "Test 5/12 (self size=100 insert(begin(), begin(), begin()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -152,7 +150,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "self size=100 insert(begin(), begin(), end())" << std::endl;
+	std::cout << "Test 6/12 (self size=100 insert(begin(), begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -179,7 +177,7 @@ int	main ()
 	//=============================================================
 	//=========================other size=200======================
 	//=============================================================
-	std::cout << "self size=200 insert(begin() + 70, begin(), begin())" << std::endl;
+	std::cout << "Test 7/12 (self size=200 insert(begin() + 70, begin(), begin()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -204,7 +202,7 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 
 	//=============================================================
-	std::cout << "self size=200 insert(begin(), begin(), end())" << std::endl;
+	std::cout << "Test 8/12 (self size=200 insert(begin(), begin(), end()))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -230,7 +228,7 @@ int	main ()
 	//=============================================================
 	//=========================self size=300=======================
 	//=============================================================
-	std::cout << "self size=300 insert(end() - 170, begin() + 10, end() - 170)" << std::endl;
+	std::cout << "Test 9/12 (self size=300 insert(end() - 170, begin() + 10, end() - 170))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	//действия c оригиналом
@@ -258,7 +256,7 @@ int	main ()
 	//=============================================================
 	//=========================other size=420======================
 	//=============================================================
-	std::cout << "self size=420 insert(begin(), begin() + 1, end() - 1)" << std::endl;
+	std::cout << "Test 10/12 (self size=420 insert(begin(), begin() + 1, end() - 1))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	//действия c оригиналом
@@ -285,7 +283,7 @@ int	main ()
 	//=============================================================
 	//=========================self size=10 capacity=15 ==========
 	//=============================================================
-	std::cout << "self size=10 insert(begin() + 1, begin() + 3, end() - 1)" << std::endl;
+	std::cout << "Test 11/12 (self size=10 insert(begin() + 1, begin() + 3, end() - 1))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 
@@ -327,7 +325,7 @@ int	main ()
 	//=============================================================
 	//=========================self size=14 capacity=50============
 	//=============================================================
-	std::cout << "self size=14 insert(begin() + 8, begin() + 1, end() - 3)" << std::endl;
+	std::cout << "Test 12/12 (self size=14 insert(begin() + 8, begin() + 1, end() - 3))" << std::endl;
 	temp_orig = "", temp_my = "";
 
 	orig_4.reserve(50);
@@ -356,6 +354,5 @@ int	main ()
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
 	//std::string str_leaks; std::cin >> str_leaks;
-
 	return (!rez);
 }

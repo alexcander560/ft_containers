@@ -47,7 +47,7 @@ int	main ()
 
 	//=============================================================
 
-	std::cout << "Test ==\n";
+	std::cout << "Test 1/6 (==)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	temp_orig += std::to_string(orig_1 == orig_0) + " ";
@@ -74,7 +74,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "Test !=\n";
+	std::cout << "Test 2/6 (!=)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	// code orig
@@ -102,7 +102,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "Test <\n";
+	std::cout << "Test 3/6 (<)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	// code orig
@@ -130,7 +130,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "Test <=\n";
+	std::cout << "Test 4/6 (<=)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	// code orig
@@ -158,7 +158,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "Test >\n";
+	std::cout << "Test 5/6 (>)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	// code orig
@@ -186,7 +186,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "Test >=\n";
+	std::cout << "Test 6/6 (>=)\n";
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	// code orig

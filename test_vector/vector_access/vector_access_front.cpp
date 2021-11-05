@@ -7,7 +7,7 @@ int	main ()
 
 	//=============================================================
 
-	std::cout << "Test 1" << std::endl;
+	std::cout << "Test 1/2" << std::endl;
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1(1);
 	ft::vector<int> my_1(1);
@@ -26,7 +26,7 @@ int	main ()
 
 	//=============================================================
 
-	std::cout << "Test 100K" << std::endl;
+	std::cout << "Test 2/2" << std::endl;
 	std::vector<int> orig(SIZE_100K);
 	ft::vector<int> my(SIZE_100K);
 	init_vector_all(&orig, &my);

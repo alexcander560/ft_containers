@@ -45,7 +45,6 @@ int	main()
 	rez += test(SIZE_10K, "Test 4/5");
 	rez += test(SIZE_100K, "Test 5/5");
 	//rez += test(SIZE_1M, "Test 6");
-
 	//=============================================================
 	if (LEAK)
 		cin >> str_leaks;

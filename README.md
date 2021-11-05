@@ -35,8 +35,8 @@
     4) bash test_vector.sh at_const
     5) bash test_vector.sh front
     6) bash test_vector.sh front_const
-    7) bash test_vector.sh bask
-    8) bash test_vector.sh bask_const
+    7) bash test_vector.sh back
+    8) bash test_vector.sh back_const
     
     Capacity:
     1) bash test_vector.sh size

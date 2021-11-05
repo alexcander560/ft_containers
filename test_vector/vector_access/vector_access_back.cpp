@@ -1,50 +1,52 @@
 #include "../test_utility.cpp"
 
-int	main ()
+#define	TEST 0
+#define	LEAK 0
+
+int	test(int size, string test)
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	string				temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig(size);
+	ft::vector<int>		my(size);
 
-	//=============================================================
-
-	std::cout << "Test 1" << std::endl;
-	temp_orig = "", temp_my = "";
-	std::vector<int> orig_1(1);
-	ft::vector<int> my_1(1);
-	init_vector_all(&orig_1, &my_1);
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_1.back()) + " ";
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_1.back()) + " ";
-	time_my = clock() - time_my;
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
-
-	//=============================================================
-
-	std::cout << "Test 100K" << std::endl;
-	std::vector<int> orig(SIZE_100K);
-	ft::vector<int> my(SIZE_100K);
 	init_vector_all(&orig, &my);
 
+	cout << test << endl;
+	//===========================ORIG==============================
 	time_orig = clock();
-	for (size_t i = 0; i < SIZE_100K; i++)
+
+	for (int i = 0; i < size; i++)
 		temp_orig += std::to_string(orig.back()) + " ";
+
 	time_orig = clock() - time_orig;
-
+	//============================MY===============================
 	time_my = clock();
-	for (size_t i = 0; i < SIZE_100K; i++)
-		temp_my += std::to_string(my.back()) + " ";
-	time_my = clock() - time_my;
 
+	for (int i = 0; i < size; i++)
+		temp_my += std::to_string(my.back()) + " ";
+
+	if (TEST)
+		temp_my += " ";
+	time_my = clock() - time_my;
+	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+	return (rez);
+}
+
+int	main()
+{
+	string	str_leaks = "";
+	int		rez = 0;
 
 	//=============================================================
-
+	rez += test(SIZE_1, "Test 1/4");
+	rez += test(SIZE_100, "Test 2/4");
+	rez += test(SIZE_10K, "Test 3/4");
+	rez += test(SIZE_100K, "Test 4/4");
+	//=============================================================
+	if (LEAK)
+		cin >> str_leaks;
 	return (!rez);
 }

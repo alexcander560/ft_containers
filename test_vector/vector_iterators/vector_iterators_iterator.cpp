@@ -2,26 +2,25 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string					temp_orig = "", temp_my = "";
+	unsigned int				time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>			orig(SIZE_1K);
+	ft::vector<int>				my(SIZE_1K);
+	std::vector<int>::iterator	it1_orig;
 
-	std::vector<int> orig(SIZE_1K);
-	ft::vector<int> my(SIZE_1K);
-
-	std::vector<int>::iterator it1_orig;
 	it1_orig = orig.begin();
-	std::vector<int>::iterator it2_orig(it1_orig);
+	std::vector<int>::iterator	it2_orig(it1_orig);
 	it2_orig = orig.end();
 
 	ft::vector<int>::iterator it1_my;
 	it1_my = my.begin();
 	ft::vector<int>::iterator it2_my(it1_my);
 	it2_my = my.end();
-	init_vector_all(&orig, &my);
 
+	init_vector_all(&orig, &my);
 	//=============================================================
 
-	std::cout << "all test operator\n";
+	std::cout << "Test 1/3 (all test operator)\n";
 	time_orig = clock();
 
 	while (it1_orig != it2_orig)
@@ -107,7 +106,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "test operator->\n";
+	std::cout << "Test 2/3 (test operator->)\n";
 
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
@@ -148,7 +147,7 @@ int	main ()
 	it1_orig = orig.begin() + 1;
 	it1_my = my.begin() + 1;
 	
-	std::cout << "test other\n";
+	std::cout << "Test 3/3 (test other)\n";
 	time_orig = clock();
 	//Оригинал
 	it1_orig = it1_orig + ch;

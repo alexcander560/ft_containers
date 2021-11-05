@@ -117,7 +117,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "front_const" ]]; then
 	rm -rf vector_prog
 fi
 # 7
-if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "bask" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "back" ]]; then
 	printf "$YELLOW Test back $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)
@@ -132,7 +132,7 @@ if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "bask" ]]; then
 	rm -rf vector_prog
 fi
 # 8
-if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "bask_const" ]]; then
+if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "back_const" ]]; then
 	printf "$YELLOW Test back const $DEFAULT \n"
 	clang++	-Wall -Wextra -Werror	test_vector/vector_access/vector_access_back_const.cpp -o vector_prog
 	TEST_OUTPUT=$(./vector_prog)

@@ -1,80 +1,53 @@
 #include "../test_utility_stack.cpp"
 
+#define	TEST 0
+#define	LEAK 0
+
 #include <vector>
 
-int	main ()
+int	test(int size, string test)
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	string			temp_orig = "", temp_my = "";
+	unsigned int	time_orig = 0, time_my = 0, rez = 0;
+	std::stack<int>	orig;
+	ft::stack<int>	my;
 
-	std::stack<int> orig_1;
-	ft::stack<int> my_1;
+	init_stack(&orig, &my, size);
 
-	std::stack<int> orig_2;
-	ft::stack<int> my_2;
-
-	std::stack<int> orig_3;
-	ft::stack<int> my_3;
-
-	init_stack(&orig_1, &my_1, 0);
-	init_stack(&orig_2, &my_2, 1);
-	init_stack(&orig_3, &my_3, 10);
-
-	//=============================================================
-	std::cout << "empty size=0\n";
-	temp_orig = "", temp_my = "";
-
+	cout << test << endl;
+	//===========================ORIG==============================
 	time_orig = clock();
-	temp_orig += std::to_string(orig_1.empty());
-	temp_orig += std::to_string(orig_1.empty());
+
+	temp_orig += std::to_string(orig.empty());
+	temp_orig += std::to_string(orig.empty());
+
 	time_orig = clock() - time_orig;
-
+	//============================MY===============================
 	time_my = clock();
-	temp_my += std::to_string(my_1.empty());
-	temp_my += std::to_string(my_1.empty());
-	time_my = clock() - time_my;
-	//temp_my += " ";
 
+	temp_my += std::to_string(my.empty());
+	temp_my += std::to_string(my.empty());
+
+	if (TEST)
+		temp_my += " ";
+	time_my = clock() - time_my;
+	//=============================================================
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
+	return (rez);
+}
+
+int	main()
+{
+	string	str_leaks = "";
+	int		rez = 0;
 
 	//=============================================================
-	std::cout << "empty size=1\n";
-	temp_orig = "", temp_my = "";
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_2.empty());
-	temp_orig += std::to_string(orig_2.empty());
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_2.empty());
-	temp_my += std::to_string(my_2.empty());
-	time_my = clock() - time_my;
-	//temp_my += " ";
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
-
+	rez += test(SIZE_0, "Test 1/3");
+	rez += test(SIZE_1, "Test 2/3");
+	rez += test(SIZE_10, "Test 3/3");
 	//=============================================================
-	std::cout << "empty size=10\n";
-	temp_orig = "", temp_my = "";
-
-	time_orig = clock();
-	temp_orig += std::to_string(orig_3.empty());
-	temp_orig += std::to_string(orig_3.empty());
-	time_orig = clock() - time_orig;
-
-	time_my = clock();
-	temp_my += std::to_string(my_3.empty());
-	temp_my += std::to_string(my_3.empty());
-	time_my = clock() - time_my;
-	//temp_my += " ";
-
-	rez += print_status_comp(temp_orig, temp_my);
-	rez += print_status_time(time_orig, time_my);
-
-	//=============================================================
-
+	if (LEAK)
+		cin >> str_leaks;
 	return (!rez);
 }

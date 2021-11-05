@@ -34,6 +34,8 @@
 # define SIZE_10M	10000000
 # define SIZE_100M	100000000
 
+using namespace std;
+
 // Иницилихация стака std, ft одними параметрами заданной длины
 template <typename T>
 void	init_stack(std::stack<T>* a_orig, ft::stack<T>* a_my, int size)

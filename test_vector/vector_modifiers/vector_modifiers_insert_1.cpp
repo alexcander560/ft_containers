@@ -2,24 +2,22 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
-
-	std::vector<int> orig_1(0);
-	ft::vector<int> my_1(0);
-	std::vector<int> orig_2(SIZE_100K);
-	ft::vector<int> my_2(SIZE_100K);
-	std::vector<int> orig_3(SIZE_10);
-	ft::vector<int> my_3(SIZE_10);
-	std::vector<int> orig_4(0);
-	ft::vector<int> my_4(0);
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(0);
+	ft::vector<int>		my_1(0);
+	std::vector<int>	orig_2(SIZE_100K);
+	ft::vector<int>		my_2(SIZE_100K);
+	std::vector<int>	orig_3(SIZE_10);
+	ft::vector<int>		my_3(SIZE_10);
+	std::vector<int>	orig_4(0);
+	ft::vector<int>		my_4(0);
 
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_2, &my_2);
 	init_vector_all(&orig_3, &my_3);
-
 	//=============================================================
-	std::cout << "size=0 insert(begin(), 42)" << std::endl;
+	std::cout << "Test 1/7 (size=0 insert(begin(), 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -43,7 +41,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=1 insert(end(), 42)" << std::endl;
+	std::cout << "Test 2/7 (size=1 insert(end(), 42))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 
@@ -67,7 +65,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size=2 capacity=3 insert(end(), 668)" << std::endl;
+	std::cout << "Test 3/7 (size=2 capacity=3 insert(end(), 668))" << std::endl;
 	temp_orig = "", temp_my = "";
 	orig_1.reserve(3);
 	my_1.reserve(3);
@@ -96,7 +94,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "start size=100.000\ninsert(begin() + 1, 42)" << std::endl;
+	std::cout << "Test 4/7 (start size=100.000\ninsert(begin() + 1, 42))" << std::endl;
 	std::cout << "insert(begin() + 50.000, 42)" << std::endl;
 	std::cout << "insert(end() - 50.000, 42)" << std::endl;
 	std::cout << "insert(end() - 1, 42)" << std::endl;
@@ -129,7 +127,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "start size=10 capacity=11\ninsert(begin() + 1, 1000000) (2 use)" << std::endl;
+	std::cout << "Test 5/7 (start size=10 capacity=11\ninsert(begin() + 1, 1000000) (2 use))" << std::endl;
 	orig_3.reserve(11);
 	my_3.reserve(11);
 	temp_orig = "", temp_my = "";
@@ -157,7 +155,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "start size=11 capacity=11\ninsert(end(), 777) (2 use)" << std::endl;
+	std::cout << "Test 6/7 (start size=11 capacity=11\ninsert(end(), 777) (2 use))" << std::endl;
 	orig_3.reserve(12);
 	my_3.reserve(12);
 	temp_orig = "", temp_my = "";
@@ -185,7 +183,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "start size=0 capacity=1\ninsert(end(), 666)" << std::endl;
+	std::cout << "Test 7/7 (start size=0 capacity=1\ninsert(end(), 666))" << std::endl;
 	orig_4.reserve(1);
 	my_4.reserve(1);
 	temp_orig = "", temp_my = "";

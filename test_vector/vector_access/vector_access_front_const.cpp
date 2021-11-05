@@ -2,12 +2,12 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string		temp_orig = "", temp_my = "";
+	unsigned int	time_orig = 0, time_my = 0, rez = 0;
 
 	//=============================================================
 
-	std::cout << "Test 1" << std::endl;
+	std::cout << "Test 1/2" << std::endl;
 	temp_orig = "", temp_my = "";
 	std::vector<int> orig_1_base(1);
 	ft::vector<int> my_1_base(1);
@@ -29,7 +29,7 @@ int	main ()
 
 	//=============================================================
 
-	std::cout << "Test 100K" << std::endl;
+	std::cout << "Test 2/2" << std::endl;
 	std::vector<int> orig_base(SIZE_100K);
 	ft::vector<int> my_base(SIZE_100K);
 	init_vector_all(&orig_base, &my_base);

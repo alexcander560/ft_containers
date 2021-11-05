@@ -2,16 +2,14 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1;
+	ft::vector<int>		my_1;
 
-	std::vector<int> orig_1;
-	ft::vector<int> my_1;
 	init_vector_all(&orig_1, &my_1);
-
 	//=============================================================
-
-	std::cout << "size = 0 resize(0)\n";
+	std::cout << "Test 1/6 (size = 0 resize(0))\n";
 
 	time_orig = clock();
 	orig_1.resize(0);
@@ -26,7 +24,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 0 resize(1000)\n";
+	std::cout << "Test 2/6 (size = 0 resize(1000))\n";
 
 	time_orig = clock();
 	orig_1.resize(SIZE_1K);
@@ -45,7 +43,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 1000 resize(100)\n";
+	std::cout << "Test 3/6 (size = 1000 resize(100))\n";
 
 	time_orig = clock();
 	orig_1.resize(SIZE_100);
@@ -67,7 +65,7 @@ int	main ()
 	//=============================================================
 	//=============================================================
 	//=============================================================
-	std::cout << "size = 100 resize(0, 42)\n";
+	std::cout << "Test 4/6 (size = 100 resize(0, 42))\n";
 
 	time_orig = clock();
 	orig_1.resize(0, 42);
@@ -82,7 +80,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 0 resize(1000, 42)\n";
+	std::cout << "Test 5/6 (size = 0 resize(1000, 42))\n";
 
 	time_orig = clock();
 	orig_1.resize(SIZE_1K, 42);
@@ -101,7 +99,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 1000 resize(100, 42)\n";
+	std::cout << "Test 6/6 (size = 1000 resize(100, 42))\n";
 
 	time_orig = clock();
 	orig_1.resize(SIZE_100, 42);
@@ -119,8 +117,6 @@ int	main ()
 
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
-
 	//=============================================================
-
 	return (!rez);
 }

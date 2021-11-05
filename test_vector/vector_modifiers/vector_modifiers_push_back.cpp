@@ -2,21 +2,19 @@
 
 int	main ()
 {
-	std::string	temp_orig = "", temp_my = "";
-	unsigned int time_orig = 0, time_my = 0, rez = 0;
+	std::string			temp_orig = "", temp_my = "";
+	unsigned int		time_orig = 0, time_my = 0, rez = 0;
+	std::vector<int>	orig_1(0);
+	ft::vector<int>		my_1(0);
+	std::vector<int>	orig_2(SIZE_100K);
+	ft::vector<int>		my_2(SIZE_100K);
 
-	// //=============================================================
-	temp_orig = "", temp_my = "";
-	std::vector<int> orig_1(0);
-	ft::vector<int> my_1(0);
-	std::vector<int> orig_2(SIZE_100K);
-	ft::vector<int> my_2(SIZE_100K);
 	orig_2.reserve(SIZE_1M);
 	my_2.reserve(SIZE_1M);
 	init_vector_all(&orig_1, &my_1);
 	init_vector_all(&orig_2, &my_2);
 
-	std::cout << "size = 0 (1 use)" << std::endl;
+	std::cout << "Test 1/3 (size = 0 (1 use))" << std::endl;
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
@@ -37,7 +35,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	// //=============================================================
-	std::cout << "size = 1 (100.000 use)" << std::endl;
+	std::cout << "Test 2/3 (size = 1 (100.000 use))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -61,7 +59,7 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-	std::cout << "size = 100.000 capacity 1.000.000 (100.000 use)" << std::endl;
+	std::cout << "Test 3/3 (size = 100.000 capacity 1.000.000 (100.000 use))" << std::endl;
 	temp_orig = "", temp_my = "";
 	time_orig = clock();
 	//действия c оригиналом
@@ -85,6 +83,5 @@ int	main ()
 	rez += print_status_comp(temp_orig, temp_my);
 	rez += print_status_time(time_orig, time_my);
 	//=============================================================
-
 	return (!rez);
 }
