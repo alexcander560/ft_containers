@@ -26,7 +26,10 @@ int	test(int size, string test)
 	temp_orig += orig.lower_bound(-size)->second;
 
 	for (int i = 0; i < size; i++)
-		temp_orig += orig.lower_bound(i)->second;
+	{
+		orig_it = orig.lower_bound(i);
+		temp_orig += orig_it->second;
+	}
 
 	orig_it = --orig.lower_bound(size * 2);
 	temp_orig += orig_it->second;
@@ -38,7 +41,10 @@ int	test(int size, string test)
 	temp_my += my.lower_bound(-size)->second;
 
 	for (int i = 0; i < size; i++)
-		temp_my += my.lower_bound(i)->second;
+	{
+		my_it = my.lower_bound(i);
+		temp_my += my_it->second;
+	}
 
 	my_it = --my.lower_bound(size * 2);
 	temp_my += my_it->second;

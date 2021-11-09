@@ -496,7 +496,7 @@ namespace ft
 					pair<iterator, bool>				_insert_tree(const_reference v)
 					{
 						pair<node*, pair <node*, bool> >	my_par= _insert_AVL(_root, v, _root);
-						pair<iterator, bool>				res = make_pair(iterator(my_par.second.first), my_par.second.second);
+						pair<iterator, bool>				res = make_pair(iterator(my_par.second.first, this), my_par.second.second);
 
 						_root = my_par.first;
 						if (res.second)
@@ -711,8 +711,8 @@ namespace ft
 						return (old_size != _size);
 					}
 					// Ищет элемент с переданным ключом
-					iterator				find (const key_type& k)				{ return (iterator(_find(_root, k), this)); }
-					const_iterator			find (const key_type& k) const			{ return (const_iterator(_find(_root, k), this)); }
+					iterator				find (const key_type& k)				{ return (count(k) ? iterator(_find(_root, k), this) : iterator(_end, this)); }
+					const_iterator			find (const key_type& k) const			{ return (count(k) ? const_iterator(_find(_root, k), this) : const_iterator(_end, this)); }
 					// Есть ли элемент с переданным ключом
 					size_type				count (const key_type& k) const			{ return (_find(_root, k) != NULL ? 1 : 0); }
 					// Возвращает итератор, указывающий на первый элемент в контейнере, ключ которого не считается предшествующим за k
@@ -752,7 +752,7 @@ namespace ft
 					typedef typename	parent::pointer								pointer;
 
 					MyIterator(node* begin = NULL, const AVLTree* tree = NULL): _node(begin), _tree(tree) {}
-					MyIterator(const self &copy): _node(copy._node), _tree(copy._tree) {}
+					MyIterator(self const &copy): _node(copy._node), _tree(copy._tree) {}
 					~MyIterator() {};
 
 					const self&	operator=(const self &it)

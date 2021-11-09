@@ -15,7 +15,7 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.assign((size_t)0, 42);
+	orig_1.assign(0, 42);
 	temp_orig += vektor_base_test(&orig_1);
 	
 	time_orig = clock() - time_orig;
@@ -25,7 +25,7 @@ int	main ()
 	//действия мои
 	
 	temp_my += vektor_base_test(&my_1);
-	my_1.assign((size_t)0, 42);
+	my_1.assign(0, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 
@@ -40,7 +40,7 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.assign((size_t)1, 42);
+	orig_1.assign(1, 42);
 	temp_orig += vektor_base_test(&orig_1);
 	
 	time_orig = clock() - time_orig;
@@ -50,7 +50,7 @@ int	main ()
 	//действия мои
 	
 	temp_my += vektor_base_test(&my_1);
-	my_1.assign((size_t)1, 42);
+	my_1.assign(1, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 
@@ -65,7 +65,7 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.assign((size_t)100000, 42);
+	orig_1.assign(100000, 42);
 	temp_orig += vektor_base_test(&orig_1);
 	
 	time_orig = clock() - time_orig;
@@ -75,7 +75,7 @@ int	main ()
 	//действия мои
 	
 	temp_my += vektor_base_test(&my_1);
-	my_1.assign((size_t)100000, 42);
+	my_1.assign(100000, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 
@@ -90,7 +90,7 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.assign((size_t)1, 42);
+	orig_1.assign(1, 42);
 	temp_orig += vektor_base_test(&orig_1);
 	
 	time_orig = clock() - time_orig;
@@ -100,7 +100,7 @@ int	main ()
 	//действия мои
 	
 	temp_my += vektor_base_test(&my_1);
-	my_1.assign((size_t)1, 42);
+	my_1.assign(1, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 
@@ -115,7 +115,7 @@ int	main ()
 	time_orig = clock();
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.assign((size_t)0, 42);
+	orig_1.assign(0, 42);
 	temp_orig += vektor_base_test(&orig_1);
 	
 	time_orig = clock() - time_orig;
@@ -125,7 +125,7 @@ int	main ()
 	//действия мои
 	
 	temp_my += vektor_base_test(&my_1);
-	my_1.assign((size_t)0, 42);
+	my_1.assign(0, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 

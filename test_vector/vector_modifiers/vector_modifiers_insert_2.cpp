@@ -18,7 +18,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin(), (size_t)0, 42);
+	orig_1.insert(orig_1.begin(), 0, 42);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -27,7 +27,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin(), (size_t)0, 42);
+	my_1.insert(my_1.begin(), 0, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -42,7 +42,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin(), (size_t)1, 42);
+	orig_1.insert(orig_1.begin(), 1, 42);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -51,7 +51,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin(), (size_t)1, 42);
+	my_1.insert(my_1.begin(), 1, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -66,7 +66,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin(), (size_t)0, 42);
+	orig_1.insert(orig_1.begin(), 0, 42);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -75,7 +75,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin(), (size_t)0, 42);
+	my_1.insert(my_1.begin(), 0, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -90,7 +90,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin(), (size_t)SIZE_10, 42);
+	orig_1.insert(orig_1.begin(), SIZE_10, 42);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -99,7 +99,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin(), (size_t)SIZE_10, 42);
+	my_1.insert(my_1.begin(), SIZE_10, 42);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -114,7 +114,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)0, 21);
+	orig_1.insert(orig_1.end(), 0, 21);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -123,7 +123,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)0, 21);
+	my_1.insert(my_1.end(), 0, 21);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -139,7 +139,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)1, 21);
+	orig_1.insert(orig_1.end(), 1, 21);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -148,7 +148,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)1, 21);
+	my_1.insert(my_1.end(), 1, 21);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -163,7 +163,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)SIZE_10, 21);
+	orig_1.insert(orig_1.end(), SIZE_10, 21);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -172,7 +172,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)SIZE_10, 21);
+	my_1.insert(my_1.end(), SIZE_10, 21);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -191,7 +191,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.end(), (size_t)SIZE_10, 13);
+	orig_1.insert(orig_1.end(), SIZE_10, 13);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -200,7 +200,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.end(), (size_t)SIZE_10, 13);
+	my_1.insert(my_1.end(), SIZE_10, 13);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -216,7 +216,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin() + SIZE_10, (size_t)SIZE_50K, 7);
+	orig_1.insert(orig_1.begin() + SIZE_10, SIZE_50K, 7);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -225,7 +225,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin() + SIZE_10, (size_t)SIZE_50K, 7);
+	my_1.insert(my_1.begin() + SIZE_10, SIZE_50K, 7);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	
@@ -240,7 +240,7 @@ int	main ()
 
 	//действия c оригиналом
 	temp_orig += vektor_base_test(&orig_1);
-	orig_1.insert(orig_1.begin() + 174, (size_t)100, 4);
+	orig_1.insert(orig_1.begin() + 174, 100, 4);
 	temp_orig += vektor_base_test(&orig_1);
 
 	time_orig = clock() - time_orig;
@@ -249,7 +249,7 @@ int	main ()
 	
 	//действия c собственной копией
 	temp_my += vektor_base_test(&my_1);
-	my_1.insert(my_1.begin() + 174, (size_t)100, 4);
+	my_1.insert(my_1.begin() + 174, 100, 4);
 	temp_my += vektor_base_test(&my_1);
 	//temp_my += " ";
 	

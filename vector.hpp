@@ -169,6 +169,22 @@ namespace ft
 					pointer	_ptr;
 			};
 
+			template <class InputIterator>
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type
+			validate_iterator_values(InputIterator first,InputIterator last, size_type range)
+			{
+				pointer		reserved_buffer = _alloc.allocate(range);
+				bool		result = true;
+				size_t		i = 0;
+
+				for (;first != last; ++first, ++i) {
+					try { reserved_buffer[i] = *first; }
+					catch (...) { result = false; break; }
+				}
+				_alloc.deallocate(reserved_buffer, range);
+				return result;
+			}
+			
 		public:
 			//---------------------------------------------------------constructor(4/4)----------------------------------------------------
 			// Конструктор без параметров
@@ -188,9 +204,10 @@ namespace ft
 			}
 			// Конструктор с 2 параметрами (набор значений)
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc)
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, void>::type* = 0): _alloc(alloc)
 			{
-				size_type n = std::distance(first, last);
+				size_type n = ft::distance(first, last);
 
 				if (n > max_size())
 					throw std::length_error("vector");
@@ -307,29 +324,29 @@ namespace ft
 			reference				back()										{ return (*(_end - 1)); }
 			const_reference			back() const								{ return (*(_end - 1)); }
 			//--------------------------------------------------------Modifiers(11/11)-----------------------------------------------------
-			template <class InputIterator>
 			// Присваивает вектору новое содержимое, заменяя его текущее содержимое и соответствующим образом изменяя его размер
-			void					assign (InputIterator first, InputIterator last)
+			template <class InputIterator>
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, void>::type
+			assign (InputIterator first, InputIterator last)
 			{
-				size_type	n = static_cast<size_type>(std::distance(first, last));
+				size_type	n = static_cast<size_type>(ft::distance(first, last));
 
 				if (n >= 0)
 				{
 					size_type	capacity = this->capacity();
-					pointer		first_ptr = first._ptr, last_ptr = last._ptr;
 
 					clear();
 					if (capacity >= n)
 					{
-						for(; first_ptr != last_ptr; first_ptr++, _end++)
-							_alloc.construct(_end, *first_ptr);
+						for(; first != last; first++, _end++)
+							_alloc.construct(_end, *first);
 					}
 					else
 					{
 						pointer		begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
 
-						for(; first_ptr != last_ptr; first_ptr++, end_new++)
-							_alloc.construct(end_new, *first_ptr);
+						for(; first != last; first++, end_new++)
+							_alloc.construct(end_new, *first);
 						_alloc.deallocate(_begin, capacity);
 						_begin = begin_new;
 						_end = end_new;
@@ -413,27 +430,46 @@ namespace ft
 				}
 			}
 			template <class InputIterator>
-			void					insert (iterator position, InputIterator first, InputIterator last)
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, void>::type
+			insert (iterator position, InputIterator first, InputIterator last)
 			{
+				// }{уЁвый Алгоритм
+				size_type	n = static_cast<size_type>(std::distance(first, last));
+
+				if (!validate_iterator_values(first, last, n))
+					throw std::exception();
+
 				if (first != last)
 				{
 					pointer		new_pos = NULL;
-					size_type	n = static_cast<size_type>(std::distance(first, last)), size = this->size(), len_pos = position._ptr - _begin;
+					size_type	size = this->size(), len_pos = position._ptr - _begin;
 					pointer		begin_new = _alloc.allocate(n), end_new = begin_new;
+
 
 					for (; first != last; end_new++, first++)
 						_alloc.construct(end_new, *first);
+
 					if (_end + n > _capacity)
-						reserve (std::max(size + n, capacity() * 2));
+						reserve (std::max(capacity() + n, capacity() * 2));
+
 					new_pos = _begin + len_pos;
 					if (size > 0)
 					{
-						for (pointer i = _end; i >= new_pos; i--)
+						for (pointer i = _end - 1; i >= new_pos; i--)
 							_alloc.construct(i + n, *i);
 					}
 					for (size_type i = 0; i < n; i++)
-						_alloc.construct(new_pos + i, *(begin_new + i));
+					{
+						if (i < size - len_pos)
+						{
+							_alloc.destroy(new_pos + i);
+							_alloc.construct(new_pos + i, *(begin_new + i));
+						}
+						else
+							_alloc.construct(new_pos + i, *(begin_new + i));
+					}
 					_end = _end + n;
+
 					for (size_type i = 0; i < n; i++)
 						_alloc.destroy(begin_new + i);
 					_alloc.deallocate(begin_new, n);
