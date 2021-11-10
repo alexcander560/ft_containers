@@ -267,7 +267,7 @@ namespace ft
 
 						std::cout << "Tree\n" << "depth= " << d << std::endl << "size= " << s << std::endl;
 						// std::cout << "skip(max)= " << skip << std::endl;
-						std::cout << "Заполненно: " << (float)s/(float)(pow(2, d) - 1) * 100 << "%" << std::endl;
+						// std::cout << "Заполненно: " << (float)s/(float)(pow(2, d) - 1) * 100 << "%" << std::endl;
 
 						if (mod_h != 1 && mod_h != 2)
 							mod_h = 0;
