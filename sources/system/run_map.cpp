@@ -39,9 +39,9 @@ int main(int argc, char* argv[], char* env[]) {
 
 
 	runFunctionTest("../map_tests/lower_bound().cpp", argv, env);			//7 (не компилит)
-	// runFunctionTest("../map_tests/upper_bound().cpp", argv, env);			//8 (не компилит)
-	// runFunctionTest("../map_tests/equal_range().cpp", argv, env);			//9 
-	// runFunctionTest("../map_tests/compare class.cpp", argv, env);			//3 (сделан опо другому)
+	runFunctionTest("../map_tests/upper_bound().cpp", argv, env);			//8 (не компилит)
+	runFunctionTest("../map_tests/equal_range().cpp", argv, env);			//9 
+	runFunctionTest("../map_tests/compare class.cpp", argv, env);			//3 (сделан опо другому)
 
 
 

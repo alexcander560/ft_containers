@@ -21,7 +21,7 @@ declare -i all=0
 declare -i rez=0
 
 #=========================================================================================
-#==============================Member functions=============================================
+#==============================Member functions===========================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Member" ]]; then
 	printf "$PURPLE Member functions $DEFAULT\n"
@@ -33,7 +33,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "empty" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -48,7 +51,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "size" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -63,7 +69,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "top" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -78,7 +87,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "top_const" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -93,7 +105,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "push" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -108,7 +123,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Member" ]] || [[ "$1" == "pop" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -129,7 +147,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "operator" ]]; then
 	TEST_OUTPUT=$(./stack_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT

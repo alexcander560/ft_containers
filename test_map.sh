@@ -33,7 +33,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "acc" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -54,7 +57,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "size" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -69,7 +75,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "max_size" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -84,7 +93,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "empty" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -105,7 +117,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Alloc" ]] || [[ "$1" == "get_allocator" ]]; t
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -126,7 +141,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -141,7 +159,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator_const" ]]; t
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -156,7 +177,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -171,7 +195,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator_const" ]];
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -192,7 +219,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "operator" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -207,7 +237,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "swap" ]] || [[ "$1" ==
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -228,7 +261,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" 
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -243,7 +279,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" 
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -258,7 +297,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" 
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -273,7 +315,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" =
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -288,7 +333,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" =
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -303,7 +351,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" =
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -318,7 +369,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "swap" ]] || [[ "$1" ==
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -333,7 +387,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "clear" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -354,7 +411,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "count" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -369,7 +429,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "equal_range" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -384,7 +447,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "equal_range_const" ]]
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -399,7 +465,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "find" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -414,7 +483,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "find_const" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -429,7 +501,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "lower_bound" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -444,7 +519,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "lower_bound_const" ]]
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -459,7 +537,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "upper_bound" ]]; then
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT
@@ -474,7 +555,10 @@ if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "upper_bound_const" ]]
 	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
-	if [[ "$TEST_OUTPUT" == "" ]]; then
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
 		printf "$RED does not compile $DEFAULT \n"
 	else
 		echo $TEST_OUTPUT

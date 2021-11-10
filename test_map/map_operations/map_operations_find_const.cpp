@@ -20,7 +20,6 @@ int	test(int size, string test)
 	std::map<int, string> const orig_const(orig);
 	ft::map<int, string> const my_const(my);
 
-
 	cout << test << endl;
 	//===========================ORIG==============================
 	time_orig = clock();

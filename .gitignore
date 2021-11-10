@@ -6,8 +6,3 @@
 *.json
 a.out
 *.vscode
-main_test.cpp
-experement.cpp
-map_key.cpp
-main_explicit_test.cpp
-main_vector_test.cpp

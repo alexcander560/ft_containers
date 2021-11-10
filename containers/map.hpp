@@ -742,189 +742,190 @@ namespace ft
 					node*					get_min() const							{ return (_findmin_AVL(_root)); }
 			};
 
-			class MyIterator: public ft::iterator<std::bidirectional_iterator_tag, value_type>
+
+			class Iterator_base: public ft::iterator<std::bidirectional_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::bidirectional_iterator_tag, value_type>	parent;
-				typedef MyIterator													self;
 
 				public:
-					typedef typename	parent::reference							reference;
-					typedef typename	parent::pointer								pointer;
+					Iterator_base(node* begin = NULL, const AVLTree* tree = NULL): _node(begin), _tree(tree) {}
+					Iterator_base(Iterator_base const &copy): _node(copy._node), _tree(copy._tree){}
+					~Iterator_base() {};
 
-					MyIterator(node* begin = NULL, const AVLTree* tree = NULL): _node(begin), _tree(tree) {}
-					MyIterator(self const &copy): _node(copy._node), _tree(copy._tree) {}
-					~MyIterator() {};
-
-					const self&	operator=(const self &it)
-					{
-						if (this != &it)
-						{
-							_node = it._node;
-							_tree = it._tree;
-						}
-						return (*this);
-					}
-					reference	operator*()									{ return (*_node->data); }
-					pointer		operator->()								{ return (_node->data); }
-					self&		operator++()
-					{
-						if (_node == _tree->get_max())				// Что бы с максимального элемента перейти на последний
-							_node = _tree->get_end();
-						else if (_node->right != NULL)				// Если есть узел справа, то искомый узел будет находиться в правом поддереве
-						{
-							_node = _node->right;
-							while (_node->left != NULL)				// Что бы найти следующйй узел от текущего нужно перейти к самому левому потомку
-								_node = _node->left;				// правого поддерева
-						}
-						else										// Если узла справа нет, то для искомый узел один из предков
-						{
-							node *p = _node->parent;
-
-							while (p != NULL && _node == p->right)	// Перехоим каждый раз на уровень выше
-							{										// Искомым узлом будет являться первый предок,
-								_node = p;							// у которого переданный узел будет находиться в левом поддереве
-								p = p->parent;
-							}
-							_node = p;
-						}
-						return (*this);
-					}
-					self		operator++(int)
-					{
-						self	tmp = *this;
-						++(*this);
-						return (tmp);
-					}
-					self&		operator--()
-					{
-						if (_node == _tree->get_end())					// Что бы с последнего элемента перейти на максимальный
-							_node = _tree->get_max();
-						else if (_node->left != NULL)					// Противоположное ++
-						{
-							_node = _node->left;
-							while (_node->right != NULL)
-								_node = _node->right;
-						}
-						else
-						{
-							node *p = _node->parent;
-
-							while (p != NULL && _node == p->left)
-							{
-								_node = p;
-								p = p->parent;
-							}
-							_node = p;
-						}
-						return (*this);
-					}
-					self		operator--(int)
-					{
-						self	tmp = *this;
-						--(*this);
-						return (tmp);
-					}
-					friend bool	operator== (const self& a, const self& b)	{ return (a._node == b._node); }
-					friend bool	operator!= (const self& a, const self& b)	{ return (!(a == b)); }
-
-				private:
-					friend class	ConstMyIterator;
-					friend class	AVLTree;
+				public:
 					node*			_node;
 					const AVLTree*	_tree;
 			};
-			
-			class ConstMyIterator: public ft::iterator<std::bidirectional_iterator_tag, const value_type>
+
+			class MyIterator: public Iterator_base
 			{
-				typedef ft::iterator<std::bidirectional_iterator_tag, const value_type>		parent;
-				typedef MyIterator															nonconst_v;
-				typedef ConstMyIterator														self;
-
 				public:
-				typedef typename parent::reference											reference;
-				typedef typename parent::pointer											pointer;
 
-					ConstMyIterator(node* begin = NULL, const AVLTree* tree = NULL): _node(begin), _tree(tree) {};
-					ConstMyIterator(const self &copy): _node(copy._node), _tree(copy._tree) {};
-					ConstMyIterator(const nonconst_v &it): _node(it._node), _tree(it._tree) {};
-					~ConstMyIterator() {};
+					MyIterator(node* begin = NULL, const AVLTree* tree = NULL): Iterator_base(begin, tree) {}
+					MyIterator(MyIterator const &copy): Iterator_base(copy._node, copy._tree) {}
+					~MyIterator() {};
 
-					const self&	operator=(const self &it)
+					const MyIterator&	operator=(const MyIterator &it)
 					{
 						if (this != &it)
 						{
-							_node = it._node;
-							_tree = it._tree;
-						}
-						return *this;
-					}
-					reference	operator*()									{ return (*_node->data); }
-					pointer		operator->()								{ return (_node->data); }
-					self&		operator++()
-					{
-						if (_node == _tree->get_max())				// Что бы с максимального элемента перейти на последний
-							_node = _tree->get_end();
-						else if (_node->right != NULL)
-						{
-							_node = _node->right;
-							while (_node->left != NULL)
-								_node = _node->left;
-						}
-						else
-						{
-							node *p = _node->parent;
-
-							while (p != NULL && _node == p->right)
-							{
-								_node = p;
-								p = p->parent;
-							}
-							_node = p;
+							this->_node = it._node;
+							this->_tree = it._tree;
 						}
 						return (*this);
 					}
-					self		operator++(int)
+					reference	operator*()									{ return (*this->_node->data); }
+					pointer		operator->()								{ return (this->_node->data); }
+					MyIterator&		operator++()
 					{
-						self tmp = *this;
+						if (this->_node == this->_tree->get_max())				// Что бы с максимального элемента перейти на последний
+							this->_node = this->_tree->get_end();
+						else if (this->_node->right != NULL)				// Если есть узел справа, то искомый узел будет находиться в правом поддереве
+						{
+							this->_node = this->_node->right;
+							while (this->_node->left != NULL)				// Что бы найти следующйй узел от текущего нужно перейти к самому левому потомку
+								this->_node = this->_node->left;				// правого поддерева
+						}
+						else										// Если узла справа нет, то для искомый узел один из предков
+						{
+							node *p = this->_node->parent;
+
+							while (p != NULL && this->_node == p->right)	// Перехоим каждый раз на уровень выше
+							{										// Искомым узлом будет являться первый предок,
+								this->_node = p;							// у которого переданный узел будет находиться в левом поддереве
+								p = p->parent;
+							}
+							this->_node = p;
+						}
+						return (*this);
+					}
+					MyIterator		operator++(int)
+					{
+						MyIterator	tmp = *this;
 						++(*this);
 						return (tmp);
 					}
-					self&		operator--()
+					MyIterator&		operator--()
 					{
-						if (_node == _tree->get_end())					// Что бы с последнего элемента перейти на максимальный
-							_node = _tree->get_max();
-						else if (_node->left != NULL)
+						if (this->_node == this->_tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+							this->_node = this->_tree->get_max();
+						else if (this->_node->left != NULL)					// Противоположное ++
 						{
-							_node = _node->left;
-							while (_node->right != NULL)
-								_node = _node->right;
+							this->_node = this->_node->left;
+							while (this->_node->right != NULL)
+								this->_node = this->_node->right;
 						}
 						else
 						{
-							node *p = _node->parent;
+							node *p = this->_node->parent;
 
-							while (p != NULL && _node == p->left)
+							while (p != NULL && this->_node == p->left)
 							{
-								_node = p;
+								this->_node = p;
 								p = p->parent;
 							}
-							_node = p;
+							this->_node = p;
 						}
 						return (*this);
 					}
-					self		operator--(int)
+					MyIterator		operator--(int)
 					{
-						self tmp = *this;
+						MyIterator	tmp = *this;
 						--(*this);
 						return (tmp);
 					}
-					friend bool	operator== (const self& a, const self& b)	{ return (a._node == b._node); }
-					friend bool	operator!= (const self& a, const self& b)	{ return (!(a == b)); }
+					friend bool	operator== (const MyIterator& a, const MyIterator& b)	{ return (a._node == b._node); }
+					friend bool	operator!= (const MyIterator& a, const MyIterator& b)	{ return (!(a == b)); }
 
-				private:
-					friend class	AVLTree;
-					node*			_node;
-					const AVLTree*	_tree;
+			};
+			
+			class ConstMyIterator: public Iterator_base
+			{
+
+				public:
+
+					ConstMyIterator(node* begin = NULL, const AVLTree* tree = NULL): Iterator_base(begin, tree) {}
+					ConstMyIterator(const ConstMyIterator &copy): Iterator_base(copy._node, copy._tree) {}
+					ConstMyIterator(const MyIterator &copy): Iterator_base(NULL, NULL)
+					{
+						Iterator_base& k = (Iterator_base&)copy;
+
+						this->_node = k._node;
+						this->_tree = k._tree;
+					}
+					~ConstMyIterator() {};
+
+					const ConstMyIterator&	operator=(const ConstMyIterator &it)
+					{
+						if (this != &it)
+						{
+							this->_node = it._node;
+							this->_tree = it._tree;
+						}
+						return *this;
+					}
+					reference	operator*()									{ return (*this->_node->data); }
+					pointer		operator->()								{ return (this->_node->data); }
+					ConstMyIterator&		operator++()
+					{
+						if (this->_node == this->_tree->get_max())				// Что бы с максимального элемента перейти на последний
+							this->_node = this->_tree->get_end();
+						else if (this->_node->right != NULL)
+						{
+							this->_node = this->_node->right;
+							while (this->_node->left != NULL)
+								this->_node = this->_node->left;
+						}
+						else
+						{
+							node *p = this->_node->parent;
+
+							while (p != NULL && this->_node == p->right)
+							{
+								this->_node = p;
+								p = p->parent;
+							}
+							this->_node = p;
+						}
+						return (*this);
+					}
+					ConstMyIterator		operator++(int)
+					{
+						ConstMyIterator tmp = *this;
+						++(*this);
+						return (tmp);
+					}
+					ConstMyIterator&		operator--()
+					{
+						if (this->_node == this->_tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+							this->_node = this->_tree->get_max();
+						else if (this->_node->left != NULL)
+						{
+							this->_node = this->_node->left;
+							while (this->_node->right != NULL)
+								this->_node = this->_node->right;
+						}
+						else
+						{
+							node *p = this->_node->parent;
+
+							while (p != NULL && this->_node == p->left)
+							{
+								this->_node = p;
+								p = p->parent;
+							}
+							this->_node = p;
+						}
+						return (*this);
+					}
+					ConstMyIterator		operator--(int)
+					{
+						ConstMyIterator tmp = *this;
+						--(*this);
+						return (tmp);
+					}
+					friend bool	operator== (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (a._node == b._node); }
+					friend bool	operator!= (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (!(a == b)); }
 			};
 				
 	};

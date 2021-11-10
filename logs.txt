@@ -1,7 +1,0 @@
-../map_tests/lower_bound().cpp:77:12: error: no viable overloaded '='
-        it = mp2.lower_bound(i);
-        ~~ ^ ~~~~~~~~~~~~~~~~~~
-../map_tests/../../map.hpp:758:18: note: candidate function not viable: no known conversion from 'ft::map<int, int, std::__1::greater<int>, std::__1::allocator<ft::pair<const int, int> > >::iterator' (aka 'ft::map<int, int, std::__1::greater<int>, std::__1::allocator<ft::pair<const int, int> > >::MyIterator') to 'const ft::map<int, int, std::__1::less<int>, std::__1::allocator<ft::pair<const int, int> > >::MyIterator::self' (aka 'const ft::map<int, int, std::__1::less<int>, std::__1::allocator<ft::pair<const int, int> > >::MyIterator') for 1st argument
-                                        const self&     operator=(const self &it)
-                                                        ^
-1 error generated.
