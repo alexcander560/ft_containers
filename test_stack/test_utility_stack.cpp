@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../stack.hpp"
+#include "../containers/stack.hpp"
 
 # define DEFAULT	"\033[0m"
 # define BOLD		"\033[1m"

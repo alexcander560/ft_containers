@@ -60,7 +60,7 @@ namespace ft
 	template <typename T, typename Container>
 	bool operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs)	{ return (lhs.cont > rhs.cont); }
 	template <typename T, typename Container>
-	bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs) { return (lhs.cont >= rhs.cont); }
+	bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)	{ return (lhs.cont >= rhs.cont); }
 };
 
 #endif

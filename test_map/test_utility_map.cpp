@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../map.hpp"
+#include "../containers/map.hpp"
 
 # define DEFAULT	"\033[0m"
 # define BOLD		"\033[1m"

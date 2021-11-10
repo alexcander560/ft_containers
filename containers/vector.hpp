@@ -171,14 +171,15 @@ namespace ft
 
 			template <class InputIterator>
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type
-			validate_iterator_values(InputIterator first,InputIterator last, size_type range)
+			_valid_iter(InputIterator first,InputIterator last, size_type range)
 			{
 				pointer		reserved_buffer = _alloc.allocate(range);
 				bool		result = true;
 				size_t		i = 0;
 
-				for (;first != last; ++first, ++i) {
-					try { reserved_buffer[i] = *first; }
+				for (;first != last; ++first, ++i)
+				{
+					try{ reserved_buffer[i] = *first; }
 					catch (...) { result = false; break; }
 				}
 				_alloc.deallocate(reserved_buffer, range);
@@ -343,7 +344,7 @@ namespace ft
 					}
 					else
 					{
-						pointer		begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
+						pointer	begin_new = _alloc.allocate(n), end_new = begin_new, capacity_new = begin_new + n;
 
 						for(; first != last; first++, end_new++)
 							_alloc.construct(end_new, *first);
@@ -436,7 +437,7 @@ namespace ft
 				// }{уЁвый Алгоритм
 				size_type	n = static_cast<size_type>(std::distance(first, last));
 
-				if (!validate_iterator_values(first, last, n))
+				if (!_valid_iter(first, last, n))
 					throw std::exception();
 
 				if (first != last)

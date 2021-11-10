@@ -144,6 +144,7 @@ namespace ft
 
 				node(pointer d, node* p = NULL): data(d), height(1), parent(p), left(NULL), right(NULL) {};
 			};
+			
 			class AVLTree						// Класс дерева
 			{
 				private:
@@ -224,7 +225,7 @@ namespace ft
 						{
 							flag = true;
 
-							for (size_t j = 0; j < d; j++)
+							for (int j = 0; j < d; j++)
 							{
 								if (lev_tree[j][i] != ' ' && lev_tree[j][i] != '_')
 								{
@@ -238,7 +239,7 @@ namespace ft
 							{
 								end = i;
 								_size_AVL_del = start - i;
-								for (size_t j = 0; j < d; j++)
+								for (int j = 0; j < d; j++)
 								{
 									lev_tree[j].erase(end + 1, _size_AVL_del);
 									if (mod_h)
@@ -250,7 +251,7 @@ namespace ft
 						if (start != - 1)
 						{
 							_size_AVL_del = start - end;
-							for (size_t j = 0; j < d; j++)
+							for (int j = 0; j < d; j++)
 							{
 								lev_tree[j].erase(0, _size_AVL_del);
 								if (mod_h)
@@ -277,7 +278,7 @@ namespace ft
 							if (mod_h == 1 || mod_h == 2)
 								lev_tree_height[0] = lev_tree[0];
 						}
-						for (size_t i = 1; i < d; i++)
+						for (int i = 1; i < d; i++)
 						{
 							lev_tree[i] = lev_tree[0];
 							if (mod_h == 1 || mod_h == 2)
@@ -288,7 +289,7 @@ namespace ft
 						// Удаляем лишнии столбцы
 						_delete_columns_AVL(lev_tree, lev_tree_height, skip, d, mod_h);
 						// Печатаем дерево
-						for (size_t i = 0; i < d; i++)
+						for (int i = 0; i < d; i++)
 						{
 							std::cout << "|" << lev_tree[i] << std::endl;
 							if (mod_h == 1 || mod_h == 2)
@@ -354,17 +355,16 @@ namespace ft
 					//----------------------------------------------------------------------------------------------
 					//---------------------------Функции для корректной вставки узла в дерево-----------------------
 					//----------------------------------------------------------------------------------------------
-					// Создать новый узел
 					node*								_newnode(const_reference v, node* parent = NULL)
 					{
 						pointer data = _alloc.allocate(1);
 						_alloc.construct(data, v);
-						return new node(data, parent);
+						return (new node(data, parent));
 					}
 					node*								_newnode_zero()
 					{
 						pointer data = _alloc.allocate(1);
-						return new node(data);
+						return (new node(data));
 					}
 					// Cоздаёт копию узлов
 					void								_clone_nodes(node* original, node* clone)
@@ -742,7 +742,6 @@ namespace ft
 					node*					get_min() const							{ return (_findmin_AVL(_root)); }
 			};
 
-
 			class Iterator_base: public ft::iterator<std::bidirectional_iterator_tag, value_type>
 			{
 				typedef ft::iterator<std::bidirectional_iterator_tag, value_type>	parent;
@@ -774,42 +773,42 @@ namespace ft
 						}
 						return (*this);
 					}
-					reference	operator*()									{ return (*this->_node->data); }
-					pointer		operator->()								{ return (this->_node->data); }
-					MyIterator&		operator++()
+					reference			operator*()												{ return (*this->_node->data); }
+					pointer				operator->()											{ return (this->_node->data); }
+					MyIterator&			operator++()
 					{
 						if (this->_node == this->_tree->get_max())				// Что бы с максимального элемента перейти на последний
 							this->_node = this->_tree->get_end();
-						else if (this->_node->right != NULL)				// Если есть узел справа, то искомый узел будет находиться в правом поддереве
+						else if (this->_node->right != NULL)					// Если есть узел справа, то искомый узел будет находиться в правом поддереве
 						{
 							this->_node = this->_node->right;
-							while (this->_node->left != NULL)				// Что бы найти следующйй узел от текущего нужно перейти к самому левому потомку
+							while (this->_node->left != NULL)					// Что бы найти следующйй узел от текущего нужно перейти к самому левому потомку
 								this->_node = this->_node->left;				// правого поддерева
 						}
-						else										// Если узла справа нет, то для искомый узел один из предков
+						else													// Если узла справа нет, то для искомый узел один из предков
 						{
 							node *p = this->_node->parent;
 
-							while (p != NULL && this->_node == p->right)	// Перехоим каждый раз на уровень выше
-							{										// Искомым узлом будет являться первый предок,
-								this->_node = p;							// у которого переданный узел будет находиться в левом поддереве
+							while (p != NULL && this->_node == p->right)		// Перехоим каждый раз на уровень выше
+							{													// Искомым узлом будет являться первый предок,
+								this->_node = p;								// у которого переданный узел будет находиться в левом поддереве
 								p = p->parent;
 							}
 							this->_node = p;
 						}
 						return (*this);
 					}
-					MyIterator		operator++(int)
+					MyIterator			operator++(int)
 					{
 						MyIterator	tmp = *this;
 						++(*this);
 						return (tmp);
 					}
-					MyIterator&		operator--()
+					MyIterator&			operator--()
 					{
-						if (this->_node == this->_tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+						if (this->_node == this->_tree->get_end())				// Что бы с последнего элемента перейти на максимальный
 							this->_node = this->_tree->get_max();
-						else if (this->_node->left != NULL)					// Противоположное ++
+						else if (this->_node->left != NULL)						// Противоположное ++
 						{
 							this->_node = this->_node->left;
 							while (this->_node->right != NULL)
@@ -828,14 +827,14 @@ namespace ft
 						}
 						return (*this);
 					}
-					MyIterator		operator--(int)
+					MyIterator			operator--(int)
 					{
 						MyIterator	tmp = *this;
 						--(*this);
 						return (tmp);
 					}
-					friend bool	operator== (const MyIterator& a, const MyIterator& b)	{ return (a._node == b._node); }
-					friend bool	operator!= (const MyIterator& a, const MyIterator& b)	{ return (!(a == b)); }
+					friend bool			operator== (const MyIterator& a, const MyIterator& b)	{ return (a._node == b._node); }
+					friend bool			operator!= (const MyIterator& a, const MyIterator& b)	{ return (!(a == b)); }
 
 			};
 			
@@ -864,11 +863,11 @@ namespace ft
 						}
 						return *this;
 					}
-					reference	operator*()									{ return (*this->_node->data); }
-					pointer		operator->()								{ return (this->_node->data); }
+					reference				operator*()														{ return (*this->_node->data); }
+					pointer					operator->()													{ return (this->_node->data); }
 					ConstMyIterator&		operator++()
 					{
-						if (this->_node == this->_tree->get_max())				// Что бы с максимального элемента перейти на последний
+						if (this->_node == this->_tree->get_max())
 							this->_node = this->_tree->get_end();
 						else if (this->_node->right != NULL)
 						{
@@ -889,7 +888,7 @@ namespace ft
 						}
 						return (*this);
 					}
-					ConstMyIterator		operator++(int)
+					ConstMyIterator			operator++(int)
 					{
 						ConstMyIterator tmp = *this;
 						++(*this);
@@ -897,7 +896,7 @@ namespace ft
 					}
 					ConstMyIterator&		operator--()
 					{
-						if (this->_node == this->_tree->get_end())					// Что бы с последнего элемента перейти на максимальный
+						if (this->_node == this->_tree->get_end())
 							this->_node = this->_tree->get_max();
 						else if (this->_node->left != NULL)
 						{
@@ -918,14 +917,14 @@ namespace ft
 						}
 						return (*this);
 					}
-					ConstMyIterator		operator--(int)
+					ConstMyIterator			operator--(int)
 					{
 						ConstMyIterator tmp = *this;
 						--(*this);
 						return (tmp);
 					}
-					friend bool	operator== (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (a._node == b._node); }
-					friend bool	operator!= (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (!(a == b)); }
+					friend bool				operator== (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (a._node == b._node); }
+					friend bool				operator!= (const ConstMyIterator& a, const ConstMyIterator& b)	{ return (!(a == b)); }
 			};
 				
 	};
