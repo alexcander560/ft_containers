@@ -20,553 +20,135 @@ declare -i point=0
 declare -i all=0
 declare -i rez=0
 
+# Функция запускает нужный тест (1 аргумент - имя теста, 2 аргумент - путь до файла с тестом) 
+run_test()
+{
+	printf "$YELLOW $1 $DEFAULT \n"
+	clang++	-Wall -Wextra -Werror $2 -o vector_prog
+	TEST_OUTPUT=$(./vector_prog)
+	rez=$?
+	all=all+1
+	if [[ "$rez" == "139" ]]; then
+		printf "$RED segmentation fault $DEFAULT \n"
+		rez=0
+	elif [[ "$TEST_OUTPUT" == "" ]]; then
+		printf "$RED does not compile $DEFAULT \n"
+	else
+		echo $TEST_OUTPUT
+		point=point+rez
+	fi
+	rm -rf vector_prog
+}
+
+# Функция проверяет, нужно ли запустить тест (1 аргумент - первый аргумент который был передан скрипту bash,
+# 2-4 аргументы - возможные ключи для запуска теста, 5 аргумент - имя теста, 6 аргумент - путь до файла с тестом)
+check_test()
+{
+	if [[ "$1" == "$2" ]] || [[ "$1" == "$3" ]] || [[ "$1" == "$4" ]]; then
+		run_test "$5" "$6"
+	fi
+}
+
+# Функция проверяет, нужно ли запустить тест(для функций, где ключей для запуска функции 4, а не 3)
+check_test_d()
+{
+	if [[ "$1" == "$2" ]] || [[ "$1" == "$3" ]] || [[ "$1" == "$4" ]] || [[ "$1" == "$5" ]]; then
+		run_test "$6" "$7"
+	fi
+}
+
+# Блок для того, чтобы можно было запустить все тесты, когда скрипт запускается без аргументов
+if [[ "$1" == "" ]]; then
+	temp="ALL"
+else
+	temp=$1
+fi
+
 #=========================================================================================
 #==============================Element access=============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]]; then
 	printf "$PURPLE Element access $DEFAULT\n"
 fi
-# 1
-if [[ "$1" == "" ]] || [[ "$1" == "Acc" ]] || [[ "$1" == "acc" ]]; then
-	printf "$YELLOW Test [] $DEFAULT \n"
-	clang++	test_map/map_access/map_access_operator.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 1 тест
+check_test $temp	"ALL"	"Acc"	"acc"		"Test []"									"test_map/map_access/map_access_operator.cpp"
+
 #=========================================================================================
 #====================================Capacity=============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]]; then
 	printf "$PURPLE Capacity $DEFAULT\n"
 fi
-# 1
-if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "size" ]]; then
-	printf "$YELLOW Test size $DEFAULT \n"
-	clang++	test_map/map_capacity/map_capacity_size.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-# 2
-if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "max_size" ]]; then
-	printf "$YELLOW Test max_size $DEFAULT \n"
-	clang++	test_map/map_capacity/map_capacity_max_size.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-# 3
-if [[ "$1" == "" ]] || [[ "$1" == "Cap" ]] || [[ "$1" == "empty" ]]; then
-	printf "$YELLOW Test empty $DEFAULT \n"
-	clang++	test_map/map_capacity/map_capacity_empty.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 3 теста
+check_test $temp	"ALL"	"Cap"	"size"			"Test size"								"test_map/map_capacity/map_capacity_size.cpp"
+check_test $temp	"ALL"	"Cap"	"max_size"		"Test max_size"							"test_map/map_capacity/map_capacity_max_size.cpp"
+check_test $temp	"ALL"	"Cap"	"empty"			"Test empty"							"test_map/map_capacity/map_capacity_empty.cpp"
+
 #=========================================================================================
 #====================================Allocator============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Alloc" ]]; then
 	printf "$PURPLE allocator $DEFAULT\n"
 fi
-# 1
-if [[ "$1" == "" ]] || [[ "$1" == "Alloc" ]] || [[ "$1" == "get_allocator" ]]; then
-	printf "$YELLOW Test get_allocator $DEFAULT \n"
-	clang++	test_map/map_allocator/map_allocator_get.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 1 тест
+check_test $temp	"ALL"	"Alloc"	"get_allocator"	"Test get_allocator"					"test_map/map_allocator/map_allocator_get.cpp"
+
 #=========================================================================================
 #====================================Iterators============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]]; then
 	printf "$PURPLE iterators $DEFAULT\n"
 fi
-# 1
-if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator" ]]; then
-	printf "$YELLOW Test iterators $DEFAULT \n"
-	clang++	test_map/map_iterators/map_iterators_iterator.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-# 2
-if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "iterator_const" ]]; then
-	printf "$YELLOW Test iterators const $DEFAULT \n"
-	clang++	test_map/map_iterators/map_iterators_iterator_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-# 3
-if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator" ]]; then
-	printf "$YELLOW Test reverse_iterators $DEFAULT \n"
-	clang++	test_map/map_iterators/map_iterators_r_iterator.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-# 4
-if [[ "$1" == "" ]] || [[ "$1" == "Iter" ]] || [[ "$1" == "r_iterator_const" ]]; then
-	printf "$YELLOW Test reverse_iterators const $DEFAULT \n"
-	clang++	test_map/map_iterators/map_iterators_r_iterator_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 4 теста
+check_test $temp	"ALL"	"Iter"	"iterator"			"Test iterator"						"test_map/map_iterators/map_iterators_iterator.cpp"
+check_test $temp	"ALL"	"Iter"	"iterator_const"	"Test iterators const"				"test_map/map_iterators/map_iterators_iterator_const.cpp"
+check_test $temp	"ALL"	"Iter"	"r_iterator"		"Test reverse_iterators"			"test_map/map_iterators/map_iterators_r_iterator_const.cpp"
+check_test $temp	"ALL"	"Iter"	"r_iterator_const"	"Test reverse_iterators const"		"test_map/map_iterators/map_iterators_r_iterator_const.cpp"
+
 #=========================================================================================
 #============================Non-member function overloads================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Non" ]]; then
 	printf "$PURPLE operator $DEFAULT \n"
 fi
-#1
-if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "operator" ]]; then
-	printf "$YELLOW Test operator $DEFAULT \n"
-	clang++	test_map/map_operator/map_operator_all.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#2
-if [[ "$1" == "" ]] || [[ "$1" == "Non" ]] || [[ "$1" == "swap" ]] || [[ "$1" == "Non_swap" ]]; then
-	printf "$YELLOW Test swap $DEFAULT \n"
-	clang++	test_map/map_operator/map_operator_swap.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 2 теста
+check_test $temp	"ALL"	"Non"	"operator"			"Test operator"						"test_map/map_operator/map_operator_all.cpp"
+check_test_d $temp	"ALL"	"Non"	"swap"	"Non_swap"	"Test swap"							"test_map/map_operator/map_operator_swap.cpp"
+
 #=========================================================================================
 #===================================Modifiers=============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]]; then
 	printf "$PURPLE Modifiers $DEFAULT \n"
 fi
-#1
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" == "insert_1" ]]; then
-	printf "$YELLOW Test insert(const value_type& val) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_insert_1.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#1.2
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" == "insert_2" ]]; then
-	printf "$YELLOW Test insert(iterator position, const value_type& val) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_insert_2.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#1.3
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "insert" ]] || [[ "$1" == "insert_3" ]]; then
-	printf "$YELLOW Test insert(InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value>::type* = 0) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_insert_3.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#2.1
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_1" ]]; then
-	printf "$YELLOW Test erase(iterator position) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_erase_1.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#2.2
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_2" ]]; then
-	printf "$YELLOW Test erase(const key_type& k) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_erase_2.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#2.3
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "erase" ]] || [[ "$1" == "erase_3" ]]; then
-	printf "$YELLOW Test erase(iterator first, iterator last) $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_erase_2.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#3
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "swap" ]] || [[ "$1" == "Mod_swap" ]]; then
-	printf "$YELLOW Test swap $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_swap.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#4
-if [[ "$1" == "" ]] || [[ "$1" == "Mod" ]] || [[ "$1" == "clear" ]]; then
-	printf "$YELLOW Test clear $DEFAULT \n"
-	clang++	test_map/map_modifiers/map_modifiers_clear.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 8 тестов
+check_test_d $temp	"ALL"	"Mod"		"insert"		"insert_1"		"Test insert(val)"								"test_map/map_modifiers/map_modifiers_insert_1.cpp"
+check_test_d $temp	"ALL"	"Mod"		"insert"		"insert_2"		"Test insert(iterator, val)"					"test_map/map_modifiers/map_modifiers_insert_2.cpp"
+check_test_d $temp	"ALL"	"Mod"		"insert"		"insert_3"		"Test insert(InputIterator, InputIterator)"		"test_map/map_modifiers/map_modifiers_insert_3.cpp"
+check_test_d $temp	"ALL"	"Mod"		"erase"			"erase_1"		"Test erase(iterator)"							"test_map/map_modifiers/map_modifiers_erase_1.cpp"	
+check_test_d $temp	"ALL"	"Mod"		"erase"			"erase_2"		"est erase(k)"									"test_map/map_modifiers/map_modifiers_erase_2.cpp"
+check_test_d $temp	"ALL"	"Mod"		"erase"			"erase_3"		"est erase(iterator, iterator)"					"test_map/map_modifiers/map_modifiers_erase_3.cpp"
+check_test_d $temp	"ALL"	"Mod"		"swap"			"Mod_swap"		"Test swap"										"test_map/map_modifiers/map_modifiers_swap.cpp"
+check_test $temp	"ALL"	"Mod"		"clear"							"Test clear"									"test_map/map_modifiers/map_modifiers_clear.cpp"
+
 #=========================================================================================
 #===================================Operations============================================
 #=========================================================================================
 if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]]; then
 	printf "$PURPLE Operations $DEFAULT\n"
 fi
-#1
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "count" ]]; then
-	printf "$YELLOW Test count $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_count.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#2
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "equal_range" ]]; then
-	printf "$YELLOW Test equal_range $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_equal_range.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#3
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "equal_range_const" ]]; then
-	printf "$YELLOW Test equal_range const $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_equal_range_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#4
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "find" ]]; then
-	printf "$YELLOW Test find $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_find.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#5
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "find_const" ]]; then
-	printf "$YELLOW Test find const $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_find_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#6
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "lower_bound" ]]; then
-	printf "$YELLOW Test lower_bound $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_lower_bound.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#7
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "lower_bound_const" ]]; then
-	printf "$YELLOW Test lower_bound const $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_lower_bound_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#8
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "upper_bound" ]]; then
-	printf "$YELLOW Test upper_bound $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_upper_bound.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
-#9
-if [[ "$1" == "" ]] || [[ "$1" == "Oper" ]] || [[ "$1" == "upper_bound_const" ]]; then
-	printf "$YELLOW Test upper_bound const $DEFAULT \n"
-	clang++	test_map/map_operations/map_operations_upper_bound_const.cpp -Wall -Wextra -Werror -o map_prog
-	TEST_OUTPUT=$(./map_prog)
-	rez=$?
-	all=all+1
-	if [[ "$rez" == "139" ]]; then
-		printf "$RED segmentation fault $DEFAULT \n"
-		rez=0
-	elif [[ "$TEST_OUTPUT" == "" ]]; then
-		printf "$RED does not compile $DEFAULT \n"
-	else
-		echo $TEST_OUTPUT
-		point=point+rez
-	fi
-	rm -rf map_prog
-fi
+# 9 тестов
+check_test $temp	"ALL"	"Oper"		"count"					"Test count"											"test_map/map_operations/map_operations_count.cpp"
+check_test $temp	"ALL"	"Oper"		"equal_range"			"Test equal_range"										"test_map/map_operations/map_operations_equal_range.cpp"
+check_test $temp	"ALL"	"Oper"		"equal_range_const"		"Test equal_range const"								"test_map/map_operations/map_operations_equal_range_const.cpp"
+check_test $temp	"ALL"	"Oper"		"find"					"Test find"												"test_map/map_operations/map_operations_find.cpp"
+check_test $temp	"ALL"	"Oper"		"find_const"			"Test find const"										"test_map/map_operations/map_operations_find_const.cpp"
+check_test $temp	"ALL"	"Oper"		"lower_bound"			"Test lower_bound"										"test_map/map_operations/map_operations_lower_bound.cpp"
+check_test $temp	"ALL"	"Oper"		"lower_bound_const"		"Test lower_bound const"								"test_map/map_operations/map_operations_lower_bound_const.cpp"
+check_test $temp	"ALL"	"Oper"		"upper_bound"			"Test upper_bound"										"test_map/map_operations/map_operations_upper_bound.cpp"
+check_test $temp	"ALL"	"Oper"		"upper_bound_const"		"Test upper_bound const"								"test_map/map_operations/map_operations_upper_bound_const.cpp"
 
-#rez
+#=========================================================================================
+# Всего тестов 28
 echo "-------------------------------------"
 printf "$PURPLE Finish\n $point/$all $DEFAULT \n"
