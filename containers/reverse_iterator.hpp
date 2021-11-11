@@ -17,7 +17,7 @@ namespace ft
 			_Iter current;
 
 		public:
-			typedef _Iter												iterator_type;
+			typedef	_Iter												iterator_type;
 			typedef typename iterator_traits<_Iter>::iterator_category	iterator_category;
 			typedef typename iterator_traits<_Iter>::difference_type	difference_type;
 			typedef typename iterator_traits<_Iter>::reference			reference;

@@ -8,12 +8,14 @@ int	test_oper(int size, string test)
 	string											temp_orig = "", temp_my = "";
 	unsigned int									time_orig = 0, time_my = 0, rez = 0;
 	std::map<int, string>							orig;
-	std::map<int, string>::const_reverse_iterator	it_1_orig;
-	std::map<int, string>::const_reverse_iterator	it_2_orig;
+	std::map<int, string>::reverse_iterator			it_orig_test_construct;
+	std::map<int, string>::const_reverse_iterator	it_1_orig(it_orig_test_construct);
+	std::map<int, string>::const_reverse_iterator	it_2_orig = it_orig_test_construct;
 	std::pair<int, string>							pair_orig;
 	ft::map<int, string>							my;
-	ft::map<int, string>::const_reverse_iterator	it_1_my;
-	ft::map<int, string>::const_reverse_iterator	it_2_my;
+	ft::map<int, string>::reverse_iterator			it_my_test_construct;
+	ft::map<int, string>::const_reverse_iterator	it_1_my(it_my_test_construct);	// Обяхательно должен быть этот конструктор и без friend class
+	ft::map<int, string>::const_reverse_iterator	it_2_my = it_my_test_construct;	// Обяхательно должен быть этот конструктор и без friend class
 	ft::pair<int, string>							pair_my;
 
 	for (int i = 0; i < size; i++)
