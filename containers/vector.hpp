@@ -434,7 +434,7 @@ namespace ft
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value, void>::type
 			insert (iterator position, InputIterator first, InputIterator last)
 			{
-				size_type	n = static_cast<size_type>(std::distance(first, last));
+				size_type	n = static_cast<size_type>(ft::distance(first, last));
 
 				if (!_valid_iter(first, last, n))
 					throw std::exception();
