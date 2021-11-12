@@ -130,7 +130,7 @@ namespace ft
 			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const				{ return (make_pair(lower_bound(k), upper_bound(k))); }
 			//---------------------------------------------------------My function(9/9)-----------------------------------------------------------------------------------
 			// Функции печати мапы (её на самом деле нет)
-			void								print_tree(int mod = 0)								{ _tree.AVLTreePrint(mod); }
+			//void								print_tree(int mod = 0)								{ _tree.AVLTreePrint(mod); }
 
 	private:
 			//----------------------------------------------------------AVL Tree Implementation---------------------------------------------------------------------------
