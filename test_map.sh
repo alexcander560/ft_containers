@@ -24,8 +24,8 @@ declare -i rez=0
 run_test()
 {
 	printf "$YELLOW $1 $DEFAULT \n"
-	clang++	-Wall -Wextra -Werror $2 -o vector_prog
-	TEST_OUTPUT=$(./vector_prog)
+	clang++	-Wall -Wextra -Werror $2 -o map_prog
+	TEST_OUTPUT=$(./map_prog)
 	rez=$?
 	all=all+1
 	if [[ "$rez" == "139" ]]; then
@@ -37,7 +37,7 @@ run_test()
 		echo $TEST_OUTPUT
 		point=point+rez
 	fi
-	rm -rf vector_prog
+	rm -rf map_prog
 }
 
 # Функция проверяет, нужно ли запустить тест (1 аргумент - первый аргумент который был передан скрипту bash,

@@ -649,7 +649,7 @@ namespace ft
 									while (node_more->left)				// Такой ключ будет у узла, который находится более левее
 										node_more = node_more->left;	// Будем переходить каждый раз к левому ребёнку, пока не дойдём до NULL узла
 								}
-								return (node_more);						// Если правой ветки нет, то искомый узел уже просчитан в node_more
+								return (node_more ? node_more : _end);	// Если правой ветки нет, то искомый узел уже просчитан в node_more
 							}
 						}
 						return (node_more ? node_more : _end);
