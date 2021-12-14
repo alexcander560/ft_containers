@@ -29,35 +29,42 @@ namespace ft
 			allocator_type	_alloc;
 			pointer			_begin;
 			pointer			_end;
-			pointer 		_capacity;
+			pointer			_capacity;
+			//------------------------------------------------------IteratorBase-----------------------------------------------------------
+			class IteratorBase: public ft::iterator<std::random_access_iterator_tag, value_type>
+			{
+				public:
+					IteratorBase(pointer begin = NULL): _ptr(begin) {}
+					IteratorBase(const IteratorBase &copy): _ptr(copy._ptr) {}
+					~IteratorBase() {}
+
+					pointer	_ptr;
+
+			};
 			//------------------------------------------------------MyIterator-------------------------------------------------------------
-			class MyIterator: public ft::iterator<std::random_access_iterator_tag, value_type>
+			class MyIterator: public IteratorBase
 			{
 				typedef ft::iterator<std::random_access_iterator_tag, value_type>	parent;
-
-				private:
-					pointer	_ptr;
-					template <typename, typename> friend class vector;
 
 				public:
 					typedef typename parent::reference								reference;
 					typedef typename parent::pointer								pointer;
 					// constructor/destructor
-					MyIterator(pointer begin = NULL): _ptr(begin) {}
-					MyIterator(const MyIterator &copy): _ptr(copy._ptr) {}
+					MyIterator(pointer begin = NULL): IteratorBase(begin) {}
+					MyIterator(const MyIterator &copy): IteratorBase(copy._ptr) {}
 					~MyIterator() {}
 					// operator
 					const MyIterator		&operator=(const MyIterator &it)
 					{
 						if (this != &it)
-							_ptr = it._ptr;
+							this->_ptr = it._ptr;
 						return (*this);
 					}
-					reference				operator*()														{ return (*_ptr); }
-					pointer					operator->()													{ return (_ptr); }
+					reference				operator*()														{ return (*this->_ptr); }
+					pointer					operator->()													{ return (this->_ptr); }
 					MyIterator&				operator++()
 					{
-						++_ptr;
+						++this->_ptr;
 						return (*this);
 					}
 					MyIterator				operator++(int)
@@ -68,7 +75,7 @@ namespace ft
 					}
 					MyIterator&				operator--()
 					{
-						--_ptr;
+						--this->_ptr;
 						return (*this);
 					}
 					MyIterator				operator--(int)
@@ -84,7 +91,7 @@ namespace ft
 					friend bool				operator<= (const MyIterator lhs, const MyIterator rhs)			{ return (!(rhs._ptr < lhs._ptr)); }
 					friend bool				operator> (const MyIterator lhs, const MyIterator rhs)			{ return (rhs < lhs); }
 					friend bool				operator>= (const MyIterator lhs, const MyIterator rhs)			{ return !(lhs < rhs); }
-					MyIterator				operator+ (difference_type n) const								{ return (MyIterator(_ptr + n)); }
+					MyIterator				operator+ (difference_type n) const								{ return (MyIterator(this->_ptr + n)); }
 					friend MyIterator		operator+(int n, MyIterator& p)
 					{
 						p._ptr = p._ptr + n;
@@ -92,12 +99,12 @@ namespace ft
 					}
 					MyIterator				&operator+= (difference_type n)
 					{
-						MyIterator(_ptr + n);
+						MyIterator(this->_ptr + n);
 						return (*this);
 					}
 					MyIterator				operator- (difference_type n) const								{ return (*this + (-n)); }
 					MyIterator				&operator-=(difference_type n)									{ return (*this += -n); }
-					reference				operator[](difference_type n) const								{ return (_ptr[n]); }
+					reference				operator[](difference_type n) const								{ return (this->_ptr[n]); }
 			};
 			//------------------------------------------------------ConstMyIterator--------------------------------------------------------
 			class ConstMyIterator: public ft::iterator<std::random_access_iterator_tag, const value_type>
